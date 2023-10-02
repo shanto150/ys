@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home1/conmichr/public_html/demo/
-    - /bin/cp -R /home1/conmichr/public_html/demo/ $DEPLOYPATH
+    - /bin/cp -a $DEPLOYPATH
