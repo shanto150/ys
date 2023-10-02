@@ -106,7 +106,7 @@
                                         <a href="{{ route('password.request') }}">Forgot Password</a>
                                     </div>
                                 </div>
-                            </form> karina kapur
+                            </form>
                         </div>
 
                     </div>
