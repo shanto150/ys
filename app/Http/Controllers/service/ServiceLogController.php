@@ -5,7 +5,9 @@ namespace App\Http\Controllers\service;
 use App\Http\Controllers\Controller;
 use App\Models\service\add_technician;
 use App\Models\service\service_log;
+use App\Models\technician_item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
@@ -96,19 +98,32 @@ class ServiceLogController extends Controller
         $rowId = $request->id;
 
         $add_technician = add_technician::where(['id' => $rowId]);
-
-        if ($add_technician->exists()) {
+        if ($add_technician->first()) {
             add_technician::where('id', $rowId)->update(
                 [
-                    'assigned_to' => $request->assigned_to,
                     'tech_status' => $request->tech_status,
                     'note' => $request->note,
                 ]
             );
+            $add_technician = technician_item::where('add_techni_id_fk', $rowId)->first();
+            $add_technician->note = $request->note;
+            $add_technician->to_user = $request->assigned_to ? $request->assigned_to : $add_technician->to_user;
+            $add_technician->save();
 
             return response()->json(['messege' => 'Successfully Updated.', 'types' => 's']);
         } else {
-            add_technician::create($request->all());
+            $isSave = add_technician::create($request->all());
+
+            if ($isSave) {
+                $tf = new technician_item;
+                $tf->add_techni_id_fk = $isSave->id;
+                $tf->log_id = $request->log_id;
+                $tf->from_user = Auth::user()->machine_id;
+                $tf->to_user = $request->assigned_to;
+                $tf->request_type = 'Main';
+                $tf->note = $request->note;
+                $tf->save();
+            }
 
             return response()->json(['messege' => 'Successfully Saved.', 'types' => 's']);
         }
@@ -117,14 +132,8 @@ class ServiceLogController extends Controller
     public function getTechList(Request $request)
     {
         if ($request->ajax()) {
-            // $data = add_technician::where('log_id', $request->log_id)
-            //     ->selectRaw('id,log_id,f_staff_name(assigned_to) as tech_name,note,assigned_to,tech_status')
-            //     ->orderByDesc('id')
-            //     ->get();
-
-            $data = DB::select('select id,log_id,f_staff_name(assigned_to) tech_name,note,tech_status,assigned_to from add_technicians where log_id=?
-            union all
-            select "","",f_staff_name(assigned_to) staff,concat(Quantity," ",unit," ",f_invoice_item_name(invoice_item_id)," ",f_req_type_bn(request_type)) as item,file_path,"" from technician_items where log_id=?', [$request->log_id, $request->log_id]);
+            $data = DB::select('select ti.id,ti.log_id ,concat(f_staff_name( ti.from_user  ),"->",f_staff_name( ti.to_user )) tech_name,ti.note,at2.tech_status,ti.created_at,ti.to_user assigned_to
+            from add_technicians at2, technician_items ti where at2.id =ti.add_techni_id_fk and at2.log_id =?', [$request->log_id]);
 
             return DataTables::of($data)
                 ->addIndexColumn()

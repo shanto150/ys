@@ -17,11 +17,7 @@ class technician_feedback extends Controller
 {
     public function index()
     {
-        $techDatas = DB::table('add_technicians')
-            ->selectRaw('id,log_id,note')
-            ->where('tech_status', 'Open')
-            ->where('assigned_to', Auth::user()->machine_id)
-            ->get();
+        $techDatas = DB::select('select at2.id,at2.log_id,at2.note,from_user from add_technicians at2, technician_items ti where at2.id =ti.add_techni_id_fk and ti.to_user=? and at2.tech_status ="Open"', [Auth::user()->machine_id]);
 
         $Price_lists = Price_list::where('status', 'Yes')->latest()->get();
 
@@ -65,7 +61,7 @@ class technician_feedback extends Controller
 
                 technician_item::where('id', $rowId)->update(
                     [
-                        'assigned_to' => $request->assigned_to,
+                        'to_user' => $request->assigned_to,
                         'invoice_item_id' => $request->invoice_item_id,
                         'note' => $request->note,
                         'quantity' => $request->quantity,
@@ -80,7 +76,7 @@ class technician_feedback extends Controller
             } else {
                 technician_item::where('id', $rowId)->update(
                     [
-                        'assigned_to' => $request->assigned_to,
+                        'to_user' => $request->assigned_to,
                         'invoice_item_id' => $request->invoice_item_id,
                         'note' => $request->note,
                         'quantity' => $request->quantity,
@@ -120,15 +116,13 @@ class technician_feedback extends Controller
 
     public function getfeedbackist(Request $request)
     {
-        if ($request->ajax()) {
-            $data = technician_item::where('log_id', $request->log_id)
-            ->where('assigned_to', Auth::user()->machine_id)
-            ->selectRaw('concat(Quantity," ",unit," ",f_invoice_item_name(invoice_item_id)," ",f_req_type_bn(request_type)) as item,log_id,id,request_type,invoice_item_id,quantity,unit,note')
-            ->get();
+        $data = technician_item::where('log_id', $request->log_id)
+        ->where('from_user', Auth::user()->machine_id)
+        ->selectRaw('concat(Quantity," ",unit," ",f_invoice_item_name(invoice_item_id)," ",f_req_type_bn(request_type)) as item,log_id,id,request_type,invoice_item_id,quantity,unit,note')
+        ->get();
 
-            return DataTables::of($data)
-                ->addIndexColumn()
-                ->make(true);
-        }
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->make(true);
     }
 }

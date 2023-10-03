@@ -194,7 +194,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-5">
+                                {{-- <div class="col-md-5">
                                     <div class="form-label-group in-border">
                                         <select class="form-control select2" name="assigned_to" id="assigned_to"
                                             style="width: 100%;">
@@ -206,7 +206,7 @@
                                         <label for="assigned_to">Assigned to</label>
                                     </div>
 
-                                </div>
+                                </div> --}}
 
                                 <div class="col-md-3">
                                     <div class="form-label-group in-border">
@@ -496,17 +496,17 @@
                         var html = '';
                         html += '<div class="row justify-content-center align-items-center">';
                         html +=
-                            '<button type="button" class="btn btn-sm btn-primary hvr-grow m-1" style="width: 80px" onclick="edit_model(' +
+                            '<button type="button" class="btn btn-sm btn-primary hvr-grow m-1" style="width: 120px" onclick="edit_model(' +
                             status + ',' + outlet_code + ',' + outlet_name +
                             ',' + outlet_mobile + ',' + person_mobile + ',' + outlet_address + ',' +
                             visi_id + ',' + visi_size + ',' + db_name + ',' + se_area + ',' + asm_area +
                             ',' + complains +
                             ',' + log_date + ',' + first_response_date + ',' + assigned_to + ',' + brand +
                             ',' + remarks + ',' + id + ')">';
-                        html += '<i class="ri-arrow-up-line"></i> EDIT</button>';
-                        html +='<button type="button" class="btn btn-sm btn-danger m-1" style="width: 80px" onclick="del(' + id + ');"><i class="ri-arrow-up-line"></i> DEL</button>';
-                        html +='<button type="button" class="btn btn-sm btn-info m-1" style="width: 80px" onclick="callAddt(' + id + ')"><i class="ri-arrow-up-line"></i> ADDT</button>';
-                        html +='<button type="button" class="btn btn-sm btn-success m-1" style="width: 80px" onclick="#"><i class="ri-arrow-up-line"></i> INV</button>';
+                        html += '<i class="ri-arrow-up-line"></i> Edit</button>';
+                        html +='<button type="button" class="btn btn-sm btn-info m-1" style="width: 120px" onclick="callAddt(' + id + ')"><i class="ri-arrow-up-line"></i> + Technician</button>';
+                        html +='<button type="button" class="btn btn-sm btn-success m-1" style="width: 120px" onclick="#"><i class="ri-arrow-up-line"></i> Prepare Invoice</button>';
+                        html +='<button type="button" class="btn btn-sm btn-danger m-1" style="width: 120px" onclick="del(' + id + ');"><i class="ri-arrow-up-line"></i> Delete</button>';
                         html += '</div>';
                         return html;
                     }

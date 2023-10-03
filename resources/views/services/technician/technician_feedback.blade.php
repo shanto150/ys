@@ -205,6 +205,7 @@
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
                                             <td>{{ $data->note }}</td>
+                                            <td class="d-none">{{ $data->from_user }}</td>
                                             <td class="d-none">{{ $data->id }}</td>
                                             <td class="d-none">{{ $data->log_id }}</td>
                                         </tr>
@@ -291,11 +292,11 @@
 
                         <div class="card-body">
                             <p class="text-center text-danger bolder" id="mes"></p>
-                            <input type="text" hidden name="log_id" id="log_id" value=""
-                                form="myform">
-                            <input type="text" hidden name="id" id="id" value=""
-                                form="myform">
-                            <input type="text" hidden name="assigned_to" form="myform" id="assigned_to"
+                            <input type="text" hidden name="log_id" id="log_id" value="" placeholder="log_id" form="myform">
+                            <input type="text" hidden name="id" id="id" value="" form="myform" placeholder="id">
+                            <input type="text" hidden name="to_user" id="to_user" value="" form="myform" placeholder="to_user">
+                            <input type="text" hidden name="add_techni_id_fk" id="add_techni_id_fk" value="" form="myform" placeholder="fk">
+                            <input type="text" hidden name="from_user" form="myform" id="from_user"
                                 value="{{ Auth::user()->machine_id }}">
 
                             <div class="col-md-12">
@@ -434,12 +435,17 @@
         var firstValue = $("#myform").serialize();
 
         var log_id = '';
+        var to_user = '';
+        var add_techni_id_fk = '';
 
         $('#worklist tr').click(function() {
             var currentRow = $(this).closest("tr");
-            log_id = currentRow.find("td:eq(3)").html();
-            console.log(log_id);
+            log_id = currentRow.find("td:eq(4)").html();
+            to_user = currentRow.find("td:eq(2)").html();
+            add_techni_id_fk = currentRow.find("td:eq(3)").html();
             $('#log_id').val(log_id);
+            $('#to_user').val(to_user);
+            $('#add_techni_id_fk').val(add_techni_id_fk);
             getLogdetails(log_id);
             Generatetable(log_id)
         });
@@ -701,6 +707,7 @@
             document.getElementById("note").value = (note == "null" ? "" : note);
             firstValue = $("#myform").serialize();
         }
+
     </script>
     {{-- mes,bgcolor,textcolor,icn,head --}}
     <script>
