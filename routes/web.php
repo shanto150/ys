@@ -53,9 +53,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/get-log-data', [ServiceLogController::class, 'getData'])->name('get-log-data');
     Route::get('/get-outlet_code', [ServiceLogController::class, 'getOutletCode'])->name('get-outlet_code');
     Route::get('/get-outlet_detais', [ServiceLogController::class, 'getOutletdetails'])->name('get-outlet_detais');
+
     //inservicee addt
     Route::Post('/log-Techstore', [ServiceLogController::class, 'Techstore'])->name('service-log-Techstore');
     Route::get('/log-getTechList', [ServiceLogController::class, 'getTechList'])->name('service-log-getTechList');
+    Route::get('/CloseOpenTask', [ServiceLogController::class, 'CloseOpenTask'])->name('service-log-CloseOpenTask');
 
     //tech feedback
     Route::get('/goTechfeedback', [technician_feedback::class, 'index'])->name('goTechfeedback');

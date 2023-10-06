@@ -43,7 +43,7 @@
             border-radius: 0px 7px 0px 0px;
         }
 
-        .databox{
+        .databox {
             display: block;
             width: 100%;
             margin-bottom: 3px;
@@ -52,25 +52,55 @@
             font-size: 18px;
         }
 
-        .databox .label{
+        .databox .label {
             padding: 0 10px 0 0;
             margin: 0 10px 0 0;
             border-right: 1px solid #d2d2d2;
             font-weight: 600;
         }
-        .databox .icn{
+
+        .databox .icn {
             padding: 0;
             margin: 0;
         }
+
         .databox .data {
             font-weight: 500;
             text-transform: capitalize;
         }
-
     </style>
 @endpush
 @section('content')
     <div class="container-fluid">
+
+        {{-- model --}}
+        <div class="modal zoomer" tabindex="-1" id="myModal" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Attachment</h5>
+
+                        <img src="{{ URL::asset('/res/images/appimages/lod1.gif') }}" alt="profile Pic" height="30"
+                            width="30" id="modelSpinner" />
+
+                    </div>
+
+                    <div class="modal-body">
+                        <img class="centered" src="{{ URL::asset('/res/images/timage/03102023-1696337418.jpg') }}"
+                            alt="">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" onclick="document.getElementById('myform').reset();"
+                            data-target="#myModal" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>
+                            Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {{-- End model --}}
 
         <div class="row">
 
@@ -82,32 +112,39 @@
                         </div>
 
                         <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #dd1933" aria-hidden="true"></i></span>
+                            <span class="icn"><i class="fa fa-chevron-right" style="color: #dd1933"
+                                    aria-hidden="true"></i></span>
                             <span class="label">Outlet Code&nbsp;&nbsp;</span>
                             <span class="data">{{ $service_logs->outlet_code }}</span>
                         </div>
                         <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #09c723" aria-hidden="true"></i></span>
+                            <span class="icn"><i class="fa fa-chevron-right" style="color: #09c723"
+                                    aria-hidden="true"></i></span>
                             <span class="label">Visi Id / Size&nbsp;&nbsp;</span>
                             <span class="data">{{ $service_logs->visi_id . ' / ' . $service_logs->visi_size }}</span>
                         </div>
                         <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #d904f5" aria-hidden="true"></i></span>
+                            <span class="icn"><i class="fa fa-chevron-right" style="color: #d904f5"
+                                    aria-hidden="true"></i></span>
                             <span class="label">Outlet Name</span>
                             <span class="data">{{ $service_logs->outlet_name }}</span>
                         </div>
                         <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #37A3F0" aria-hidden="true"></i></span>
+                            <span class="icn"><i class="fa fa-chevron-right" style="color: #37A3F0"
+                                    aria-hidden="true"></i></span>
                             <span class="label">Address&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</span>
                             <span class="data">{{ $service_logs->outlet_address }}</span>
                         </div>
                         <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #f39406" aria-hidden="true"></i></span>
+                            <span class="icn"><i class="fa fa-chevron-right" style="color: #f39406"
+                                    aria-hidden="true"></i></span>
                             <span class="label">Contacts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</span>
-                            <span class="data">{{ $service_logs->outlet_mobile }} - {{ $service_logs->person_mobile }}</span>
+                            <span class="data">{{ $service_logs->outlet_mobile }} -
+                                {{ $service_logs->person_mobile }}</span>
                         </div>
                         <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #06106e" aria-hidden="true"></i></span>
+                            <span class="icn"><i class="fa fa-chevron-right" style="color: #06106e"
+                                    aria-hidden="true"></i></span>
                             <span class="label">Complains&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             <span class="data">{{ $service_logs->complains }}</span>
                         </div>
@@ -121,11 +158,11 @@
                             @csrf
                             <div class="text-center">
                                 <div class="btn-group btn-group-toggle m-2" data-toggle="buttons">
-                                    <label class="btn btn-outline-danger " id="Open" >
-                                    <input type="radio" value="Open"  name="tech_status" checked > Open
+                                    <label class="btn btn-outline-danger " id="Open">
+                                        <input type="radio" value="Open" name="tech_status" checked> Open
                                     </label>
                                     <label class="btn btn-outline-danger" id="Closed">
-                                    <input type="radio" value="Closed"  name="tech_status" > Closed
+                                        <input type="radio" value="Closed" name="tech_status"> Closed
                                     </label>
                                 </div>
                             </div>
@@ -138,7 +175,8 @@
                                     @endforeach
                                 </select>
                                 <label for="assigned_to">Assigned to</label>
-                                <input type="text" value="0" name="id" form="assignform" id="id" hidden>
+                                <input type="text" value="0" name="id" form="assignform" id="id"
+                                    hidden>
                                 <input type="text" value="{{ $service_logs->id }}" form="assignform" name="log_id"
                                     id="log_id" hidden>
                             </div>
@@ -151,7 +189,10 @@
                     </div>
                     <div class="card-footer">
                         <button type="button" form="assignform" onclick="FromsCheck();"
-                            class="btn btn-success float-right"><i class="fa fa-check" aria-hidden="true"></i> Save</button>
+                            class="btn btn-success float-right"><i class="fa fa-check" aria-hidden="true"></i>
+                            Save</button>
+                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn bg-info"><i
+                                class="fa fa-plus" aria-hidden="true"></i> New</button>
                     </div>
                 </div>
                 <div class="table-wrapper">
@@ -243,9 +284,9 @@
 
         }
 
-        function edit_model(assigned_to, note, log_id,id,tech_status) {
+        function edit_model(assigned_to, note, log_id, id, tech_status) {
 
-            $("#"+tech_status).button('toggle');
+            $("#" + tech_status).button('toggle');
 
             $("#assigned_to").val(assigned_to).change();
             document.getElementById("note").value = (note == "null" ? "" : note);
@@ -279,23 +320,23 @@
                 {
                     render: function(data, type, row) {
 
-                    var tech_status = row.tech_status;
-                    if (tech_status=='Open') {
-                        var html = '';
-                        html += tech_status;
-                        return html;
-                    } else if (tech_status=='Close') {
-                        var html = '';
-                        html += tech_status;
-                        return html;
-                    }else{
-                        var html = '';
-                        html += '<a href="{{ asset('') }}'+tech_status+'">Open File</a>';
-                        return html;
+                        var tech_status = row.tech_status;
+                        if (tech_status == 'Open') {
+                            var html = '';
+                            html += 'Open';
+                            return html;
+                        } else if (tech_status == 'Closed') {
+                            var html = '';
+                            html += 'Closed';
+                            return html;
+                        } else {
+                            var html = '';
+                            html += '<a href="{{ asset('') }}' + tech_status + '">Open File</a>';
+                            return html;
+                        }
+
+
                     }
-
-
-}
                 },
                 {
                     render: function(data, type, row) {
@@ -305,19 +346,40 @@
                         var log_id = "'" + row.log_id + "'";
                         var id = "'" + row.id + "'";
                         var tech_status = "'" + row.tech_status + "'";
+                        var file_path = row.file_path;
+                        var add_techni_id_fk = row.add_techni_id_fk;
 
                         var html = '';
-                        html += '<button type="button" onclick="edit_model(' + assigned_to + ',' + note + ',' + log_id +',' + id +','+tech_status+');" class="btn btn-sm btn-outline-success mr-1"><i class="fa fa-pen"></i></button>';
-                        html += '<button type="button" class="btn btn-sm btn-outline-danger" ><i class="fa fa-trash"></i></button>';
+
+                        if (file_path) {
+                            html +=
+                                '<a href="{{ asset('') }}' + file_path +
+                                '" type="button" target="_blank" class="btn btn-sm btn-outline-info mr-1" ><i class="fa fa-file-image"></i></a>';
+                        } else {
+                            html +=
+                                '<button type="button" onclick="Nofile();" class="btn btn-sm btn-outline-info mr-1" ><i class="fa fa-file-image"></i></button>';
+                        }
+
+                        html +=
+                            '<button type="button" onclick="CloseTask('+add_techni_id_fk+','+tech_status+');" class="btn btn-sm btn-outline-danger mr-1" ><i class="fa fa-retweet"></i></button>';
+                        html += '<button type="button" onclick="edit_model(' + assigned_to + ',' + note +
+                            ',' + log_id + ',' + id + ',' + tech_status +
+                            ');" class="btn btn-sm btn-outline-success mr-1"><i class="fa fa-pen"></i></button>';
+                        html +=
+                            '<button type="button" class="btn btn-sm btn-outline-danger" ><i class="fa fa-trash"></i></button>';
                         return html;
                     }
                 },
             ]
         });
 
+        function Nofile() {
+            message('No Attachment !', '#FECC43', '#1A389F', 'info', 'Info');
+        }
+
         function RadioBut(tech_status) {
 
-            if (tech_status=='Open') {
+            if (tech_status == 'Open') {
                 $("#Open").attr('checked', true);
                 $("#Open").addClass('btn-danger');
                 $("#Open").removeClass('btn-outline-danger');
@@ -335,6 +397,32 @@
                 $("#Open").addClass('btn-outline-danger');
                 $("#Open").removeClass('btn-danger');
             }
+        }
+
+        function CloseTask(add_techni_id_fk,log_status) {
+            $.ajax({
+                beforeSend: function() {
+                    $('#spinShowHide').show();
+                },
+                error: function() {
+                    $('#spinShowHide').hide();
+                },
+                complete: function() {
+                    $('#spinShowHide').hide();
+                },
+                type: "GET",
+                url: "{{ route('service-log-CloseOpenTask') }}", // Route
+                data: {
+                    'add_techni_id_fk': add_techni_id_fk,
+                    'log_status': log_status
+                },
+                success: function(res) {
+                    message(res.messege, '#29912b', 'white', 'error',
+                        'Success');
+                        $('#TechList').DataTable().ajax.reload();
+                }
+            })
+
         }
     </script>
 @endpush

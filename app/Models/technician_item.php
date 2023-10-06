@@ -11,5 +11,5 @@ class technician_item extends Model
     use HasFactory;
     use CreatedUpdatedBy;
 
-    protected $fillable = ['assigned_to', 'file_path', 'invoice_item_id', 'log_id', 'note', 'quantity', 'request_type', 'unit'];
+    protected $fillable = ['to_user', 'from_user', 'add_techni_id_fk', 'file_path', 'invoice_item_id', 'log_id', 'note', 'quantity', 'request_type', 'unit'];
 }

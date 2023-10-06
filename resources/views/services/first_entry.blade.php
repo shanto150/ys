@@ -194,19 +194,6 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-5">
-                                    <div class="form-label-group in-border">
-                                        <select class="form-control select2" name="assigned_to" id="assigned_to"
-                                            style="width: 100%;">
-                                            <option selected value="0">Choose...</option>
-                                            @foreach ($emps as $emp)
-                                                <option value="{{ $emp->machine_id }}">{{ $emp->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <label for="assigned_to">Assigned to</label>
-                                    </div>
-
-                                </div>
 
                                 <div class="col-md-3">
                                     <div class="form-label-group in-border">
@@ -403,7 +390,7 @@
 
         function edit_model(status, outlet_code, outlet_name, outlet_mobile, person_mobile, outlet_address, visi_id,
             visi_size, db_name, se_area, asm_area, complains, log_date, first_response_date,
-            assigned_to, brand, remarks, rwid) {
+             brand, remarks, rwid) {
             $("#" + status).prop('checked', true);
             document.getElementById("outlet_code").value = (outlet_code == "null" ? "" : outlet_code);
             document.getElementById("outlet_name").value = (outlet_name == "null" ? "" : outlet_name);
@@ -419,7 +406,6 @@
             document.getElementById("log_date").value = (log_date == "null" ? "" : log_date);
             document.getElementById("first_response_date").value = (first_response_date == "null" ? "" :
                 first_response_date);
-            document.getElementById("assigned_to").value = (assigned_to == "null" ? "" : assigned_to);
             document.getElementById("brand").value = (brand == "null" ? "" : brand);
             document.getElementById("remarks").value = (remarks == "null" ? "" : remarks);
             document.getElementById("id").value = rwid;
@@ -488,7 +474,6 @@
                         var complains = "'" + row.complains + "'";
                         var log_date = "'" + row.log_date + "'";
                         var first_response_date = "'" + row.first_response_date + "'";
-                        var assigned_to = "'" + row.assigned_to + "'";
                         var brand = "'" + row.brand + "'";
                         var remarks = "'" + row.remarks + "'";
                         var id = "'" + row.id + "'";
@@ -496,17 +481,17 @@
                         var html = '';
                         html += '<div class="row justify-content-center align-items-center">';
                         html +=
-                            '<button type="button" class="btn btn-sm btn-primary hvr-grow m-1" style="width: 80px" onclick="edit_model(' +
+                            '<button type="button" class="btn btn-sm btn-primary hvr-grow m-1" style="width: 120px" onclick="edit_model(' +
                             status + ',' + outlet_code + ',' + outlet_name +
                             ',' + outlet_mobile + ',' + person_mobile + ',' + outlet_address + ',' +
                             visi_id + ',' + visi_size + ',' + db_name + ',' + se_area + ',' + asm_area +
                             ',' + complains +
-                            ',' + log_date + ',' + first_response_date + ',' + assigned_to + ',' + brand +
+                            ',' + log_date + ',' + first_response_date + ',' + brand +
                             ',' + remarks + ',' + id + ')">';
-                        html += '<i class="ri-arrow-up-line"></i> EDIT</button>';
-                        html +='<button type="button" class="btn btn-sm btn-danger m-1" style="width: 80px" onclick="del(' + id + ');"><i class="ri-arrow-up-line"></i> DEL</button>';
-                        html +='<button type="button" class="btn btn-sm btn-info m-1" style="width: 80px" onclick="callAddt(' + id + ')"><i class="ri-arrow-up-line"></i> ADDT</button>';
-                        html +='<button type="button" class="btn btn-sm btn-success m-1" style="width: 80px" onclick="#"><i class="ri-arrow-up-line"></i> INV</button>';
+                        html += '<i class="ri-arrow-up-line"></i> Edit</button>';
+                        html +='<button type="button" class="btn btn-sm btn-info m-1" style="width: 120px" onclick="callAddt(' + id + ')"><i class="ri-arrow-up-line"></i> + Technician</button>';
+                        html +='<button type="button" class="btn btn-sm btn-success m-1" style="width: 120px" onclick="#"><i class="ri-arrow-up-line"></i> Prepare Invoice</button>';
+                        html +='<button type="button" class="btn btn-sm btn-danger m-1" style="width: 120px" onclick="del(' + id + ');"><i class="ri-arrow-up-line"></i> Delete</button>';
                         html += '</div>';
                         return html;
                     }
