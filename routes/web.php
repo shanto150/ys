@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\emp\EmpsController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\emp\EmpsController;
 use App\Http\Controllers\service\ServiceLogController;
 use App\Http\Controllers\technician\technician_feedback;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\pre_invoice\PreInvoiceController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -64,4 +65,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/getLogdetails', [technician_feedback::class, 'getLogdetails'])->name('getLogdetails');
     Route::post('/store-titem', [technician_feedback::class, 'store'])->name('store-titem');
     Route::get('/getfeedbackist', [technician_feedback::class, 'getfeedbackist'])->name('getfeedbackist');
+
+    //Pre-Invoice
+    Route::get('/goPreInvoice/{id}', [PreInvoiceController::class, 'index'])->name('goPreInvoice');
+    Route::post('/store-preinvoice', [PreInvoiceController::class, 'store'])->name('store-preinvoice');
 });

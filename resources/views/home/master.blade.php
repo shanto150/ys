@@ -41,6 +41,11 @@
     {{-- floating levels --}}
     <link rel="stylesheet" href="{{ asset('/res/css/floating-labels.css') }}">
 
+    {{-- MonthPicker --}}
+
+    {{-- <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css"> --}}
+
+
     <style>
         .select2-selection {
             height: 40px !important;
@@ -122,6 +127,11 @@
 
     {{-- mask --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"></script>
+
+    {{-- MonthPicker --}}
+    {{-- <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+    <script src="{{ asset('/res/js/jquery.mtz.monthpicker.js') }}"></script> --}}
 
 
     <script>

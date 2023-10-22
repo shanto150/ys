@@ -94,7 +94,8 @@
 
                                 <div class="col-md-3">
                                     <div class="form-label-group in-border">
-                                        <input type="text" id="outlet_mobile" onkeyup="MobileCountValidate(this);" maxlength="11" name="outlet_mobile" class="form-control"
+                                        <input type="text" id="outlet_mobile" onkeyup="MobileCountValidate(this);"
+                                            maxlength="11" name="outlet_mobile" class="form-control"
                                             placeholder="Outlet Mobile" autocomplete="off">
                                         <label for="outlet_mobile">Outlet Mobile</label>
                                     </div>
@@ -170,8 +171,8 @@
                             <div class="col-12">
                                 <div class="form-label-group in-border">
                                     <input type="text" id="complains" name="complains"
-                                        style="text-transform:capitalize" class="form-control border-danger" placeholder="Complains"
-                                        autocomplete="off">
+                                        style="text-transform:capitalize" class="form-control border-danger"
+                                        placeholder="Complains" autocomplete="off">
                                     <label for="complains">Complains</label>
                                 </div>
                             </div>
@@ -268,7 +269,9 @@
 @push('script')
     <script>
         $('#spinShowHide').hide();
-        $('.select2').select2();
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
         $('#modelSpinner').hide();
         // $("#outlet_mobile").inputmask("99999-999-999");
 
@@ -390,7 +393,7 @@
 
         function edit_model(status, outlet_code, outlet_name, outlet_mobile, person_mobile, outlet_address, visi_id,
             visi_size, db_name, se_area, asm_area, complains, log_date, first_response_date,
-             brand, remarks, rwid) {
+            brand, remarks, rwid) {
             $("#" + status).prop('checked', true);
             document.getElementById("outlet_code").value = (outlet_code == "null" ? "" : outlet_code);
             document.getElementById("outlet_name").value = (outlet_name == "null" ? "" : outlet_name);
@@ -489,9 +492,15 @@
                             ',' + log_date + ',' + first_response_date + ',' + brand +
                             ',' + remarks + ',' + id + ')">';
                         html += '<i class="ri-arrow-up-line"></i> Edit</button>';
-                        html +='<button type="button" class="btn btn-sm btn-info m-1" style="width: 120px" onclick="callAddt(' + id + ')"><i class="ri-arrow-up-line"></i> + Technician</button>';
-                        html +='<button type="button" class="btn btn-sm btn-success m-1" style="width: 120px" onclick="#"><i class="ri-arrow-up-line"></i> Prepare Invoice</button>';
-                        html +='<button type="button" class="btn btn-sm btn-danger m-1" style="width: 120px" onclick="del(' + id + ');"><i class="ri-arrow-up-line"></i> Delete</button>';
+                        html +=
+                            '<button type="button" class="btn btn-sm btn-info m-1" style="width: 120px" onclick="callAddt(' +
+                            id + ')"><i class="ri-arrow-up-line"></i> + Technician</button>';
+                        html +=
+                            '<button type="button" class="btn btn-sm btn-success m-1" style="width: 120px" onclick="CallPreInvoice(' +
+                            id + ')"><i class="ri-arrow-up-line"></i> Prepare Invoice</button>';
+                        html +=
+                            '<button type="button" class="btn btn-sm btn-danger m-1" style="width: 120px" onclick="del(' +
+                            id + ');"><i class="ri-arrow-up-line"></i> Delete</button>';
                         html += '</div>';
                         return html;
                     }
@@ -541,44 +550,54 @@
         function getOutletDetails(outletCode) {
 
             $.ajax({
-                    beforeSend: function() {
-                        $('#modelSpinner').show();
-                    },
-                    error: function(res) {
-                        $('#modelSpinner').hide();
-                        const ErrowArray = res.responseJSON['message'];
-                        const EE = res.responseJSON['exception'];
-                        const msgs = ErrowArray.split(':');
-                        if (EE == 'ErrorException') {
-                            message(ErrowArray, '#FF0000', 'white', 'error', 'Error');
-                        } else {
-                            message(msgs[2], '#FF0000', 'white', 'error', msgs[1]);
-                        }
-                    },
-                    complete: function() {
-                        $('#modelSpinner').hide();
-                    },
-                    type: 'GET',
-                    url: "{{ route('get-outlet_detais') }}",
-                    data: {'outlet_code': outletCode},
-                    success: function(res) {
-                        console.log(res.suggestion[0].outlet_name);
-                        $('#outlet_name').val(res.suggestion[0].outlet_name);
-                        $('#outlet_mobile').val(res.suggestion[0].outlet_mobile);
-                        $('#person_mobile').val(res.suggestion[0].person_mobile);
-                        $('#outlet_address').val(res.suggestion[0].outlet_address);
-                        $('#visi_id').val(res.suggestion[0].visi_id);
-                        $('#visi_size').val(res.suggestion[0].visi_size);
-                        $('#db_name').val(res.suggestion[0].db_name);
-                        $('#se_area').val(res.suggestion[0].se_area);
-                        $('#asm_area').val(res.suggestion[0].asm_area);
+                beforeSend: function() {
+                    $('#modelSpinner').show();
+                },
+                error: function(res) {
+                    $('#modelSpinner').hide();
+                    const ErrowArray = res.responseJSON['message'];
+                    const EE = res.responseJSON['exception'];
+                    const msgs = ErrowArray.split(':');
+                    if (EE == 'ErrorException') {
+                        message(ErrowArray, '#FF0000', 'white', 'error', 'Error');
+                    } else {
+                        message(msgs[2], '#FF0000', 'white', 'error', msgs[1]);
                     }
-                });
+                },
+                complete: function() {
+                    $('#modelSpinner').hide();
+                },
+                type: 'GET',
+                url: "{{ route('get-outlet_detais') }}",
+                data: {
+                    'outlet_code': outletCode
+                },
+                success: function(res) {
+                    console.log(res.suggestion[0].outlet_name);
+                    $('#outlet_name').val(res.suggestion[0].outlet_name);
+                    $('#outlet_mobile').val(res.suggestion[0].outlet_mobile);
+                    $('#person_mobile').val(res.suggestion[0].person_mobile);
+                    $('#outlet_address').val(res.suggestion[0].outlet_address);
+                    $('#visi_id').val(res.suggestion[0].visi_id);
+                    $('#visi_size').val(res.suggestion[0].visi_size);
+                    $('#db_name').val(res.suggestion[0].db_name);
+                    $('#se_area').val(res.suggestion[0].se_area);
+                    $('#asm_area').val(res.suggestion[0].asm_area);
+                }
+            });
         }
 
         function callAddt(callid) {
 
-            var url = '{{ route("serviceTechAddindex", ":id") }}';
+            var url = '{{ route('serviceTechAddindex', ':id') }}';
+            url = url.replace(':id', callid);
+            window.location.href = url;
+
+        }
+
+        function CallPreInvoice(callid) {
+
+            var url = '{{ route('goPreInvoice', ':id') }}';
             url = url.replace(':id', callid);
             window.location.href = url;
 
