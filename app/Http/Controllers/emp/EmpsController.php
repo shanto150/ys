@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\emp\emps;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -181,9 +182,9 @@ class EmpsController extends Controller
 
 
         if ($request->emp_id == Auth::user()->machine_id) {
-            auth()->logout();
             Session::flush();
-            return redirect()->to('/login');
+            Auth::logout();
+            return redirect('login');
         }else{
 
             return response()->json(['messege' => 'Password Change Successfully', 'types' => 's']);

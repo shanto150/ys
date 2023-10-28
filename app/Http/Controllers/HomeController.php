@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -15,10 +16,15 @@ class HomeController extends Controller
 
     public function index()
     {
+
+
         if (Auth::user()->role == 'Technician') {
             return view('home.thome');
         } else {
-            return view('home.home');
+            $Monthly_sell_Months = ['Jan', 'Feb', 'Mar','Apr','May','Jun','Jul','Aug','Sep'];
+            $Monthly_sell_values = ['372082', '498576', '562726','287465','304847','876535','654387','417266','865242'];
+            $statusCount = DB::select('select status,count(id) ctn from service_logs sl group by status');
+            return view('home.home',compact('Monthly_sell_Months', 'Monthly_sell_values','statusCount'));
         }
         // dd(Auth::user()->name);
     }
