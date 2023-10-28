@@ -50,6 +50,16 @@
                                 </p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('index_cp') }}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-key"></i>
+                                <p>
+                                    Change Password
+                                </p>
+                            </a>
+                        </li>
+
                     </ul>
                 </li>
 
@@ -79,26 +89,18 @@
                             </a>
                         </li>
 
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('contact-index') }}" class="nav-link">
-                                <i class="nav-icon fa fa-birthday-cake"></i>
-                                <p>
-                                    Contact
-                                </p>
-                            </a>
-                        </li> --}}
+                        
                     </ul>
                 </li>
 
 
                 <li class="nav-header">LOGOUT</li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> <i class="nav-icon fas fa-sign-in-alt"></i>
-                        Logout
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
+                    <a href="{{ route('lout') }}" class="nav-link">
+                        <i class="nav-icon fa-solid fa-person-running"></i>
+                        <p>
+                           Logout
+                        </p>
                     </a>
                 </li>
 

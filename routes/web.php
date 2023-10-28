@@ -15,20 +15,22 @@ Route::get('/', function () {
 
 Route::get('/clearcache', function () {
     Artisan::call('optimize:clear');
-
-    return 'Application cache has been cleared';
+    return Artisan::output();
 });
 
 Route::get('/configcache', function () {
     Artisan::call('config:cache');
-
-    return 'Application cache configed';
+    return Artisan::output();
 });
 
 Route::get('/routecache', function () {
     Artisan::call('route:cache');
+    return Artisan::output();
+});
 
-    return 'Application route configed';
+Route::get('/migrate', function () {
+    Artisan::call('migrate');
+    return Artisan::output();
 });
 
 Route::group(['middleware' => ['auth']], function () {
@@ -47,6 +49,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/update-emp-status', [EmpsController::class, 'updateEmpStatus'])->name('update-emp-status');
     Route::get('/destroy-emp', [EmpsController::class, 'destroy'])->name('destroy-emp');
     Route::get('/contact-index', [EmpsController::class, 'contacts'])->name('contact-index');
+    Route::get('/index_cp', [EmpsController::class, 'index_cp'])->name('index_cp');
+    Route::post('/change_pass', [EmpsController::class, 'change_pass'])->name('change_pass');
 
     //Services
     Route::get('/FirstCall-index', [ServiceLogController::class, 'FirstCall'])->name('FirstCall-index');

@@ -2,7 +2,7 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars text-danger"></i></a>
         </li>
 
     </ul>
@@ -16,7 +16,7 @@
 
         <li class="nav-item">
             <a class="nav-link" data-slide="true" href="#" role="button">
-                <i class="fa fa-user" aria-hidden="true"></i>
+                <i class="fa fa-user text-danger" aria-hidden="true"></i>
                 {{ Auth::user()->name }}
             </a>
         </li>
@@ -25,7 +25,7 @@
             <a class="nav-link" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
-                <i class="nav-icon fas fa-sign-in-alt"></i>
+                <i class="nav-icon fas fa-sign-in-alt text-danger"></i>
                 {{ __('Logout') }}
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

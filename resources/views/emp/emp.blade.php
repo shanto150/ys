@@ -88,13 +88,7 @@
                                     <label for="home_distrit">Home distrit</label>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-label-group in-border">
-                                    <input type="text" id="pass" name="pass"
-                                        class="form-control form-control-sm" placeholder="Password" autocomplete="off">
-                                    <label for="pass">Password</label>
-                                </div>
-                            </div>
+                           
                             <div class="col-md-3">
                                 <div class="form-label-group in-border">
                                     <input type="date" id="dob" class="form-control form-control-sm"
@@ -112,7 +106,7 @@
 
                             <div class="col-md-3">
                                 <div class="form-label-group in-border">
-                                    <select class="form-control form-control-sm" id="status" name="status">
+                                    <select class="form-control" id="status" name="status">
                                         <option value="1" selected>Active</option>
                                         <option value="0" >Inactive </option>
                                     </select>
@@ -131,7 +125,7 @@
                             <div class="col-md-2">
 
                                 <div class="form-label-group in-border">
-                                    <select class="custom-select" id="blood_group" name="blood_group">
+                                    <select class="form-control" id="blood_group" name="blood_group">
                                         <option>A+</option>
                                         <option>A-</option>
                                         <option selected>B+</option>
@@ -147,7 +141,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="form-label-group in-border">
-                                    <select class="custom-select" id="religion" name="religion">
+                                    <select class="form-control" id="religion" name="religion">
                                         <option value="" selected>Choose...</option>
                                         <option value="Islam">Islam</option>
                                         <option value="Buddhism">Buddhism</option>
@@ -161,7 +155,7 @@
 
                             <div class="col-md-2">
                                 <div class="form-label-group in-border">
-                                    <select class="custom-select" id="gender" name="gender">
+                                    <select class="form-control" id="gender" name="gender">
                                         <option selected>Male</option>
                                         <option>Female</option>
                                         <option>Other</option>
@@ -172,7 +166,7 @@
 
                             <div class="col-md-2">
                                 <div class="form-label-group in-border">
-                                    <select class="custom-select" id="emp_type" name="emp_type">
+                                    <select class="form-control" id="emp_type" name="emp_type">
                                         <option>Probationary</option>
                                         <option>Contractual </option>
                                         <option selected>Confirmed</option>
@@ -183,7 +177,7 @@
 
                             <div class="col-md-2">
                                 <div class="form-label-group in-border">
-                                    <select class="custom-select" id="role" name="role">
+                                    <select class="form-control" id="role" name="role">
                                         <option>Admin</option>
                                         <option>Manager</option>
                                         <option selected>Staff</option>
@@ -255,8 +249,8 @@
 
                     <div class="card-footer text-right mt-10">
                         <button type="button" onclick="document.getElementById('myform').reset();"
-                            class="btn btn-warning me-5"><i class="fa fa-eraser" aria-hidden="true"></i> Clear</button>
-                        <button type="button" onclick="FromsCheck();" class="btn btn-success"><i class="fa fa-check"
+                            class="btn btn-warning btn-sm me-5"><i class="fa fa-eraser" aria-hidden="true"></i> Clear</button>
+                        <button type="button" onclick="FromsCheck();" class="btn btn-sm btn-success"><i class="fa fa-check"
                                 aria-hidden="true"></i> Save</button>
                     </div>
                 </form>
@@ -264,7 +258,7 @@
 
             <div class="card card-none">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fa fa-list-ul" aria-hidden="true"></i> Employee List</h3>
+                    <h3 class="card-title"><i class="fa fa-list-ul text-danger" aria-hidden="true"></i> Employee List</h3>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-striped" id="EntryTable" width="100%">
@@ -302,7 +296,7 @@
 
         function FromsCheck() {
 
-            var x = [ 'name', 'email', 'desig','pass','doj','salary','Mobile_personal','Mobile_official','role'];
+            var x = [ 'name', 'email', 'desig','doj','salary','Mobile_personal','Mobile_official','role'];
             if (EmptyValueFocus(x)) {
                 save();
             }
@@ -434,13 +428,12 @@
                         var rwid = "'" + row.id + "'";
                         var image_path = "'" + row.image_path + "'";
                         var email = "'" + row.email + "'";
-                        var pass = "'" + row.pass + "'";
                         var role = "'" + row.role + "'";
 
                         var html = '';
                         html += '<div class="row justify-content-center align-items-center">';
                         html +=
-                            '<button type="button" class="btn btn-sm btn-primary hvr-grow m-1" style="width: 80px" onclick="edit_model('+role+','+pass+','+email+',' +name + ',' + desig + ',' + fathers_name +
+                            '<button type="button" class="btn btn-sm btn-primary hvr-grow m-1" style="width: 80px" onclick="edit_model('+role+','+email+',' +name + ',' + desig + ',' + fathers_name +
                             ',' + mothers_name +',' + home_distrit +',' + dob +',' + doj +',' + nid +',' + blood_group +',' + religion +',' + gender +',' + emp_type +
                             ',' + Mobile_personal +',' + Mobile_official +',' + salary +',' + status +',' + present_address +',' + permanent_address +',' + rwid +',' + image_path +');">';
                         html += '<i class="ri-arrow-up-line"></i> | EDIT</button>';
@@ -507,11 +500,11 @@
 
         }
 
-        function edit_model(role,pass,email,name, desig, fathers_name, mothers_name, home_distrit, dob, doj, nid, blood_group, religion, gender,emp_type,Mobile_personal,Mobile_official,
+        function edit_model(role,email,name, desig, fathers_name, mothers_name, home_distrit, dob, doj, nid, blood_group, religion, gender,emp_type,Mobile_personal,Mobile_official,
         salary,status,present_address,permanent_address,rwid,image_path) {
 
-            var keysArray  = ['role','pass','email','name', 'desig', 'fathers_name', 'mothers_name', 'home_distrit', 'dob', 'doj', 'nid', 'blood_group', 'religion', 'gender','emp_type','Mobile_personal','Mobile_official','salary','status','present_address','permanent_address','id'];
-            var valuesArray  = [role,pass,email,name, desig, fathers_name, mothers_name, home_distrit, dob, doj, nid, blood_group, religion, gender,emp_type,Mobile_personal,Mobile_official,
+            var keysArray  = ['role','email','name', 'desig', 'fathers_name', 'mothers_name', 'home_distrit', 'dob', 'doj', 'nid', 'blood_group', 'religion', 'gender','emp_type','Mobile_personal','Mobile_official','salary','status','present_address','permanent_address','id'];
+            var valuesArray  = [role,email,name, desig, fathers_name, mothers_name, home_distrit, dob, doj, nid, blood_group, religion, gender,emp_type,Mobile_personal,Mobile_official,
         salary,status,present_address,permanent_address,rwid];
 
             editValuePst(keysArray,valuesArray);

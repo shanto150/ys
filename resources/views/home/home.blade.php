@@ -1,8 +1,12 @@
 @push('style')
 <style>
     .dataTables_filter {
-    display: none;
-}
+        display: none;
+    }
+
+    option {
+        zoom: 1.2
+    }
 </style>
 @endpush
 @extends('home.master')
@@ -10,7 +14,7 @@
 
 @endsection
 @push('script')
-    <script>
+<script>
     $('#spinShowHide').hide();
-    </script>
+</script>
 @endpush

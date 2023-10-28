@@ -227,17 +227,16 @@
                                 onclick="document.getElementById('myform').reset();" data-target="#myModal"
                                 data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
                         </div>
-
                     </form>
                 </div>
             </div>
         </div>
         {{-- End model --}}
         <div class="card card-none">
-            <div class="card-header bg-gradient-info">
-                <h3 class="card-title"><i class="fa fa-cogs" aria-hidden="true"></i> &nbsp; Service List</h3>
+            <div class="card-header ">
+                <h3 class="card-title"><i class="fa fa-cogs text-danger" aria-hidden="true"></i> &nbsp; Service List</h3>
                 <div class="card-tools">
-                    <button type="button" data-toggle="modal" data-target="#myModal" class="btn bg-info"><i
+                    <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-sm bg-gradient-danger"><i
                             class="fa fa-plus" aria-hidden="true"></i> New</button>
                 </div>
             </div>

@@ -5,7 +5,7 @@
 
     <div class="card card-none">
         <div class="card-header">
-            <h3 class="card-title"><i class="fa fa-list-ul" aria-hidden="true"></i> Contact List</h3>
+            <h3 class="card-title"><i class="fa fa-list-ul text-danger" aria-hidden="true"></i> Contact List</h3>
         </div>
         <div class="card-body">
             <div class="row">
