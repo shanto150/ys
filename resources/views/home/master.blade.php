@@ -1,23 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Home</title>
+<head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}" /> <title>Home</title>
 
-    <link rel="icon" href="{{ url('/res/images/appimages/mainlogo.png') }}">
-    <link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="icon" href="{{ url('/res/images/appimages/mainlogo.png') }}"> <link
+        rel="stylesheet"href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
-    <link rel="stylesheet" href="{{ asset('/res/plugins/fontawesome-free/css/all.min.css') }}">
-    <link rel="stylesheet"href="{{ asset('/res/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/res/css/adminlte.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/res/plugins/daterangepicker/daterangepicker.css') }}">
-
-    {{-- select2 --}}
-    <link rel="stylesheet" href="{{ asset('/res/plugins/select2/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/res/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/res/plugins/fontawesome-free/css/all.min.css') }}"> <link
+        rel="stylesheet"href="{{ asset('/res/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}"> <link
+        rel="stylesheet" href="{{ asset('/res/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/res/plugins/daterangepicker/daterangepicker.css') }}"> {{-- select2 --}}
+        <link rel="stylesheet" href="{{ asset('/res/plugins/select2/css/select2.min.css') }}"> <link rel="stylesheet"
+        href="{{ asset('/res/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 
     <!-- toast CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.css">
@@ -28,85 +22,60 @@
     <link rel="stylesheet" href="{{ asset('/res/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}" />
 
     <!-- Animation $ Icons -->
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" href="{{ asset('/res/css/switcher.css') }}">
-    <link rel="stylesheet" href="{{ asset('/res/css/anim.css') }}">
-    <link rel="stylesheet" href="{{ asset('/res/css/hover-min.css') }}">
-
-    {{-- Direct Print --}}
-    <link rel="stylesheet"href="https://printjs-4de6.kxcdn.com/print.min.css" />
-
-    {{-- Crop Image --}}
-    <link rel="stylesheet" href="{{ asset('/res/css/croppie.css') }}">
-    {{-- floating levels --}}
-    <link rel="stylesheet" href="{{ asset('/res/css/floating-labels.css') }}">
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" /> <link
+        rel="stylesheet" href="{{ asset('/res/css/switcher.css') }}"> <link rel="stylesheet"
+        href="{{ asset('/res/css/anim.css') }}">
+    <link rel="stylesheet" href="{{ asset('/res/css/hover-min.css') }}"> {{-- Direct Print --}} <link
+        rel="stylesheet"href="https://printjs-4de6.kxcdn.com/print.min.css" /> {{-- Crop Image --}} <link
+        rel="stylesheet" href="{{ asset('/res/css/croppie.css') }}"> 
+        {{-- floating levels --}} <link rel="stylesheet"
+        href="{{ asset('/res/css/floating-labels.css') }}">
 
     {{-- MonthPicker --}}
 
-    {{-- <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css"> --}}
+    {{-- <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
+    --}}
 
-
-    <style>
-        .select2-selection {
-            height: 40px !important;
-            border-color: #ced4da !important;
-        }
-
-        .main-sidebar {
-            background: radial-gradient(#8C1116, #300405);
-            background-size: 100% 100%;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: black;
-            opacity: 22;
-             !important
-        }
-
-        /* .main-sidebar {
-            background: #466368;
-            background: linear-gradient(#293f50,#648880);
-            another style
-            background: radial-gradient(#648880, #293f50);
-            background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
-        !important } */
-    </style>
+    {{-- icon --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <style> .select2-selection { height: 40px !important;
+        border-color: #ced4da !important; } .main-sidebar { background: radial-gradient(#8C1116, #300405);
+        background-size: 100% 100%; background-position: center; background-repeat: no-repeat; color: black; opacity:
+        22; !important } /* .main-sidebar { background: #466368; background: linear-gradient(#293f50,#648880); another
+        style background: radial-gradient(#648880, #293f50); background-image: linear-gradient(to right top, #051937,
+        #004d7a, #008793, #00bf72, #a8eb12); !important } */ </style>
     @stack('style')
 
-</head>
+    </head>
 
-<body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed" id="layoutBody">
+    <body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed"
+        id="layoutBody">
 
-    <div class="wrapper">
+        <div class="wrapper"> @include('layouts.top-navbar') @include('layouts.sidebar') <div class="content-wrapper">
+            <div class="content-header"></div> @yield('content') </div> <aside
+            class="control-sidebar control-sidebar-dark">
 
-        @include('layouts.top-navbar')
+            </aside>
 
-        @include('layouts.sidebar')
+            @include('layouts.footer')
 
-        <div class="content-wrapper">
-            <div class="content-header"></div>
-            @yield('content')
         </div>
+        @routes
+        <!-- REQUIRED SCRIPTS -->
+        <script src="{{ asset('/res/plugins/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('/res/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script> <script src="{{
+            asset('/res/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script> <script
+            src="{{ asset('/res/js/adminlte.js') }}"></script>
+        <script src="{{ asset('/res/plugins/select2/js/select2.full.min.js') }}"></script> <script src="{{
+            asset('/res/plugins/daterangepicker/daterangepicker.js') }}"></script> <script
+            src="{{ asset('/res/plugins/moment/moment.min.js') }}"></script>
 
-        <aside class="control-sidebar control-sidebar-dark">
+        <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
-        </aside>
-
-        @include('layouts.footer')
-
-    </div>
-
-    <!-- REQUIRED SCRIPTS -->
-    <script src="{{ asset('/res/plugins/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('/res/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('/res/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-    <script src="{{ asset('/res/js/adminlte.js') }}"></script>
-    <script src="{{ asset('/res/plugins/select2/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('/res/plugins/daterangepicker/daterangepicker.js') }}"></script>
-    <script src="{{ asset('/res/plugins/moment/moment.min.js') }}"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
-
-    <!-- Page specific script -->
+        <!-- Page specific script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.js"></script>
     <script src="{{ asset('/res/js/myfunctions.js') }}"></script>
@@ -117,21 +86,28 @@
     <script src="{{ asset('/res/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('/res/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 
-    {{-- Direct Print --}}
+    <!-- Direct Print -->
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 
-    {{-- Crop Image --}}
+    <!-- Crop Image -->
     <script src="{{ asset('/res/js/croppie.js') }}"></script>
-    {{-- Autocomplete --}}
+   <!-- Autocomplete -->
     <script src="{{ asset('/res/js/jquery.autocomplete.js') }}"></script>
 
-    {{-- mask --}}
+   <!-- Mask -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"></script>
 
-    {{-- MonthPicker --}}
-    {{-- <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <!-- monthpicker -->
+    <!-- <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
-    <script src="{{ asset('/res/js/jquery.mtz.monthpicker.js') }}"></script> --}}
+    <script src="{{ asset('/res/js/jquery.mtz.monthpicker.js') }}"></script> -->
+
+   <!-- table-to-excel -->
+    <script src="{{ asset('/res/js/jquery.table2excel.js') }}"></script>
+
+   <!-- Calander -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
 
     <script>
@@ -180,7 +156,8 @@
 
 
     </script>
-    {{-- mes,bgcolor,textcolor,icn,head --}}
+
+    <!-- mes,bgcolor,textcolor,icn,head -->
     <script>
         @if (!empty($errors->all()))
         @foreach ($errors->all() as $eerror)
@@ -203,6 +180,7 @@
     </script>
 
     @stack('script')
+
 </body>
 
 </html>

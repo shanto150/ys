@@ -17,14 +17,18 @@ return new class extends Migration
             $table->id()->unsigned();
             $table->bigInteger('log_id')->unsigned();
             $table->date('invoice_month');
-            $table->string('invoice_item_id')->nullable();
-            $table->integer('quantity')->nullable();
-            $table->string('unit')->nullable();
+            $table->string('invoice_item_id');
+            $table->integer('quantity');
+            $table->string('unit');
+            $table->string('total_amount');
             $table->decimal('rate', 11, 2);
             $table->string('note')->nullable();
             $table->timestamps();
             $table->string('created_by');
+            $table->string('visi_id');
             $table->string('updated_by')->nullable();
+            $table->integer('sl');
+            $table->unique(['log_id', 'invoice_month','invoice_item_id']);
             $table->foreign('log_id')->references('id')->on('service_logs')->onDelete('cascade');
         });
     }

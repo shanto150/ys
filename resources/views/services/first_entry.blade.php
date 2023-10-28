@@ -457,8 +457,23 @@
                     name: 'complains'
                 },
                 {
-                    data: 'status',
-                    name: 'status'
+
+                    render: function(data, type, row) {
+                        var status = row.status;
+                        var pre_invoice_status = row.pre_invoice_status;
+                        if (pre_invoice_status == 'Yes') {
+                            var html = '';
+                            html += '<div>' + status +
+                                '<i class="fa fa-check" style="color: green; margin-left: 1px;"></i></div>';
+                            return html;
+                        } else {
+                            var html = '';
+                            html += '<div>' + status + '</div>';
+                            return html;
+                        }
+
+                    }
+
                 },
                 {
                     render: function(data, type, row) {
@@ -493,13 +508,14 @@
                             ',' + remarks + ',' + id + ')">';
                         html += '<i class="ri-arrow-up-line"></i> Edit</button>';
                         html +=
-                            '<button type="button" class="btn btn-sm btn-info m-1" style="width: 120px" onclick="callAddt(' +
+                            '<button type="button" class="btn btn-sm btn-info hvr-grow m-1" style="width: 120px" onclick="callAddt(' +
                             id + ')"><i class="ri-arrow-up-line"></i> + Technician</button>';
                         html +=
-                            '<button type="button" class="btn btn-sm btn-success m-1" style="width: 120px" onclick="CallPreInvoice(' +
-                            id + ')"><i class="ri-arrow-up-line"></i> Prepare Invoice</button>';
+                            '<button type="button" class="btn btn-sm btn-success hvr-grow m-1" style="width: 120px" onclick="CallPreInvoice(' +
+                            id + ',' + status + ',' + visi_id +
+                            ')"><i class="ri-arrow-up-line"></i> Prepare Invoice</button>';
                         html +=
-                            '<button type="button" class="btn btn-sm btn-danger m-1" style="width: 120px" onclick="del(' +
+                            '<button type="button" class="btn btn-sm btn-danger hvr-grow m-1" style="width: 120px" onclick="del(' +
                             id + ');"><i class="ri-arrow-up-line"></i> Delete</button>';
                         html += '</div>';
                         return html;
@@ -589,18 +605,23 @@
 
         function callAddt(callid) {
 
-            var url = '{{ route('serviceTechAddindex', ':id') }}';
-            url = url.replace(':id', callid);
+            // var url = '{{ route('serviceTechAddindex', ':id') }}';
+            // url = url.replace(':id', callid);
+            var url=route('serviceTechAddindex', { id: callid });
             window.location.href = url;
 
         }
 
-        function CallPreInvoice(callid) {
+        function CallPreInvoice(callid, status, visi_id) {
 
-            var url = '{{ route('goPreInvoice', ':id') }}';
-            url = url.replace(':id', callid);
-            window.location.href = url;
+            if (status == 'Closed') {
+                var url=route('goPreInvoice', { id: callid, visi_id: visi_id });
+                window.location.href = url;
+            } else {
+                message('Task Not Closed.', '#FF0000', 'white', 'error', 'Error');
+            }
 
         }
     </script>
+
 @endpush

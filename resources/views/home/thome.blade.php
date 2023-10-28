@@ -42,6 +42,10 @@
     {{-- floating levels --}}
     <link rel="stylesheet" href="{{ asset('/res/css/floating-labels.css') }}">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+
     <style>
         .select2-selection {
             height: 40px !important;
@@ -96,11 +100,12 @@
 
 <body>
 
-    <nav class="navbar navbar-light bg-danger justify-content-between">
-        <a class="navbar-brand">{{ Auth::user()->name }}</a>
-        <div class="form-inline">
+    <nav class="navbar navbar-light bg-danger">
+        <a class="btn btn-outline-dark btn-sm text-uppercase">{{ Auth::user()->name }}</a>
+        <form class="form-inline">
             <img src="{{ URL::asset('/res/images/appimages/lod1.gif') }}" alt="profile Pic" height="30" width="30" id="spinShowHide" />
-        </div>
+            <a class="btn btn-outline-dark btn-sm" href="{{ route('lout') }}" ><i class="fa-solid fa-person-running"></i> বন্ধ করুন</a>
+        </form>
       </nav>
 
       <div class="container-fluid">

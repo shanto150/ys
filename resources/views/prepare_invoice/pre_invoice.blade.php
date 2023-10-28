@@ -73,77 +73,101 @@
 @section('content')
     <div class="container-fluid">
 
-
-
         <div class="row">
-
-            <div class="col-md-5">
+            <div class="col-md-12">
                 <div class="card border border-01 border-info">
                     <div class="card-body">
                         <div class="row justify-content-center text-uppercase display-4 border-bottom mb-3">
                             <span class="badge badge-info mb-3 p-2">{{ $service_logs->status }}</span>
                         </div>
 
-                        <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #dd1933"
-                                    aria-hidden="true"></i></span>
-                            <span class="label">Outlet Code&nbsp;&nbsp;</span>
-                            <span class="data">{{ $service_logs->outlet_code }}</span>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="databox hvr-sweep-to-top">
+                                    <span class="icn"><i class="fa fa-chevron-right" style="color: #dd1933"
+                                            aria-hidden="true"></i></span>
+                                    <span class="label">Outlet Code&nbsp;&nbsp;</span>
+                                    <span class="data">{{ $service_logs->outlet_code }}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="databox hvr-sweep-to-top">
+                                    <span class="icn"><i class="fa fa-chevron-right" style="color: #09c723"
+                                            aria-hidden="true"></i></span>
+                                    <span class="label">Visi Id / Size&nbsp;&nbsp;</span>
+                                    <span
+                                        class="data">{{ $service_logs->visi_id . ' / ' . $service_logs->visi_size }}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="databox hvr-sweep-to-top">
+                                    <span class="icn"><i class="fa fa-chevron-right" style="color: #d904f5"
+                                            aria-hidden="true"></i></span>
+                                    <span class="label">Outlet Name</span>
+                                    <span class="data">{{ $service_logs->outlet_name }}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="databox hvr-sweep-to-top">
+                                    <span class="icn"><i class="fa fa-chevron-right" style="color: #f39406"
+                                            aria-hidden="true"></i></span>
+                                    <span class="label">Contacts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</span>
+                                    <span class="data">{{ $service_logs->outlet_mobile }} -
+                                        {{ $service_logs->person_mobile }}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #09c723"
-                                    aria-hidden="true"></i></span>
-                            <span class="label">Visi Id / Size&nbsp;&nbsp;</span>
-                            <span class="data">{{ $service_logs->visi_id . ' / ' . $service_logs->visi_size }}</span>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="databox hvr-sweep-to-top">
+                                    <span class="icn"><i class="fa fa-chevron-right" style="color: #37A3F0"
+                                            aria-hidden="true"></i></span>
+                                    <span class="label">Address&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</span>
+                                    <span class="data">{{ $service_logs->outlet_address }}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="databox hvr-sweep-to-top">
+                                    <span class="icn"><i class="fa fa-chevron-right" style="color: #06106e"
+                                            aria-hidden="true"></i></span>
+                                    <span class="label">Complains&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span class="data">{{ $service_logs->complains }}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #d904f5"
-                                    aria-hidden="true"></i></span>
-                            <span class="label">Outlet Name</span>
-                            <span class="data">{{ $service_logs->outlet_name }}</span>
-                        </div>
-                        <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #37A3F0"
-                                    aria-hidden="true"></i></span>
-                            <span class="label">Address&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</span>
-                            <span class="data">{{ $service_logs->outlet_address }}</span>
-                        </div>
-                        <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #f39406"
-                                    aria-hidden="true"></i></span>
-                            <span class="label">Contacts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</span>
-                            <span class="data">{{ $service_logs->outlet_mobile }} -
-                                {{ $service_logs->person_mobile }}</span>
-                        </div>
-                        <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #06106e"
-                                    aria-hidden="true"></i></span>
-                            <span class="label">Complains&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <span class="data">{{ $service_logs->complains }}</span>
-                        </div>
+
+
                     </div>
                 </div>
             </div>
-            <div class="col-md-7">
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
                 <div class="card border border-01 border-success">
                     <div class="card-header">
-                        <h3 class="card-title"><i class="fa fa-list-ul" aria-hidden="true"></i> Invoice Preparation</h3>
+                        <h3 class="card-title"><i class="fa fa-list-alt text-danger" aria-hidden="true"></i> Invoice Preparation</h3>
                     </div>
                     <div class="card-body m-0">
                         <form id="myform">
                             @csrf
 
+                            <input type="text" hidden id="log_id" name="log_id" value="{{ $log_id }}">
+                            <input type="text" hidden id="visi_id" name="visi_id" value="{{ $service_logs->visi_id }}">
+
                             <div class="row m-0">
                                 <div class="mb-1">
                                     <table id="inputTable">
                                         <thead>
-                                            <tr>
+                                            <tr class="text-center">
                                                 <th style="width: 5%">SN</th>
-                                                <th style="width: 15%">Invoice Date</th>
-                                                <th style="width: 35%">Item Name</th>
-                                                <th style="width: 20%">QtyUnit</th>
-                                                <th style="width: 15%">Rate</th>
-                                                <th style="width: 15%">Total</th>
+                                                <th style="width: 10%">Invoice Date</th>
+                                                <th style="width: 20%">Item Name</th>
+                                                <th style="width: 10%">QtyUnit</th>
+                                                <th style="width: 10%">Rate</th>
+                                                <th style="width: 10%">Total</th>
+                                                <th style="width: 35%">Note</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -163,32 +187,55 @@
                         </form>
                     </div>
                     <div class="card-footer">
-                        <button type="button" form="assignform" onclick="save();"
-                            class="btn btn-success float-right"><i class="fa fa-check" aria-hidden="true"></i>
+                        <button type="button" form="assignform" onclick="save();" class="btn btn-success float-right"><i
+                                class="fa fa-check" aria-hidden="true"></i>
                             Save</button>
                     </div>
                 </div>
-                <div class="table-wrapper">
-                    <table class="table table-sm fl-table table-striped" id="TechList" width="100%">
 
-                        <thead>
-                            <tr>
-                                <th>Sn#</th>
-                                <th>Technician</th>
-                                <th>Note</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                        </tbody>
-
-                    </table>
-                </div>
             </div>
+        </div>
 
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card border border-01 border-warning">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fa fa-recycle text-danger" aria-hidden="true"></i> Visi Parts History
+                        </h3>
+                    </div>
+                    <div class="card-body m-0">
+
+                        <div class="table-wrapper">
+                        <table class="table table-sm fl-table table-striped" id="3monthhistory" width="100%">
+                            <thead>
+                                <tr class="text-center">
+                                    <th style="width: 10%">Date</th>
+                                    <th style="width: 25%">Name</th>
+                                    <th style="width: 15%">Quantity</th>
+                                    <th style="width: 10%">Rate</th>
+                                    <th style="width: 40%">Note</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($last3monthvalue as $val)
+                                    <tr>
+                                        <td>{{ $val->inv_date }}</td>
+                                        <td>{{ $val->item_name }}</td>
+                                        <td>{{ $val->quantity }}</td>
+                                        <td>{{ $val->rate }}</td>
+                                        <td>{{ $val->note }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+
+                        </table>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
         </div>
 
     </div>
@@ -205,30 +252,44 @@
 
         });
 
+
+        function getClick(id) {
+            var unit = $(id).find(':selected').data('unit');
+            var price = $(id).find(':selected').data('price');
+            const cvb = $(id).attr('data-id')
+            $('#unitshow_' + cvb).html(unit);
+            $('#unit_' + cvb).val(unit);
+            $('#rate_' + cvb).val(price);
+        }
+
         function AutoTotal(params) {
-            var qty = $(params).closest('tr').find("td:eq(2) input").val();
-            var rate = $(params).closest('tr').find("td:eq(3) input").val();
-            $(params).closest('tr').find("td:eq(4) input").val(qty * rate);
+            var qty = $(params).closest('tr').find("td:eq(3) input").val();
+            var rate = $(params).closest('tr').find("td:eq(4) input").val();
+            $(params).closest('tr').find("td:eq(5) input").val(qty * rate);
         }
 
 
         function addField(argument) {
-            var ssl=+$('#inputTable tr:last').find('td:first').html();
-            var ssln=isNaN(ssl) ? 0 : ssl ;
-            var sl=(ssln+1);
+            var ssl = +$('#inputTable tr:last').find('td:first input').val();
+            var ssln = isNaN(ssl) ? 0 : ssl;
+            var sl = (ssln + 1);
             var html = '';
             html += '<tr>'
-            html += '<td>'+sl+'</td>'
+            html += '<td><input type="text" readonly value="' + sl + '" id="sl" name="sl[]" class="form-control "></td>'
             html += '<td><input type="date" id="invoice_month" name="invoice_month[]" class="form-control"></td>';
             html +=
-                    '<td><input type="text" value="' +sl +'" id="sl" hidden name="sl[]" class="form-control "></td>';
+                '<td><select class="form-control select2" name="invoice_item_id[]" form="myform" data-id=' + sl +
+                ' onchange=getClick(this); id="invoice_item_id_' + sl +
+                '" style="width: 100%;"> <option selected value="">=Select=</option>  @foreach ($Price_lists as $Price_list) <option value="{{ $Price_list->id }}" data-price="{{ $Price_list->price }}" data-unit="{{ $Price_list->unit }}"> {{ $Price_list->name }} </option> @endforeach</select></td>';
             html +=
-                '<td><select class="form-control select2" name="invoice_item_id[]" form="myform" id="invoice_item_id" style="width: 100%;"> <option selected value="">=Select=</option>  @foreach ($Price_lists as $Price_list) <option value="{{ $Price_list->id }}" data-unit="{{ $Price_list->unit }}"> {{ $Price_list->name }} </option> @endforeach</select></td>';
+                '<td><div class="input-group"> <input type="number" oninput="AutoTotal(this)" min="1" form="myform" name="quantity[]" id="quantity" class="form-control w-70" aria-label="Input group example" aria-describedby="btnGroupAddon2"> <div class="input-group-prepend"><div class="input-group-text w-30" id="unitshow_' +
+                sl + '" style="width: 45px">Unit</div><input type="text" id="unit_' + sl +
+                '" form="myform" name="unit[]" value="" hidden>  </div></div></td>';
             html +=
-                '<td><div class="input-group"> <input type="number" oninput="AutoTotal(this)" min="1" form="myform" name="quantity[]" id="quantity" class="form-control w-70" aria-label="Input group example" aria-describedby="btnGroupAddon2"> <div class="input-group-prepend"><div class="input-group-text w-30" id="unitshow">Unit</div><input type="text" id="unit" form="myform" name="unit[]" value="" hidden>  </div></div></td>';
-            html +=
-                '<td><input type="number" min="1" oninput="AutoTotal(this)" name="rate[]" class="form-control" id="JOB_TITLE"></td>';
+                '<td><input type="number" min="1" oninput="AutoTotal(this)" name="rate[]" class="form-control" id="rate_' +
+                sl + '"></td>';
             html += '<td><input type="number" min="1" name="total_amount[]" class="form-control" id="JOB_TITLE"></td>';
+            html += '<td><input type="text" name="note[]" class="form-control" id="note"></td>';
             html += '</tr>'
             $('#inputTable').append(html);
         }
@@ -243,12 +304,11 @@
             var arrays = @json($inv_items);
             var obj = jQuery.parseJSON(arrays);
             $.each(obj, function(key, value) {
-                var asl=key+1;
+                var asl = key + 1;
                 var html = '';
                 html += '<tr>'
-                html += '<td>'+asl+'</td>'
-                html +=
-                    '<td><input type="text" value="' +asl +'" id="sl" hidden name="sl[]" class="form-control "></td>';
+                html += '<td><input type="text" readonly value="' + asl +
+                    '" id="sl" name="sl[]" class="form-control "></td>'
                 html +=
                     '<td><input type="date" value="' + value.dt +
                     '" id="invoice_month" name="invoice_month[]" class="form-control "></td>';
@@ -259,13 +319,14 @@
                 html +=
                     '<td><div class="input-group"> <input type="number" min="1" oninput="AutoTotal(this)" value="' +
                     value.quantity +
-                    '" form="myform" name="quantity[]" id="quantity" class="form-control w-70" aria-label="Input group example" aria-describedby="btnGroupAddon2"> <div class="input-group-prepend"><div class="input-group-text w-30" id="unitshow">' +
+                    '" form="myform" name="quantity[]" id="quantity" class="form-control w-70" aria-label="Input group example" aria-describedby="btnGroupAddon2"> <div class="input-group-prepend"><div class="input-group-text w-30 text-center" style="width: 45px" id="unitshow">' +
                     value.unit + '</div><input type="text"  value="' + value.unit +
                     '" id="unit" form="myform" name="unit[]" value="" hidden>  </div></div></td>';
                 html += '<td><input type="number"  min="1" value="' + Math.ceil(value.price) +
                     '" name="rate[]" oninput="AutoTotal(this)" class="form-control" id="JOB_TITLE"></td>';
                 html += '<td><input type="number"  min="1" value="' + Math.ceil(value.total) +
                     '" name="total_amount[]" class="form-control" id="JOB_TITLE"></td>';
+                html += '<td><input type="text" name="note[]" class="form-control" id="note"></td>';
                 html += '</tr>'
                 $('#inputTable').append(html);
 
@@ -308,11 +369,9 @@
                     data: formData,
                     success: function(res) {
                         if (res.types == 'e') {
-                            message(res.messege, '#FF0000', 'white', 'error', 'error');
+                            message(res.messege, '#FF0000', 'white', 'error', 'Error');
                         } else {
                             message(res.messege, '#29912b', 'white', 'error', 'Success');
-                            document.getElementById('myform').reset();
-                            // $('#TechList').DataTable().ajax.reload();
                         }
                     }
                 });

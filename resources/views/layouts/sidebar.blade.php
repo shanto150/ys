@@ -70,6 +70,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('gofinalInvoiceIndex') }}" class="nav-link">
+                                <i class="nav-icon fa fa-address-card"></i>
+                                <p>
+                                    Final Invoice
+                                </p>
+                            </a>
+                        </li>
 
                         {{-- <li class="nav-item">
                             <a href="{{ route('contact-index') }}" class="nav-link">
@@ -81,7 +89,7 @@
                         </li> --}}
                     </ul>
                 </li>
-                
+
 
                 <li class="nav-header">LOGOUT</li>
                 <li class="nav-item">

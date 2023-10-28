@@ -61,7 +61,7 @@ class technician_feedback extends Controller
 
                 technician_item::where('id', $rowId)->update(
                     [
-                        'to_user' => $request->assigned_to,
+                        'to_user' => $request->to_user,
                         'invoice_item_id' => $request->invoice_item_id,
                         'note' => $request->note,
                         'quantity' => $request->quantity,
@@ -76,7 +76,7 @@ class technician_feedback extends Controller
             } else {
                 technician_item::where('id', $rowId)->update(
                     [
-                        'to_user' => $request->assigned_to,
+                        'to_user' => $request->to_user,
                         'invoice_item_id' => $request->invoice_item_id,
                         'note' => $request->note,
                         'quantity' => $request->quantity,
@@ -118,8 +118,9 @@ class technician_feedback extends Controller
     {
         $data = technician_item::where('log_id', $request->log_id)
         ->where('from_user', Auth::user()->machine_id)
-        ->selectRaw('concat(Quantity," ",unit," ",f_invoice_item_name(invoice_item_id)," ",f_req_type_bn(request_type)) as item,log_id,id,request_type,invoice_item_id,quantity,unit,note')
+        ->selectRaw('concat(Quantity," ",unit," ",f_invoice_item_name(invoice_item_id)," ",f_req_type_bn(request_type)) as item,log_id,id,request_type,invoice_item_id,quantity,unit,note,to_user')
         ->get();
+
 
         return DataTables::of($data)
             ->addIndexColumn()

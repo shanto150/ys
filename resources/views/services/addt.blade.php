@@ -191,8 +191,7 @@
                         <button type="button" form="assignform" onclick="FromsCheck();"
                             class="btn btn-success float-right"><i class="fa fa-check" aria-hidden="true"></i>
                             Save</button>
-                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn bg-info"><i
-                                class="fa fa-plus" aria-hidden="true"></i> New</button>
+                        
                     </div>
                 </div>
                 <div class="table-wrapper">

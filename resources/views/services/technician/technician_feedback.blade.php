@@ -8,11 +8,10 @@
     <title>Home</title>
 
     <link rel="icon" href="{{ url('/res/images/appimages/mainlogo.png') }}">
-    <link
-        rel="stylesheet"href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
     <link rel="stylesheet" href="{{ asset('/res/plugins/fontawesome-free/css/all.min.css') }}">
-    <link rel="stylesheet"href="{{ asset('/res/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/res/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/res/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/res/plugins/daterangepicker/daterangepicker.css') }}">
 
@@ -29,18 +28,23 @@
     <link rel="stylesheet" href="{{ asset('/res/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}" />
 
     <!-- Animation $ Icons -->
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="{{ asset('/res/css/switcher.css') }}">
     <link rel="stylesheet" href="{{ asset('/res/css/anim.css') }}">
     <link rel="stylesheet" href="{{ asset('/res/css/hover-min.css') }}">
 
     {{-- Direct Print --}}
-    <link rel="stylesheet"href="https://printjs-4de6.kxcdn.com/print.min.css" />
+    <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css" />
 
     {{-- Crop Image --}}
     <link rel="stylesheet" href="{{ asset('/res/css/croppie.css') }}">
     {{-- floating levels --}}
     <link rel="stylesheet" href="{{ asset('/res/css/floating-labels.css') }}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+
     <style>
         .select2-selection {
             height: 40px !important;
@@ -165,13 +169,15 @@
 
 <body>
 
-    <nav class="navbar navbar-light bg-danger justify-content-between">
-        <a class="navbar-brand">{{ Auth::user()->name }}</a>
-        <div class="form-inline">
-            <img src="{{ URL::asset('/res/images/appimages/lod1.gif') }}" alt="profile Pic" height="30"
-                width="30" id="spinShowHide" />
-        </div>
-    </nav>
+    
+    <nav class="navbar navbar-light bg-danger">
+        <a class="btn btn-outline-dark btn-sm text-uppercase">{{ Auth::user()->name }}</a>
+        <form class="form-inline">
+            <img src="{{ URL::asset('/res/images/appimages/lod1.gif') }}" alt="profile Pic" height="30" width="30" id="spinShowHide" />
+            <a class="btn btn-outline-dark btn-sm" href="{{ route('lout') }}" ><i class="fa-solid fa-person-running"></i> বন্ধ করুন</a>
+        </form>
+      </nav>
+
 
     <div class="container-fluid">
 
@@ -202,13 +208,13 @@
 
                                 <tbody>
                                     @foreach ($techDatas as $index => $data)
-                                        <tr>
-                                            <td>{{ $index + 1 }}</td>
-                                            <td>{{ $data->note }}</td>
-                                            <td class="d-none">{{ $data->from_user }}</td>
-                                            <td class="d-none">{{ $data->id }}</td>
-                                            <td class="d-none">{{ $data->log_id }}</td>
-                                        </tr>
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $data->note }}</td>
+                                        <td class="d-none">{{ $data->from_user }}</td>
+                                        <td class="d-none">{{ $data->id }}</td>
+                                        <td class="d-none">{{ $data->log_id }}</td>
+                                    </tr>
                                     @endforeach
                                 </tbody>
 
@@ -234,38 +240,32 @@
 
                     <div class="card-body">
                         <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #dd1933"
-                                    aria-hidden="true"></i></span>
+                            <span class="icn"><i class="fa fa-chevron-right" style="color: #dd1933" aria-hidden="true"></i></span>
                             <span class="label">আউটলেট কোড&nbsp;&nbsp;</span>
                             <span class="data" id="outlet_code"></span>
                         </div>
                         <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #09c723"
-                                    aria-hidden="true"></i></span>
+                            <span class="icn"><i class="fa fa-chevron-right" style="color: #09c723" aria-hidden="true"></i></span>
                             <span class="label">ভিসি আইডি/সাইজ&nbsp;&nbsp;</span>
                             <span class="data" id="visi_id"></span>
                         </div>
                         <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #d904f5"
-                                    aria-hidden="true"></i></span>
+                            <span class="icn"><i class="fa fa-chevron-right" style="color: #d904f5" aria-hidden="true"></i></span>
                             <span class="label">আউটলেট নাম</span>
                             <span class="data" id="outlet_name"></span>
                         </div>
                         <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #37A3F0"
-                                    aria-hidden="true"></i></span>
+                            <span class="icn"><i class="fa fa-chevron-right" style="color: #37A3F0" aria-hidden="true"></i></span>
                             <span class="label">ঠিকানা&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</span>
                             <span class="data" id="outlet_address"></span>
                         </div>
                         <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #f39406"
-                                    aria-hidden="true"></i></span>
+                            <span class="icn"><i class="fa fa-chevron-right" style="color: #f39406" aria-hidden="true"></i></span>
                             <span class="label">মোবাইল&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</span>
                             <span class="data" id="conta"></span>
                         </div>
                         <div class="databox hvr-sweep-to-top">
-                            <span class="icn"><i class="fa fa-chevron-right" style="color: #06106e"
-                                    aria-hidden="true"></i></span>
+                            <span class="icn"><i class="fa fa-chevron-right" style="color: #06106e" aria-hidden="true"></i></span>
                             <span class="label">Complains&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             <span class="data" id="probs"></span>
                         </div>
@@ -296,13 +296,11 @@
                             <input type="text" hidden name="id" id="id" value="" form="myform" placeholder="id">
                             <input type="text" hidden name="to_user" id="to_user" value="" form="myform" placeholder="to_user">
                             <input type="text" hidden name="add_techni_id_fk" id="add_techni_id_fk" value="" form="myform" placeholder="fk">
-                            <input type="text" hidden name="from_user" form="myform" id="from_user"
-                                value="{{ Auth::user()->machine_id }}">
+                            <input type="text" hidden name="from_user" form="myform" id="from_user" value="{{ Auth::user()->machine_id }}">
 
                             <div class="col-md-12">
                                 <div class="form-label-group in-border">
-                                    <select id="request_type" name="request_type" form="myform"
-                                        class="form-control">
+                                    <select id="request_type" name="request_type" form="myform" class="form-control">
                                         <option value="">=নির্বাচন করুন=</option>
                                         <option value="Install">যন্ত্র লাগিয়েছি</option>
                                         <option value="Require">যন্ত্র লাগবে</option>
@@ -316,13 +314,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-label-group in-border">
-                                            <select class="form-control select2" name="invoice_item_id"
-                                                form="myform" id="invoice_item_id" style="width: 100%;">
+                                            <select class="form-control select2" name="invoice_item_id" form="myform" id="invoice_item_id" style="width: 100%;">
                                                 <option selected value="">=নির্বাচন করুন=</option>
                                                 @foreach ($Price_lists as $Price_list)
-                                                    <option value="{{ $Price_list->id }}"
-                                                        data-unit="{{ $Price_list->unit }}">{{ $Price_list->name }}
-                                                    </option>
+                                                <option value="{{ $Price_list->id }}" data-unit="{{ $Price_list->unit }}">{{ $Price_list->name }}
+                                                </option>
                                                 @endforeach
                                             </select>
 
@@ -332,13 +328,10 @@
                                     <div class="col-md-6">
 
                                         <div class="input-group">
-                                            <input type="number" min="1" form="myform" name="quantity"
-                                                id="quantity" class="form-control w-60" placeholder="পিস/সেট/ফুট"
-                                                aria-label="Input group example" aria-describedby="btnGroupAddon2">
+                                            <input type="number" min="1" form="myform" name="quantity" id="quantity" class="form-control w-60" placeholder="পিস/সেট/ফুট" aria-label="Input group example" aria-describedby="btnGroupAddon2">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text w-40" id="unitshow">Unit</div>
-                                                <input type="text" id="unit" form="myform" name="unit"
-                                                    value="" hidden>
+                                                <input type="text" id="unit" form="myform" name="unit" value="" hidden>
                                             </div>
                                         </div>
                                     </div>
@@ -348,8 +341,7 @@
 
                             <div class="col-md-12 mt-3">
                                 <div class="form-label-group in-border">
-                                    <textarea id="note" name="note" form="myform" style="text-transform:capitalize" class="form-control"
-                                        cols="4" placeholder="" rows="3"></textarea>
+                                    <textarea id="note" name="note" form="myform" style="text-transform:capitalize" class="form-control" cols="4" placeholder="" rows="3"></textarea>
                                     <label for="note">আপনার মন্তব্য লিখুন</label>
                                 </div>
                             </div>
@@ -362,8 +354,7 @@
                         </div>
 
                         <div class="card-footer text-right">
-                            <button class="btn btn-primary" onclick="FromsCheck()" type="button"><i
-                                    class="fa fa-check-square" aria-hidden="true"></i> Save</button>
+                            <button class="btn btn-primary" onclick="FromsCheck()" type="button"><i class="fa fa-check-square" aria-hidden="true"></i> Save</button>
                         </div>
                     </div>
                 </form>
@@ -529,7 +520,6 @@
             return true;
         }
 
-
         function getLogdetails(slog_id) {
 
             $.ajax({
@@ -556,7 +546,7 @@
                     'slog_id': slog_id
                 },
                 success: function(res) {
-
+                    $('#spinShowHide').hide();
                     $('#outlet_code').html(res.suggestion[0].outlet_code);
                     $('#visi_id').html(res.suggestion[0].visi_id + '/' + res.suggestion[0].visi_size);
                     $('#outlet_name').html(res.suggestion[0].outlet_name);
@@ -588,7 +578,8 @@
             });
 
 
-        function save() {
+        
+            function save() {
 
             var allInputs = $("#myform").serialize();
             var formData = new FormData(myform);
@@ -681,12 +672,12 @@
                             var quantity = "'" + row.quantity + "'";
                             var unit = "'" + row.unit + "'";
                             var note = "'" + row.note + "'";
+                            var to_user = "'" + row.to_user + "'";
 
                             var html = '';
                             html += '<button type="button" onclick="edit_model(' + log_id + ',' + id +
                                 ',' + request_type + ',' + invoice_item_id + ',' + quantity + ',' + unit +
-                                ',' + note +
-                                ');" class="btn btn-sm btn-outline-success mr-1"><i class="fa fa-pen"></i></button>';
+                                ',' + note +','+to_user+');" class="btn btn-sm btn-outline-success mr-1"><i class="fa fa-pen"></i></button>';
                             return html;
                         }
                     },
@@ -694,9 +685,7 @@
             });
         }
 
-
-
-        function edit_model(log_id, id, request_type, invoice_item_id, quantity, unit, note) {
+        function edit_model(log_id, id, request_type, invoice_item_id, quantity, unit, note,to_user) {
 
             document.getElementById("log_id").value = (log_id == "null" ? "" : log_id);
             document.getElementById("id").value = (id == "null" ? "" : id);
@@ -705,12 +694,13 @@
             document.getElementById("quantity").value = (quantity == "null" ? "" : quantity);
             document.getElementById("unit").value = (unit == "null" ? "" : unit);
             document.getElementById("note").value = (note == "null" ? "" : note);
+            document.getElementById("to_user").value = (to_user == "null" ? "" : to_user);
             firstValue = $("#myform").serialize();
+
         }
 
     </script>
-    {{-- mes,bgcolor,textcolor,icn,head --}}
-    <script>
+        <script>
         @if (!empty($errors->all()))
             @foreach ($errors->all() as $eerror)
                 message("{{ $eerror }}", '#FF0000', 'white', 'error', 'Error');
@@ -730,8 +720,6 @@
             }
         @endif
     </script>
-
-    @stack('script')
 </body>
 
 </html>
