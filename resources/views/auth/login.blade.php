@@ -44,7 +44,7 @@
                                 <img src="{{ url('/res/images/appimages/mainlogo.png') }}" height="200" width="200"
                                     class="rounded-circle mx-auto d-block" alt="..." style="border: solid white; border-width: 5px">
                                 <h2>Welcome HRW</h2>
-                                <a href="#" class="btn btn-outline-warning">SignUp</a>
+                                <a href="{{ route('register') }}" class="btn btn-outline-warning">SignUp</a>
                             </div>
                         </div>
 
