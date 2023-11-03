@@ -26,8 +26,103 @@
 @endpush
 @section('content')
     <div class="container-fluid">
+
+        <div class="card card-none">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fa-solid fa-bolt text-danger"></i> Filters</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="card card-body h-100 justify-content-center align-items-center">
+                            <div class="input-group form-label-group in-border" id="range_id">
+                                <input type="text" value="" class="form-control daterange" id="daterangea">
+                                <label for="daterange">Date Range</label>
+                                <div class="input-group-append">
+                                    <div class="input-group-text" id="rangeButton"><i class="fa fa-calendar"
+                                            style="color:blue"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-md-2" onclick="ClickALL()">
+                                <div class="counter brown">
+                                    <span class="counter-value" id="all">1</span>
+                                    <h3>ALL</h3>
+                                    <div class="counter-icon">
+                                        <i class="fa-brands fa-amilia"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2" onclick="ClickRec()">
+                                <div class="counter yellow">
+                                    <span class="counter-value" id="Recived" >1</span>
+                                    <h3>Recived</h3>
+                                    <div class="counter-icon">
+                                        <i class="fa-solid fa-handshake"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2"  onclick="ClickAssigned()">
+                                <div class="counter">
+                                    <span class="counter-value" id="Assigned">1</span>
+                                    <h3>Assigned</h3>
+                                    <div class="counter-icon">
+                                        <i class="fa-solid fa-thumbtack"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2"  onclick="ClickHold()">
+                                <div class="counter magenta">
+                                    <span class="counter-value" id="Hold">1</span>
+                                    <h3>Hold</h3>
+                                    <div class="counter-icon">
+                                        <i class="fa-solid fa-hand"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2"  onclick="ClickVoid()">
+                                <div class="counter red">
+                                    <span class="counter-value" id="Void">1</span>
+                                    <h3>Void</h3>
+                                    <div class="counter-icon">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2"  onclick="ClickClosed()">
+                                <div class="counter green">
+                                    <span class="counter-value" id="Closed">1</span>
+                                    <h3>Closed</h3>
+                                    <div class="counter-icon">
+                                        <i class="fa-solid fa-circle-check"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
         {{-- model --}}
-        <div class="modal zoomer" tabindex="-1" id="myModal" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+        <div class="modal zoomer" tabindex="-1" id="myModal" data-backdrop="static" data-keyboard="false"
+            aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <form id="myform" enctype="multipart/form-data">
@@ -86,8 +181,8 @@
                                 <div class="col-md-4">
                                     <div class="form-label-group in-border">
                                         <input type="text" id="outlet_name" name="outlet_name"
-                                            style="text-transform:capitalize" class="form-control" placeholder="Outlet Name"
-                                            autocomplete="off">
+                                            style="text-transform:capitalize" class="form-control"
+                                            placeholder="Outlet Name" autocomplete="off">
                                         <label for="outlet_name">Outlet Name</label>
                                     </div>
                                 </div>
@@ -236,20 +331,19 @@
             <div class="card-header ">
                 <h3 class="card-title"><i class="fa fa-cogs text-danger" aria-hidden="true"></i> &nbsp; Service List</h3>
                 <div class="card-tools">
-                    <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-sm bg-gradient-danger"><i
-                            class="fa fa-plus" aria-hidden="true"></i> New</button>
+                    <button type="button" data-toggle="modal" data-target="#myModal"
+                        class="btn btn-sm bg-gradient-danger"><i class="fa fa-plus" aria-hidden="true"></i> New</button>
                 </div>
             </div>
             <div class="card-body">
                 <table class="table table-bordered table-hover table-striped" id="EntryTable" width="100%">
-
                     <thead>
                         <tr>
                             <th class="text-center">Sn#</th>
                             <th class="text-center">Name</th>
-                            <th class="text-center">Visi Info</th>
-                            <th class="text-center">Mobile</th>
-                            <th class="text-center">complains</th>
+                            <th class="text-center">Visi+Address</th>
+                            <th class="text-center">Dates</th>
+                            <th class="text-center">Complains</th>
                             <th class="text-center">Status</th>
                             <th class="text-center">Actions</th>
                         </tr>
@@ -269,9 +363,17 @@
     <script>
         $('#spinShowHide').hide();
         $(document).ready(function() {
-            $('.select2').select2();
+
+            dTable('', '');
+
         });
         $('#modelSpinner').hide();
+
+        var allval = '';
+        var datevalue = '';
+
+
+
         // $("#outlet_mobile").inputmask("99999-999-999");
 
         var firstValue = $("#myform").serialize();
@@ -415,113 +517,220 @@
             firstValue = $("#myform").serialize();
         }
 
-        aTable = $('#EntryTable').DataTable({
+        function dTable(dateRange, Status) {
+            $('#EntryTable').DataTable({
 
-            processing: false,
-            serverSide: false,
-            ajax: "{{ route('get-log-data') }}",
-            columns: [{
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                },
-                {
-                    render: function(data, type, row) {
-                        var outlet_code = row.outlet_code;
-                        var outlet_name = row.outlet_name;
-                        var html = '';
-                        html += '<div>' + outlet_code + '-' + outlet_name + '</div>';
-                        return html;
-                    }
-                },
-                {
-                    render: function(data, type, row) {
-                        var visi_id = row.visi_id;
-                        var visi_size = row.visi_size;
-                        var html = '';
-                        html += '<div> Visi id : ' + visi_id + ' Size : ' + visi_size + '</div>';
-                        return html;
-                    }
-                },
-                {
-                    render: function(data, type, row) {
-                        var outlet_mobile = row.outlet_mobile;
-                        var person_mobile = row.person_mobile;
-                        var html = '';
-                        html += '<div>' + outlet_mobile + '-' + person_mobile + '</div>';
-                        return html;
-                    }
-                },
-                {
-                    data: 'complains',
-                    name: 'complains'
-                },
-                {
+                processing: false,
+                serverSide: false,
+                bDestroy: true,
+                initComplete: function(settings, json) {
 
-                    render: function(data, type, row) {
-                        var status = row.status;
-                        var pre_invoice_status = row.pre_invoice_status;
-                        if (pre_invoice_status == 'Yes') {
+                    var sum = $('#EntryTable').DataTable().column(0).data().count();
+                    $('#all').html(sum);
+                    
+                    var table = $('#EntryTable').DataTable();
+                    
+                    var cReceived = table.rows(function(idx, data, node) {
+                        return data.status =='Received';
+                    }).count();
+
+                    var cAssigned = table.rows(function(idx, data, node) {
+                        return data.status =='Assigned';
+                    }).count();
+
+                    var cHold = table.rows(function(idx, data, node) {
+                        return data.status =='Hold';
+                    }).count();
+                    
+                    var cVoid = table.rows(function(idx, data, node) {
+                        return data.status =='Void';
+                    }).count();
+                    
+                    var cClosed = table.rows(function(idx, data, node) {
+                        return data.status =='Closed';
+                    }).count();
+                    
+                    $('#Recived').html(cReceived);
+                    $('#Assigned').html(cAssigned);
+                    $('#Hold').html(cHold);
+                    $('#Void').html(cVoid);
+                    $('#Closed').html(cClosed);
+                    
+                    $('.counter-value').each(function() {
+                        $(this).prop('Counter', 0).animate({
+                            Counter: $(this).text()
+                        }, {
+                            duration: 1000,
+                            easing: 'swing',
+                            step: function(now) {
+                                $(this).text(Math.ceil(now));
+                            }
+                        });
+                    });
+                },
+                ajax: {
+                    url: "{{ route('get-log-data') }}",
+                    data: {
+                        dateRange: dateRange,
+                        Status: Status,
+                    }
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        render: function(data, type, row) {
+                            var ttl = row.ttl;
+                            var outlet_code = row.outlet_code;
+                            var outlet_name = row.outlet_name;
+                            var outlet_mobile = row.outlet_mobile;
+                            var person_mobile = row.person_mobile;
                             var html = '';
-                            html += '<div>' + status +
-                                '<i class="fa fa-check" style="color: green; margin-left: 1px;"></i></div>';
-                            return html;
-                        } else {
-                            var html = '';
-                            html += '<div>' + status + '</div>';
+                            html += '<div>' + outlet_code + '-' + outlet_name + '</div>';
+                            html += '<div>' + outlet_mobile + '-' + person_mobile + '</div>';
                             return html;
                         }
+                    },
+                    {
+                        render: function(data, type, row) {
+                            var visi_id = row.visi_id;
+                            var visi_size = row.visi_size;
+                            var outlet_address = row.outlet_address;
+                            var html = '';
+                            html += '<div> Visi id : ' + visi_id + ' Size : ' + visi_size + '</div>';
+                            html += '<div>' + outlet_address + '</div>';
+                            return html;
+                        }
+                    },
+                    {
+                        render: function(data, type, row) {
+                            var log_date = moment(row.log_date).format('DD-MMM-YYYY');
+                            var first_response_date = row.first_response_date ? moment(row
+                                    .first_response_date)
+                                .format('DD-MMM-YYYY') : 'Not Found';
+                            var html = '';
+                            html += '<div> Call : ' + log_date + '</div>';
+                            html += '<div> FR : ' + first_response_date + '</div>';
+                            return html;
+                        }
+                    },
+                    {
+                        data: 'complains',
+                        name: 'complains'
+                    },
+                    {
 
-                    }
+                        render: function(data, type, row) {
+                            var status = row.status;
+                            var pre_invoice_status = row.pre_invoice_status;
+                            if (pre_invoice_status == 'Yes') {
+                                var html = '';
 
-                },
-                {
-                    render: function(data, type, row) {
+                                if (status == 'Received') {
+                                    html += '<div><span class="badge badge-pill badge-warning">' + status +
+                                        '</span></div>';
+                                    return html;
+                                } else if (status == 'Assigned') {
+                                    html += '<div><span class="badge badge-pill badge-info">' + status +
+                                        '</span></div>';
+                                    return html;
+                                } else if (status == 'Hold') {
+                                    html += '<div><span class="badge badge-pill badge-muted">' + status +
+                                        '</span></div>';
+                                    return html;
+                                } else if (status == 'Void') {
+                                    html += '<div><span class="badge badge-pill badge-muted">' + status +
+                                        '</span></div>';
+                                    return html;
+                                } else {
+                                    html += '<div><span class="badge badge-pill badge-success">' + status +
+                                        '</span><i class="fa fa-check" style="color: green; margin-left: 1px;"></i></div>';
+                                    return html;
+                                }
 
-                        var status = "'" + row.status + "'";
-                        var outlet_code = "'" + row.outlet_code + "'";
-                        var outlet_name = "'" + row.outlet_name + "'";
-                        var outlet_mobile = "'" + row.outlet_mobile + "'";
-                        var person_mobile = "'" + row.person_mobile + "'";
-                        var outlet_address = "'" + row.outlet_address + "'";
-                        var visi_id = "'" + row.visi_id + "'";
-                        var visi_size = "'" + row.visi_size + "'";
-                        var db_name = "'" + row.db_name + "'";
-                        var se_area = "'" + row.se_area + "'";
-                        var asm_area = "'" + row.asm_area + "'";
-                        var complains = "'" + row.complains + "'";
-                        var log_date = "'" + row.log_date + "'";
-                        var first_response_date = "'" + row.first_response_date + "'";
-                        var brand = "'" + row.brand + "'";
-                        var remarks = "'" + row.remarks + "'";
-                        var id = "'" + row.id + "'";
+                            } else {
+                                var html = '';
+                                if (status == 'Received') {
+                                    html += '<div><span class="badge badge-pill badge-warning">' + status +
+                                        '</span></div>';
+                                    return html;
+                                } else if (status == 'Assigned') {
+                                    html += '<div><span class="badge badge-pill badge-info">' + status +
+                                        '</span></div>';
+                                    return html;
+                                } else if (status == 'Hold') {
+                                    html += '<div><span class="badge badge-pill badge-muted">' + status +
+                                        '</span></div>';
+                                    return html;
+                                } else if (status == 'Void') {
+                                    html += '<div><span class="badge badge-pill badge-muted">' + status +
+                                        '</span></div>';
+                                    return html;
+                                } else {
+                                    html += '<div><span class="badge badge-pill badge-success">' + status +
+                                        '</span></div>';
+                                    return html;
+                                }
 
-                        var html = '';
-                        html += '<div class="row justify-content-center align-items-center">';
-                        html +=
-                            '<button type="button" class="btn btn-sm btn-primary hvr-grow m-1" style="width: 120px" onclick="edit_model(' +
-                            status + ',' + outlet_code + ',' + outlet_name +
-                            ',' + outlet_mobile + ',' + person_mobile + ',' + outlet_address + ',' +
-                            visi_id + ',' + visi_size + ',' + db_name + ',' + se_area + ',' + asm_area +
-                            ',' + complains +
-                            ',' + log_date + ',' + first_response_date + ',' + brand +
-                            ',' + remarks + ',' + id + ')">';
-                        html += '<i class="ri-arrow-up-line"></i> Edit</button>';
-                        html +=
-                            '<button type="button" class="btn btn-sm btn-info hvr-grow m-1" style="width: 120px" onclick="callAddt(' +
-                            id + ')"><i class="ri-arrow-up-line"></i> + Technician</button>';
-                        html +=
-                            '<button type="button" class="btn btn-sm btn-success hvr-grow m-1" style="width: 120px" onclick="CallPreInvoice(' +
-                            id + ',' + status + ',' + visi_id +
-                            ')"><i class="ri-arrow-up-line"></i> Prepare Invoice</button>';
-                        html +=
-                            '<button type="button" class="btn btn-sm btn-danger hvr-grow m-1" style="width: 120px" onclick="del(' +
-                            id + ');"><i class="ri-arrow-up-line"></i> Delete</button>';
-                        html += '</div>';
-                        return html;
-                    }
-                },
-            ]
-        });
+
+                            }
+
+                        }
+
+                    },
+                    {
+                        render: function(data, type, row) {
+
+                            var status = "'" + row.status + "'";
+                            var outlet_code = "'" + row.outlet_code + "'";
+                            var outlet_name = "'" + row.outlet_name + "'";
+                            var outlet_mobile = "'" + row.outlet_mobile + "'";
+                            var person_mobile = "'" + row.person_mobile + "'";
+                            var outlet_address = "'" + row.outlet_address + "'";
+                            var visi_id = "'" + row.visi_id + "'";
+                            var visi_size = "'" + row.visi_size + "'";
+                            var db_name = "'" + row.db_name + "'";
+                            var se_area = "'" + row.se_area + "'";
+                            var asm_area = "'" + row.asm_area + "'";
+                            var complains = "'" + row.complains + "'";
+                            var log_date = "'" + row.log_date + "'";
+                            var first_response_date = "'" + row.first_response_date + "'";
+                            var brand = "'" + row.brand + "'";
+                            var remarks = "'" + row.remarks + "'";
+                            var id = "'" + row.id + "'";
+
+                            var html = '';
+                            html += '<div class="row justify-content-center align-items-center">';
+                            html +=
+                                '<button type="button" class="btn btn-sm btn-primary hvr-grow m-1" style="width: 80px" onclick="edit_model(' +
+                                status + ',' + outlet_code + ',' + outlet_name +
+                                ',' + outlet_mobile + ',' + person_mobile + ',' + outlet_address + ',' +
+                                visi_id + ',' + visi_size + ',' + db_name + ',' + se_area + ',' + asm_area +
+                                ',' + complains +
+                                ',' + log_date + ',' + first_response_date + ',' + brand +
+                                ',' + remarks + ',' + id + ')">';
+                            html += '<i class="ri-arrow-up-line"></i> Edit</button>';
+                            html +=
+                                '<button type="button" class="btn btn-sm btn-info hvr-grow m-1" style="width: 80px" onclick="callAddt(' +
+                                id + ')"><i class="ri-arrow-up-line"></i> + Tech</button>';
+                            html += '</div>';
+
+                            html += '<div class="row justify-content-center align-items-center">';
+                            html +=
+                                '<button type="button" class="btn btn-sm btn-success hvr-grow m-1" style="width: 80px" onclick="CallPreInvoice(' +
+                                id + ',' + status + ',' + visi_id +
+                                ')"><i class="ri-arrow-up-line"></i> Pre-Inv</button>';
+                            html +=
+                                '<button type="button" class="btn btn-sm btn-danger hvr-grow m-1" style="width: 80px" onclick="del(' +
+                                id + ');"><i class="ri-arrow-up-line"></i> Del</button>';
+                            html += '</div>';
+                            return html;
+                        }
+                    },
+                ]
+            });
+        }
 
         getOutletCode();
 
@@ -588,7 +797,7 @@
                     'outlet_code': outletCode
                 },
                 success: function(res) {
-                    console.log(res.suggestion[0].outlet_name);
+                    // console.log(res.suggestion[0].outlet_name);
                     $('#outlet_name').val(res.suggestion[0].outlet_name);
                     $('#outlet_mobile').val(res.suggestion[0].outlet_mobile);
                     $('#person_mobile').val(res.suggestion[0].person_mobile);
@@ -606,7 +815,9 @@
 
             // var url = '{{ route('serviceTechAddindex', ':id') }}';
             // url = url.replace(':id', callid);
-            var url=route('serviceTechAddindex', { id: callid });
+            var url = route('serviceTechAddindex', {
+                id: callid
+            });
             window.location.href = url;
 
         }
@@ -614,13 +825,75 @@
         function CallPreInvoice(callid, status, visi_id) {
 
             if (status == 'Closed') {
-                var url=route('goPreInvoice', { id: callid, visi_id: visi_id });
+                var url = route('goPreInvoice', {
+                    id: callid,
+                    visi_id: visi_id
+                });
                 window.location.href = url;
             } else {
                 message('Task Not Closed.', '#FF0000', 'white', 'error', 'Error');
             }
 
         }
-    </script>
 
+        //Date range picker
+        $('#daterangea').daterangepicker({
+            autoApply: true,
+            showDropdowns: true,
+            autoUpdateInput: false,
+            "locale": {
+                "format": "DD-MMM-YYYY",
+            }
+        });
+
+
+        $('#daterangea').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('DD-MMM-YYYY') + '~' + picker.endDate.format('DD-MMM-YYYY'));
+            console.log(picker.startDate.format('YYYY-MM-DD'));
+            console.log(picker.endDate.format('YYYY-MM-DD'));
+            var dr = picker.startDate.format('YYYY-MM-DD') + ',' + picker.endDate.format('YYYY-MM-DD');
+            datevalue = dr;
+            dTable(dr, allval);
+        });
+
+        $('#daterangea').on('hide.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('DD-MMM-YYYY') + '~' + picker.endDate.format('DD-MMM-YYYY'));
+        });
+
+        $('#rangeButton').on('click', function() {
+            $('input[id="daterangea"]').trigger('click');
+        });
+
+        function ClickALL() {
+            $('#daterangea').val('');
+            datevalue = '';
+            dTable('', '');
+            allval = '';
+        }
+
+        function ClickRec() {
+            dTable(datevalue, 'Received');
+            allval = 'Received';
+        }
+
+        function ClickAssigned() {
+            dTable(datevalue, 'Assigned');
+            allval = 'Assigned';
+        }
+
+        function ClickHold() {
+            dTable(datevalue, 'Hold');
+            allval = 'Hold';
+        }
+
+        function ClickVoid() {
+            dTable(datevalue, 'Void');
+            allval = 'Void';
+        }
+
+        function ClickClosed() {
+            dTable(datevalue, 'Closed');
+            allval = 'Closed';
+        }
+    </script>
 @endpush

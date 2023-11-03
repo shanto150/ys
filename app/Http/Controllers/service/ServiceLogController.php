@@ -15,6 +15,7 @@ class ServiceLogController extends Controller
 {
     public function FirstCall()
     {
+        
         return view('services.first_entry');
     }
 
@@ -70,13 +71,24 @@ class ServiceLogController extends Controller
 
     public function getData(Request $request)
     {
-        if ($request->ajax()) {
-            $data = service_log::latest()->get();
+        // dd($request->all());
 
-            return DataTables::of($data)
-                ->addIndexColumn()
-                ->make(true);
+        $dates=explode(',',$request->dateRange);
+
+        $data = DB::table('service_logs')->selectRaw('*')->orderByDesc('id');
+
+        if ($request->Status) {
+            $data->where('status', $request->Status);
         }
+        if ($request->dateRange) {
+            $data->whereBetween('log_date', [$dates[0],$dates[1]]);
+        }
+
+        $data->get();
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->make(true);
     }
 
     public function getOutletCode()
@@ -142,9 +154,9 @@ class ServiceLogController extends Controller
     }
     public function CloseOpenTask(Request $request)
     {
-        $add_technician = add_technician::where('id',$request->add_techni_id_fk)->first();
+        $add_technician = add_technician::where('id', $request->add_techni_id_fk)->first();
 
-        if ( $request->log_status=='Open') {
+        if ($request->log_status == 'Open') {
             $add_technician->tech_status = 'Closed';
             $add_technician->save();
             return response()->json(['messege' => 'Successfully Closed', 'types' => 's']);
@@ -153,7 +165,5 @@ class ServiceLogController extends Controller
             $add_technician->save();
             return response()->json(['messege' => 'Successfully Open', 'types' => 's']);
         }
-
-
     }
 }

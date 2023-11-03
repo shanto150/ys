@@ -322,11 +322,11 @@
                         var tech_status = row.tech_status;
                         if (tech_status == 'Open') {
                             var html = '';
-                            html += 'Open';
+                            html += '<span class="badge badge-pill badge-primary">Open</span>';
                             return html;
                         } else if (tech_status == 'Closed') {
                             var html = '';
-                            html += 'Closed';
+                            html += '<span class="badge badge-pill badge-secondary">Closed</span>';
                             return html;
                         } else {
                             var html = '';

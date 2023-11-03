@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Home</title>
-
+ 
     <link rel="icon" href="{{ url('/res/images/appimages/mainlogo.png') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
@@ -205,12 +205,18 @@
                                         <th>বিবরণ</th>
                                     </tr>
                                 </thead>
-
+                               
                                 <tbody>
                                     @foreach ($techDatas as $index => $data)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
-                                        <td>{{ $data->note }}</td>
+                                        <td class="text-center">
+                                            <div class="row text-center">{{ $data->note }}</div>
+                                            <div class="row text-center"><span class="badge badge-pill badge-warning"> {{ \Carbon\Carbon::parse($data->created_at)->diffForHumans(now(),
+                                                Carbon\CarbonInterface::DIFF_RELATIVE_AUTO,
+                                                true,
+                                                6) }}</span></div>
+                                        </td>
                                         <td class="d-none">{{ $data->from_user }}</td>
                                         <td class="d-none">{{ $data->id }}</td>
                                         <td class="d-none">{{ $data->log_id }}</td>

@@ -1,0 +1,129 @@
+.counter {
+    background: #fff;
+    font-family: 'Noto Sans JP', sans-serif;
+    text-align: center;
+    width: 120px;
+    height: 120px;
+    padding: 0 0 25px;
+    margin: 0 auto 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+.counter:before {
+    content: "";
+    background: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px 0;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.07);
+    transform: translateX(-50%) rotate(45deg);
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+}
+
+.counter:hover .counter-icon i{
+    transform: rotate(360deg);
+    transition: all 0.3s ease;
+    pointer-events: painted;
+}
+
+.counter:hover{
+    background: #175f5e;
+    cursor: pointer;
+}
+
+.counter .counter-value {
+    color: #fff;
+    font-family: FjallaOne;
+    background: linear-gradient(to right, #19bbd2, #2778ee);
+    font-size: 28px;
+    font-weight: 300;
+    border-radius: 10px 10px 0 0;
+    display: block;
+}
+
+.counter h3 {
+    color: #2778ee;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    margin: 6px 0 5px;
+}
+
+.counter .counter-icon {
+    color: #fff;
+    background: linear-gradient(to right, #19bbd2, #2778ee);
+    font-size: 15px;
+    line-height: 30px;
+    width:30px;
+    height: 30px;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.counter.purple .counter-value,
+.counter.purple .counter-icon {
+    background: linear-gradient(to right, #8f70e7, #c452ef);
+}
+
+.counter.purple h3 {
+    color: #c452ef;
+}
+
+.counter.magenta .counter-value,
+.counter.magenta .counter-icon {
+    background: linear-gradient(to right, #e84a94, #ae379b);
+}
+
+.counter.magenta h3 {
+    color: #ae379b;
+}
+
+.counter.yellow .counter-value,
+.counter.yellow .counter-icon {
+    background: linear-gradient(to right, #fecb4b, #e69814);
+}
+
+.counter.yellow h3 {
+    color: #e69814;
+}
+
+.counter.red .counter-value,
+.counter.red .counter-icon {
+    background: linear-gradient(to right, #e61414, #9a0d0d);
+}
+
+.counter.red h3 {
+    color: #e61414;
+}
+.counter.green .counter-value,
+.counter.green .counter-icon {
+    background: linear-gradient(to right, #228b22, #175f17);
+}
+
+.counter.green h3 {
+    color: #228b22;
+}
+.counter.brown .counter-value,
+.counter.brown .counter-icon {
+    background: linear-gradient(to right, #9f04b0, #6b0377);
+}
+
+.counter.brown h3 {
+    color: #9f04b0;
+}
+
+@media screen and (max-width:990px) {
+    .counter {
+        margin-bottom: 45px;
+    }
+}
+
+@font-face {
+    font-family: FjallaOne;
+    src: url(/fonts/FjallaOne-Regular.ttf);
+  }
