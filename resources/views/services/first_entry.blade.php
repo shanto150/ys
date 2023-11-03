@@ -43,7 +43,7 @@
 
                 <div class="row">
 
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-3">
                         <div class="card card-body h-100 justify-content-center align-items-center">
                             <div class="input-group form-label-group in-border" id="range_id">
                                 <input type="text" value="" class="form-control daterange" id="daterangea">
@@ -58,7 +58,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="row justify-content-center align-items-center">
-                            <div class="col-md-2" onclick="ClickALL()">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 " onclick="ClickALL()">
                                 <div class="counter brown">
                                     <span class="counter-value" id="all">1</span>
                                     <h3>ALL</h3>
@@ -67,16 +67,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2" onclick="ClickRec()">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 " onclick="ClickRec()">
                                 <div class="counter yellow">
-                                    <span class="counter-value" id="Recived" >1</span>
+                                    <span class="counter-value" id="Recived">1</span>
                                     <h3>Recived</h3>
                                     <div class="counter-icon">
                                         <i class="fa-solid fa-handshake"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2"  onclick="ClickAssigned()">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 " onclick="ClickAssigned()">
                                 <div class="counter">
                                     <span class="counter-value" id="Assigned">1</span>
                                     <h3>Assigned</h3>
@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2"  onclick="ClickHold()">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 " onclick="ClickHold()">
                                 <div class="counter magenta">
                                     <span class="counter-value" id="Hold">1</span>
                                     <h3>Hold</h3>
@@ -94,7 +94,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2"  onclick="ClickVoid()">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 " onclick="ClickVoid()">
                                 <div class="counter red">
                                     <span class="counter-value" id="Void">1</span>
                                     <h3>Void</h3>
@@ -103,7 +103,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2"  onclick="ClickClosed()">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 " onclick="ClickClosed()">
                                 <div class="counter green">
                                     <span class="counter-value" id="Closed">1</span>
                                     <h3>Closed</h3>
@@ -518,44 +518,49 @@
         }
 
         function dTable(dateRange, Status) {
-            $('#EntryTable').DataTable({
 
+            $('#EntryTable').DataTable({
                 processing: false,
                 serverSide: false,
+                responsive: true,
                 bDestroy: true,
+                columnDefs: [{
+                    "defaultContent": "N/A",
+                    "targets": "_all",
+                }],
                 initComplete: function(settings, json) {
 
                     var sum = $('#EntryTable').DataTable().column(0).data().count();
                     $('#all').html(sum);
-                    
+
                     var table = $('#EntryTable').DataTable();
-                    
+
                     var cReceived = table.rows(function(idx, data, node) {
-                        return data.status =='Received';
+                        return data.status == 'Received';
                     }).count();
 
                     var cAssigned = table.rows(function(idx, data, node) {
-                        return data.status =='Assigned';
+                        return data.status == 'Assigned';
                     }).count();
 
                     var cHold = table.rows(function(idx, data, node) {
-                        return data.status =='Hold';
+                        return data.status == 'Hold';
                     }).count();
-                    
+
                     var cVoid = table.rows(function(idx, data, node) {
-                        return data.status =='Void';
+                        return data.status == 'Void';
                     }).count();
-                    
+
                     var cClosed = table.rows(function(idx, data, node) {
-                        return data.status =='Closed';
+                        return data.status == 'Closed';
                     }).count();
-                    
+
                     $('#Recived').html(cReceived);
                     $('#Assigned').html(cAssigned);
                     $('#Hold').html(cHold);
                     $('#Void').html(cVoid);
                     $('#Closed').html(cClosed);
-                    
+
                     $('.counter-value').each(function() {
                         $(this).prop('Counter', 0).animate({
                             Counter: $(this).text()
