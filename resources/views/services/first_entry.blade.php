@@ -753,8 +753,28 @@
                             var id = "'" + row.id + "'";
 
                             var html = '';
-                            html += '<div class="row justify-content-center align-items-center">';
-                            
+                            html += '<div class="d-block" >';
+                            html +=
+                                '<button type="button" class="btn btn-xs btn-primary hvr-grow mr-1" style="width: 40px" onclick="edit_model(' +
+                                status + ',' + outlet_code + ',' + outlet_name +
+                                ',' + outlet_mobile + ',' + person_mobile + ',' + outlet_address + ',' +
+                                visi_id + ',' + visi_size + ',' + db_name + ',' + se_area + ',' + asm_area +
+                                ',' + complains +
+                                ',' + log_date + ',' + first_response_date + ',' + brand +
+                                ',' + remarks + ',' + id + ')">';
+                            html += 'Edit</button>';
+                            html +=
+                                '<button type="button" class="btn btn-xs btn-info hvr-grow " style="width: 40px" onclick="callAddt(' +
+                                id + ')">Tech</button>';
+                            html += '</div>';
+                            html += '<div class="d-block mt-1" >';
+                                html +=
+                                '<button type="button" class="btn btn-xs btn-success hvr-grow  mr-1" style="width: 40px" onclick="CallPreInvoice(' +
+                                id + ',' + status + ',' + visi_id +
+                                ')">P-Inv</button>';
+                                html +=
+                                '<button type="button" class="btn btn-xs btn-danger hvr-grow " style="width: 40px" onclick="del(' +
+                                id + ');">Del</button>';
                             html += '</div>';
                             return html;
                         }
