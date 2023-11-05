@@ -25,8 +25,7 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">
         <!-- DataTables -->
         <link rel="stylesheet" href="{{ asset('/res/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}" />
-        <link rel="stylesheet"
-            href="{{ asset('/res/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('/res/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('/res/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}" />
 
         <!-- Animation $ Icons -->

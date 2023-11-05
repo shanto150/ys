@@ -44,17 +44,49 @@
                 <div class="row">
 
                     <div class="col-md-3 mb-3">
-                        <div class="card card-body h-100 justify-content-center align-items-center">
-                            <div class="input-group form-label-group in-border" id="range_id">
-                                <input type="text" value="" class="form-control daterange" id="daterangea">
-                                <label for="daterange">Date Range</label>
-                                <div class="input-group-append">
-                                    <div class="input-group-text" id="rangeButton"><i class="fa fa-calendar"
-                                            style="color:blue"></i>
+                        <div class="card card-body h-100 justify-content-center align-items-center pb-0 pt-0 pr-2 pl-2">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group form-label-group in-border" id="range_id">
+                                        <input type="text" value="" class="form-control daterange" id="daterangea">
+                                        <label for="daterange">Date Range</label>
+                                        <div class="input-group-append">
+                                            <div class="input-group-text" id="rangeButton"><i class="fa fa-calendar"
+                                                    style="color:blue"></i>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-label-group in-border">
+                                        <select class="form-control select2" form="myform" name="SE" id="SE"
+                                            style="width: 100%;">
+                                            <option selected value="">ALL</option>
+                                            @foreach ($se as $value)
+                                                <option value="{{ $value->se_area }}">{{ $value->se_area }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="assigned_to">SE</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-label-group in-border">
+                                        <select class="form-control select2" form="myform" name="ASM" id="ASM"
+                                            style="width: 100%;">
+                                            <option selected value="">ALL</option>
+                                            @foreach ($asm as $value)
+                                                <option value="{{ $value->asm_area }}">{{ $value->asm_area }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="assigned_to">ASM</label>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
+
                     </div>
                     <div class="col-md-9">
                         <div class="row justify-content-center align-items-center">
@@ -130,8 +162,8 @@
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">New Request</h5>
 
-                            <img src="{{ URL::asset('/res/images/appimages/lod1.gif') }}" alt="profile Pic" height="30"
-                                width="30" id="modelSpinner" />
+                            <img src="{{ URL::asset('/res/images/appimages/lod1.gif') }}" alt="profile Pic"
+                                height="30" width="30" id="modelSpinner" />
 
                         </div>
 
@@ -343,6 +375,7 @@
                             <th class="text-center">Name</th>
                             <th class="text-center">Visi+Address</th>
                             <th class="text-center">Dates</th>
+                            <th class="text-center">Area</th>
                             <th class="text-center">Complains</th>
                             <th class="text-center">Status</th>
                             <th class="text-center">Actions</th>
@@ -364,13 +397,15 @@
         $('#spinShowHide').hide();
         $(document).ready(function() {
 
-            dTable('', '');
+            dTable('', '', '', '');
 
         });
         $('#modelSpinner').hide();
 
         var allval = '';
         var datevalue = '';
+        var SEval = '';
+        var ASMval = '';
 
 
 
@@ -517,7 +552,7 @@
             firstValue = $("#myform").serialize();
         }
 
-        function dTable(dateRange, Status) {
+        function dTable(dateRange, Status, SEarea, ASMarea) {
 
             $('#EntryTable').DataTable({
                 processing: false,
@@ -578,6 +613,8 @@
                     data: {
                         dateRange: dateRange,
                         Status: Status,
+                        SEarea: SEarea,
+                        ASMarea: ASMarea,
                     }
                 },
                 columns: [{
@@ -617,6 +654,16 @@
                             var html = '';
                             html += '<div> Call : ' + log_date + '</div>';
                             html += '<div> FR : ' + first_response_date + '</div>';
+                            return html;
+                        }
+                    },
+                    {
+                        render: function(data, type, row) {
+                            var sear = row.se_area;
+                            var asma = row.asm_area;
+                            var html = '';
+                            html += '<div> SE Area : ' + sear + '</div>';
+                            html += '<div> ASM Area : ' + asma + '</div>';
                             return html;
                         }
                     },
@@ -707,28 +754,7 @@
 
                             var html = '';
                             html += '<div class="row justify-content-center align-items-center">';
-                            html +=
-                                '<button type="button" class="btn btn-sm btn-primary hvr-grow m-1" style="width: 80px" onclick="edit_model(' +
-                                status + ',' + outlet_code + ',' + outlet_name +
-                                ',' + outlet_mobile + ',' + person_mobile + ',' + outlet_address + ',' +
-                                visi_id + ',' + visi_size + ',' + db_name + ',' + se_area + ',' + asm_area +
-                                ',' + complains +
-                                ',' + log_date + ',' + first_response_date + ',' + brand +
-                                ',' + remarks + ',' + id + ')">';
-                            html += '<i class="ri-arrow-up-line"></i> Edit</button>';
-                            html +=
-                                '<button type="button" class="btn btn-sm btn-info hvr-grow m-1" style="width: 80px" onclick="callAddt(' +
-                                id + ')"><i class="ri-arrow-up-line"></i> + Tech</button>';
-                            html += '</div>';
-
-                            html += '<div class="row justify-content-center align-items-center">';
-                            html +=
-                                '<button type="button" class="btn btn-sm btn-success hvr-grow m-1" style="width: 80px" onclick="CallPreInvoice(' +
-                                id + ',' + status + ',' + visi_id +
-                                ')"><i class="ri-arrow-up-line"></i> Pre-Inv</button>';
-                            html +=
-                                '<button type="button" class="btn btn-sm btn-danger hvr-grow m-1" style="width: 80px" onclick="del(' +
-                                id + ');"><i class="ri-arrow-up-line"></i> Del</button>';
+                            
                             html += '</div>';
                             return html;
                         }
@@ -858,7 +884,7 @@
             console.log(picker.endDate.format('YYYY-MM-DD'));
             var dr = picker.startDate.format('YYYY-MM-DD') + ',' + picker.endDate.format('YYYY-MM-DD');
             datevalue = dr;
-            dTable(dr, allval);
+            dTable(dr, allval, SEval, ASMval);
         });
 
         $('#daterangea').on('hide.daterangepicker', function(ev, picker) {
@@ -872,8 +898,13 @@
         function ClickALL() {
             $('#daterangea').val('');
             datevalue = '';
-            dTable('', '');
+            dTable('', '', '', '');
             allval = '';
+            datevalue = '';
+            SEval = '';
+            ASMval = '';
+            $('#SE').val(null).trigger('change');
+            $('#ASM').val(null).trigger('change');
         }
 
         function ClickRec() {
@@ -900,5 +931,14 @@
             dTable(datevalue, 'Closed');
             allval = 'Closed';
         }
+
+        $('#SE').on('select2:select', function(e) {
+            SEval = e.params.data.id;
+            dTable(datevalue, allval, SEval, ASMval);
+        });
+        $('#ASM').on('select2:select', function(e) {
+            ASMval = e.params.data.id;
+            dTable(datevalue, allval, SEval, ASMval);
+        });
     </script>
 @endpush

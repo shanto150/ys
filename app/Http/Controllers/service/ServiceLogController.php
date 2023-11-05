@@ -15,12 +15,13 @@ class ServiceLogController extends Controller
 {
     public function FirstCall()
     {
-        
-        return view('services.first_entry');
+        $asm = DB::table('service_logs')->distinct()->get(['asm_area']);
+        $se = DB::table('service_logs')->distinct()->get(['se_area']);
+        // dd($asm);
+        return view('services.first_entry',compact('asm','se'));
     }
 
-    public function TechAdd(Request $request)
-    {
+    public function TechAdd(Request $request) {
         $service_logs = DB::table('service_logs')
             ->where('id', '=', $request->id)
             ->first();
@@ -82,6 +83,14 @@ class ServiceLogController extends Controller
         }
         if ($request->dateRange) {
             $data->whereBetween('log_date', [$dates[0],$dates[1]]);
+        }
+
+        if ($request->SEarea) {
+            $data->where('se_area', $request->SEarea);
+        }
+
+        if ($request->ASMarea) {
+            $data->where('asm_area', $request->ASMarea);
         }
 
         $data->get();
