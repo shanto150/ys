@@ -560,6 +560,7 @@ class ComposerStaticInit562dd21dcc151814b591bfdd52cfa967
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\emp\\EmpsController' => __DIR__ . '/../..' . '/app/Http/Controllers/emp/EmpsController.php',
+        'App\\Http\\Controllers\\invoice\\InvoiceController' => __DIR__ . '/../..' . '/app/Http/Controllers/invoice/InvoiceController.php',
         'App\\Http\\Controllers\\pre_invoice\\PreInvoiceController' => __DIR__ . '/../..' . '/app/Http/Controllers/pre_invoice/PreInvoiceController.php',
         'App\\Http\\Controllers\\service\\ServiceLogController' => __DIR__ . '/../..' . '/app/Http/Controllers/service/ServiceLogController.php',
         'App\\Http\\Controllers\\technician\\technician_feedback' => __DIR__ . '/../..' . '/app/Http/Controllers/technician/technician_feedback.php',

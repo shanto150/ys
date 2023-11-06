@@ -16,6 +16,7 @@ return array(
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\emp\\EmpsController' => $baseDir . '/app/Http/Controllers/emp/EmpsController.php',
+    'App\\Http\\Controllers\\invoice\\InvoiceController' => $baseDir . '/app/Http/Controllers/invoice/InvoiceController.php',
     'App\\Http\\Controllers\\pre_invoice\\PreInvoiceController' => $baseDir . '/app/Http/Controllers/pre_invoice/PreInvoiceController.php',
     'App\\Http\\Controllers\\service\\ServiceLogController' => $baseDir . '/app/Http/Controllers/service/ServiceLogController.php',
     'App\\Http\\Controllers\\technician\\technician_feedback' => $baseDir . '/app/Http/Controllers/technician/technician_feedback.php',
