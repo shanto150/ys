@@ -101,7 +101,7 @@
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 " onclick="ClickRec()">
                                 <div class="counter yellow">
-                                    <span class="counter-value" id="Recived">1</span>
+                                    <span class="counter-value" id="Recived1">1</span>
                                     <h3>Recived</h3>
                                     <div class="counter-icon">
                                         <i class="fa-solid fa-handshake"></i>
@@ -110,7 +110,7 @@
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 " onclick="ClickAssigned()">
                                 <div class="counter">
-                                    <span class="counter-value" id="Assigned">1</span>
+                                    <span class="counter-value" id="Assigned1">1</span>
                                     <h3>Assigned</h3>
                                     <div class="counter-icon">
                                         <i class="fa-solid fa-thumbtack"></i>
@@ -119,7 +119,7 @@
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 " onclick="ClickHold()">
                                 <div class="counter magenta">
-                                    <span class="counter-value" id="Hold">1</span>
+                                    <span class="counter-value" id="Hold1">1</span>
                                     <h3>Hold</h3>
                                     <div class="counter-icon">
                                         <i class="fa-solid fa-hand"></i>
@@ -128,7 +128,7 @@
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 " onclick="ClickVoid()">
                                 <div class="counter red">
-                                    <span class="counter-value" id="Void">1</span>
+                                    <span class="counter-value" id="Void1">1</span>
                                     <h3>Void</h3>
                                     <div class="counter-icon">
                                         <i class="fa-solid fa-trash"></i>
@@ -137,7 +137,7 @@
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 " onclick="ClickClosed()">
                                 <div class="counter green">
-                                    <span class="counter-value" id="Closed">1</span>
+                                    <span class="counter-value" id="Closed1">1</span>
                                     <h3>Closed</h3>
                                     <div class="counter-icon">
                                         <i class="fa-solid fa-circle-check"></i>
@@ -172,7 +172,7 @@
                             <div class="row justify-content-center mb-3 ml-2 mr-2 p-2">
 
                                 <div class="icheck-success d-inline">
-                                    <input type="radio" name="status" value="Received" checked id="Received">
+                                    <input type="radio" name="status" value="Received" id="Received">
                                     <label for="Received">Received</label>
                                 </div>
                                 &nbsp;&nbsp;&nbsp;
@@ -590,11 +590,11 @@
                         return data.status == 'Closed';
                     }).count();
 
-                    $('#Recived').html(cReceived);
-                    $('#Assigned').html(cAssigned);
-                    $('#Hold').html(cHold);
-                    $('#Void').html(cVoid);
-                    $('#Closed').html(cClosed);
+                    $('#Recived1').html(cReceived);
+                    $('#Assigned1').html(cAssigned);
+                    $('#Hold1').html(cHold);
+                    $('#Void1').html(cVoid);
+                    $('#Closed1').html(cClosed);
 
                     $('.counter-value').each(function() {
                         $(this).prop('Counter', 0).animate({
@@ -768,11 +768,11 @@
                                 id + ')">Tech</button>';
                             html += '</div>';
                             html += '<div class="d-block mt-1" >';
-                                html +=
+                            html +=
                                 '<button type="button" class="btn btn-xs btn-success hvr-grow  mr-1" style="width: 40px" onclick="CallPreInvoice(' +
                                 id + ',' + status + ',' + visi_id +
                                 ')">P-Inv</button>';
-                                html +=
+                            html +=
                                 '<button type="button" class="btn btn-xs btn-danger hvr-grow " style="width: 40px" onclick="del(' +
                                 id + ');">Del</button>';
                             html += '</div>';
