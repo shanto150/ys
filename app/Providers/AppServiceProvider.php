@@ -29,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
             return "<?php echo 'TK' . number_format($amount); ?>";
         });
 
+        view()->share('technicians', DB::table('emps')->where('status', 1)->where('role','Technician')->select('machine_id', 'name')->get());
         view()->share('emps', DB::table('emps')->where('status', 1)->select('machine_id', 'name')->get());
+
     }
 }

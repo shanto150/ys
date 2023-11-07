@@ -144,6 +144,7 @@ class ServiceLogController extends Controller
                 $tf->request_type = 'Main';
                 $tf->note = $request->note;
                 $tf->save();
+                service_log::where('id', $request->log_id)->update(['status' =>'Assigned']);
             }
 
             return response()->json(['messege' => 'Successfully Saved.', 'types' => 's']);
@@ -174,5 +175,16 @@ class ServiceLogController extends Controller
             $add_technician->save();
             return response()->json(['messege' => 'Successfully Open', 'types' => 's']);
         }
+    }
+
+    public function FullTaskClose(Request $request)
+    {
+        add_technician::where('log_id', $request->log_id)->update(['tech_status' => 'Closed']);
+
+        $service_log = service_log::where('id', $request->log_id)->first();
+        $service_log->status = 'Closed';
+        $service_log->save();
+
+        return response()->json(['messege' => 'Successfully Closed', 'types' => 's']);
     }
 }

@@ -42,6 +42,8 @@
 
         {{-- counter --}}
         <link rel="stylesheet" href="{{ asset('/res/css/counter.css') }}">
+        {{-- tooltips --}}
+        <link rel="stylesheet" href="{{ asset('/res/css/hint.css') }}">
 
         {{-- icon --}}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -133,6 +135,9 @@
 
         <!-- table-to-excel -->
         <script src="{{ asset('/res/js/jquery.table2excel.js') }}"></script>
+        
+        <!-- Hint -->
+        <script src="{{ asset('/res/js/hint.js') }}"></script>
 
         <!-- Calander -->
         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::Post('/log-Techstore', [ServiceLogController::class, 'Techstore'])->name('service-log-Techstore');
     Route::get('/log-getTechList', [ServiceLogController::class, 'getTechList'])->name('service-log-getTechList');
     Route::get('/CloseOpenTask', [ServiceLogController::class, 'CloseOpenTask'])->name('service-log-CloseOpenTask');
+    Route::get('/FullTaskClose', [ServiceLogController::class, 'FullTaskClose'])->name('FullTaskClose');
 
     //tech feedback
     Route::get('/goTechfeedback', [technician_feedback::class, 'index'])->name('goTechfeedback');

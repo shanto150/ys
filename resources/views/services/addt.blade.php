@@ -170,8 +170,8 @@
                                 <select class="form-control select2" form="assignform" name="assigned_to" id="assigned_to"
                                     style="width: 100%;">
                                     <option selected value="0">Choose...</option>
-                                    @foreach ($emps as $emp)
-                                        <option value="{{ $emp->machine_id }}">{{ $emp->name }}</option>
+                                    @foreach ($technicians as $value)
+                                        <option value="{{ $value->machine_id }}">{{ $value->name }}</option>
                                     @endforeach
                                 </select>
                                 <label for="assigned_to">Assigned to</label>
@@ -293,7 +293,7 @@
             document.getElementById("id").value = (id == "null" ? "" : id);
             firstValue = $("#assignform").serialize();
         }
-
+ 
         aTable = $('#TechList').DataTable({
             dom: 't',
             ordering: false,
@@ -353,19 +353,19 @@
                         if (file_path) {
                             html +=
                                 '<a href="{{ asset('') }}' + file_path +
-                                '" type="button" target="_blank" class="btn btn-sm btn-outline-info mr-1" ><i class="fa fa-file-image"></i></a>';
+                                '" type="button" target="_blank" data-hint="Show Image" class="btn btn-sm btn-outline-info mr-1 hint--top" ><i class="fa fa-file-image"></i></a>';
                         } else {
                             html +=
-                                '<button type="button" onclick="Nofile();" class="btn btn-sm btn-outline-info mr-1" ><i class="fa fa-file-image"></i></button>';
+                                '<button type="button" data-hint="Show Image" onclick="Nofile();" class="btn btn-sm btn-outline-info mr-1 hint--top" ><i class="fa fa-file-image"></i></button>';
                         }
 
                         html +=
-                            '<button type="button" onclick="CloseTask('+add_techni_id_fk+','+tech_status+');" class="btn btn-sm btn-outline-danger mr-1" ><i class="fa fa-retweet"></i></button>';
-                        html += '<button type="button" onclick="edit_model(' + assigned_to + ',' + note +
-                            ',' + log_id + ',' + id + ',' + tech_status +
-                            ');" class="btn btn-sm btn-outline-success mr-1"><i class="fa fa-pen"></i></button>';
-                        html +=
-                            '<button type="button" class="btn btn-sm btn-outline-danger" ><i class="fa fa-trash"></i></button>';
+                            '<button type="button" data-hint="Close/Open only This Chat" onclick="CloseTask('+add_techni_id_fk+','+tech_status+');" class="btn btn-sm btn-outline-danger mr-1 hint--top" ><i class="fa fa-retweet"></i></button>';
+                        html += '<button type="button" data-hint="Edit" onclick="edit_model(' + assigned_to + ',' + note +',' + log_id + ',' + id + ',' + tech_status +
+                            ');" class="btn btn-sm btn-outline-success mr-1 hint--top"><i class="fa fa-pen"></i></button>';
+                            html +=
+                            '<button type="button" onclick="CloseFullTask('+log_id+')" data-hint="Close Call and Chat" class="btn btn-sm btn-outline-danger hint--top" ><i class="fa-solid fa-c"></i></button>';
+                        
                         return html;
                     }
                 },
@@ -423,5 +423,31 @@
             })
 
         }
+
+        function CloseFullTask(log_id) {
+            $.ajax({
+                beforeSend: function() {
+                    $('#spinShowHide').show();
+                },
+                error: function() {
+                    $('#spinShowHide').hide();
+                },
+                complete: function() {
+                    $('#spinShowHide').hide();
+                },
+                type: "GET",
+                url: "{{ route('FullTaskClose') }}", // Route
+                data: {
+                    'log_id': log_id
+                },
+                success: function(res) {
+                    message(res.messege, '#29912b', 'white', 'error',
+                        'Success');
+                        $('#TechList').DataTable().ajax.reload();
+                }
+            })
+
+        }
+
     </script>
 @endpush
