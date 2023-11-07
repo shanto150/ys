@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('service_logs', function (Blueprint $table) {
-            //
+            $table->dropUnique(['outlet_code', 'visi_id','log_date']);
         });
     }
 };
