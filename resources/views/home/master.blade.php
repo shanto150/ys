@@ -121,6 +121,16 @@
         <script src="{{ asset('/res/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('/res/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
         <script src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
+        <script src="{{ asset('/res/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('/res/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('/res/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+        <script src="{{ asset('/res/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('/res/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+        <script src="{{ asset('/res/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('/res/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+        <script src="{{ asset('/res/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+        <script src="{{ asset('/res/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+        <script src="{{ asset('/res/plugins/jszip/jszip.min.js') }}"></script>
 
         <!-- Direct Print -->
         <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>

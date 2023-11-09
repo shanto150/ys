@@ -164,11 +164,12 @@
 
                             <img src="{{ URL::asset('/res/images/appimages/lod1.gif') }}" alt="profile Pic"
                                 height="30" width="30" id="modelSpinner" />
-                                <div class="card-tools">
-                                    <button type="button" onclick="document.getElementById('myform').reset();" class="btn btn-tool" data-target="#myModal" data-dismiss="modal">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
+                            <div class="card-tools">
+                                <button type="button" onclick="document.getElementById('myform').reset();"
+                                    class="btn btn-tool" data-target="#myModal" data-dismiss="modal">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
                         </div>
 
                         <div class="modal-body">
@@ -575,6 +576,28 @@
                 serverSide: false,
                 responsive: true,
                 bDestroy: true,
+                dom: "<'row'<'col-sm-4'l><'col-sm-4'B><'col-sm-4'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                buttons: [{
+                        extend: 'print',
+                        text: '<i class="fa fa-print text-info"></i> Print',
+                        title: 'Call Data',
+                        className: 'btn btn-warning btn-sm text-secondary',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fa fa-file-excel text-warning"></i> Excel',
+                        title: 'Call Data',
+                        className: 'btn btn-info btn-sm text-white',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        }
+                    }
+                ],
                 columnDefs: [{
                     "defaultContent": "N/A",
                     "targets": "_all",
@@ -833,10 +856,10 @@
 
                             console.log(suggestion.value);
                             var parts = suggestion.value.split("-");
-                            var oCode = parts[0]; 
-                            var oVisi = parts[1]; 
+                            var oCode = parts[0];
+                            var oVisi = parts[1];
                             $('#outlet_code').val(oCode);
-                            getOutletDetails(oCode,oVisi);
+                            getOutletDetails(oCode, oVisi);
                         }
                     });
                 }
@@ -844,7 +867,7 @@
 
         }
 
-        function getOutletDetails(outletCode,visi_id) {
+        function getOutletDetails(outletCode, visi_id) {
 
             $.ajax({
                 beforeSend: function() {
