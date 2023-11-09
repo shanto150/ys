@@ -108,7 +108,8 @@ class ServiceLogController extends Controller
 
     public function getOutletCode(Request $request)
     {
-        $data = service_log::latest()->select(DB::raw('CAST(concat(outlet_code,"-",visi_id) AS CHAR) AS value'), DB::raw('CAST(outlet_code AS CHAR) AS data'));
+        // $data = service_log::latest()->select(DB::raw('CAST(concat(outlet_code,"-",visi_id) AS CHAR) AS value'), DB::raw('CAST(outlet_code AS CHAR) AS data'));
+        $data = DB::table('service_logs')->selectRaw('concat(outlet_code,"-",visi_id) as value,outlet_code AS data');
         $d2=$data->distinct()->get(['value','data']);
         return response()->json(['suggestion' => $d2]);
 

@@ -164,7 +164,11 @@
 
                             <img src="{{ URL::asset('/res/images/appimages/lod1.gif') }}" alt="profile Pic"
                                 height="30" width="30" id="modelSpinner" />
-
+                                <div class="card-tools">
+                                    <button type="button" onclick="document.getElementById('myform').reset();" class="btn btn-tool" data-target="#myModal" data-dismiss="modal">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
                         </div>
 
                         <div class="modal-body">
@@ -358,11 +362,11 @@
 
                         <div class="modal-footer">
                             <button type="button" onclick="document.getElementById('myform').reset();"
-                                class="btn btn-warning me-5"><i class="fa fa-eraser" aria-hidden="true"></i>
+                                class="btn btn-sm btn-warning me-5"><i class="fa fa-eraser" aria-hidden="true"></i>
                                 Clear</button>
-                            <button type="button" onclick="FromsCheck();" class="btn btn-success"><i
+                            <button type="button" onclick="FromsCheck();" class="btn btn-sm btn-success"><i
                                     class="fa fa-check" aria-hidden="true"></i> Save</button>
-                            <button type="button" class="btn btn-danger"
+                            <button type="button" class="btn btn-sm btn-danger"
                                 onclick="document.getElementById('myform').reset();" data-target="#myModal"
                                 data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
                         </div>
