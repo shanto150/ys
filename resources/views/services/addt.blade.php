@@ -105,7 +105,16 @@
         <div class="row">
 
             <div class="col-md-5">
+
                 <div class="card border border-01 border-info">
+                    <div class="card-tools">
+                        <button type="button" id="Section_details" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                     <div class="card-body">
                         <div class="row justify-content-center text-uppercase display-4 border-bottom mb-3">
                             <span class="badge badge-info mb-3 p-2">{{ $service_logs->status }}</span>
@@ -150,6 +159,37 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="card border border-01">
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table table-sm table-striped table-hover" id="TableVisiHostry" width="100%">
+
+                            <thead>
+                                <tr>
+                                    <th>Sn#</th>
+                                    <th>Call Date</th>
+                                    <th>Details</th>
+                                    <th>Technician</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+
+
             </div>
             <div class="col-md-7">
                 <div class="card border border-01 border-success">
@@ -167,8 +207,8 @@
                                 </div>
                             </div>
                             <div class="form-label-group in-border">
-                                <select class="form-control select2" form="assignform" name="assigned_to" id="assigned_to"
-                                    style="width: 100%;">
+                                <select class="form-control select2" form="assignform" name="assigned_to"
+                                    id="assigned_to" style="width: 100%;">
                                     <option selected value="0">Choose...</option>
                                     @foreach ($technicians as $value)
                                         <option value="{{ $value->machine_id }}">{{ $value->name }}</option>
@@ -191,7 +231,7 @@
                         <button type="button" form="assignform" onclick="FromsCheck();"
                             class="btn btn-success float-right"><i class="fa fa-check" aria-hidden="true"></i>
                             Save</button>
-                        
+
                     </div>
                 </div>
                 <div class="table-wrapper">
@@ -222,6 +262,10 @@
 @push('script')
     <script>
         $('#spinShowHide').hide();
+
+        setTimeout(function() {
+            $('#Section_details').trigger('click');
+        }, 3000);
 
         var firstValue = $("#assignform").serialize();
 
@@ -293,7 +337,7 @@
             document.getElementById("id").value = (id == "null" ? "" : id);
             firstValue = $("#assignform").serialize();
         }
- 
+
         aTable = $('#TechList').DataTable({
             dom: 't',
             ordering: false,
@@ -353,21 +397,58 @@
                         if (file_path) {
                             html +=
                                 '<a href="{{ asset('') }}' + file_path +
-                                '" type="button" target="_blank" data-hint="Show Image" class="btn btn-sm btn-outline-info mr-1 hint--top" ><i class="fa fa-file-image"></i></a>';
+                                '" type="button" target="_blank" data-hint="Show Image" class="btn btn-sm btn-outline-info mr-1 hint--top" ><i class="fa-solid fa-camera"></i></i></a>';
                         } else {
                             html +=
-                                '<button type="button" data-hint="Show Image" onclick="Nofile();" class="btn btn-sm btn-outline-info mr-1 hint--top" ><i class="fa fa-file-image"></i></button>';
+                                '<button type="button" data-hint="Show Image" onclick="Nofile();" class="btn btn-sm btn-outline-info mr-1 hint--top" ><i class="fa-solid fa-camera"></i></i></button>';
                         }
 
                         html +=
-                            '<button type="button" data-hint="Close/Open only This Chat" onclick="CloseTask('+add_techni_id_fk+','+tech_status+');" class="btn btn-sm btn-outline-danger mr-1 hint--top" ><i class="fa fa-retweet"></i></button>';
-                        html += '<button type="button" data-hint="Edit" onclick="edit_model(' + assigned_to + ',' + note +',' + log_id + ',' + id + ',' + tech_status +
-                            ');" class="btn btn-sm btn-outline-success mr-1 hint--top"><i class="fa fa-pen"></i></button>';
-                            html +=
-                            '<button type="button" onclick="CloseFullTask('+log_id+')" data-hint="Close Call and Chat" class="btn btn-sm btn-outline-danger hint--top" ><i class="fa-solid fa-c"></i></button>';
-                        
+                            '<button type="button" data-hint="Close/Open only This Chat" onclick="CloseTask(' +
+                            add_techni_id_fk + ',' + tech_status +
+                            ');" class="btn btn-sm btn-outline-danger mr-1 hint--top" ><i class="fa fa-retweet"></i></button>';
+                        html += '<button type="button" data-hint="Edit" onclick="edit_model(' +
+                            assigned_to + ',' + note + ',' + log_id + ',' + id + ',' + tech_status +
+                            ');" class="btn btn-sm btn-outline-warning mr-1 hint--top"><i class="fa fa-pen"></i></button>';
+                        html +=
+                            '<button type="button" onclick="CloseFullTask(' + log_id +
+                            ')" data-hint="Close Call and Chat" class="btn btn-sm btn-outline-success hint--top" ><i class="fa-solid fa-c"></i></button>';
+
                         return html;
                     }
+                },
+            ]
+        });
+
+        TvisiHistory = $('#TableVisiHostry').DataTable({
+            dom: 't',
+            ordering: false,
+            paging: false,
+            ajax: {
+                "url": "{{ route('getVisiHistory') }}",
+                "data": {
+                    "visi_id": '{{ $service_logs->visi_id }}'
+                }
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    render: function(data, type, row) {
+                        var log_date = moment(row.log_date).format('DD-MMM-YYYY');
+                        var html = '';
+                        html += '<div>' + log_date + '</div>';
+                        return html;
+                    }
+                },
+                {
+                    data: 'details',
+                    name: 'details'
+                },
+                {
+                    data: 'tech_men',
+                    name: 'tech_men'
                 },
             ]
         });
@@ -398,7 +479,7 @@
             }
         }
 
-        function CloseTask(add_techni_id_fk,log_status) {
+        function CloseTask(add_techni_id_fk, log_status) {
             $.ajax({
                 beforeSend: function() {
                     $('#spinShowHide').show();
@@ -418,7 +499,7 @@
                 success: function(res) {
                     message(res.messege, '#29912b', 'white', 'error',
                         'Success');
-                        $('#TechList').DataTable().ajax.reload();
+                    $('#TechList').DataTable().ajax.reload();
                 }
             })
 
@@ -443,11 +524,10 @@
                 success: function(res) {
                     message(res.messege, '#29912b', 'white', 'error',
                         'Success');
-                        $('#TechList').DataTable().ajax.reload();
+                    $('#TechList').DataTable().ajax.reload();
                 }
             })
 
         }
-
     </script>
 @endpush

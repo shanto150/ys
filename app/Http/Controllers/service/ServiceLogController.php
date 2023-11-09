@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\service;
 
-use App\Http\Controllers\Controller;
-use App\Models\service\add_technician;
-use App\Models\service\service_log;
-use App\Models\technician_item;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Models\technician_item;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\DB;
+use App\Models\service\service_log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\service\add_technician;
+use Illuminate\Support\Facades\Response;
 
 class ServiceLogController extends Controller
 {
@@ -17,18 +18,23 @@ class ServiceLogController extends Controller
     {
         $asm = DB::table('service_logs')->distinct()->get(['asm_area']);
         $se = DB::table('service_logs')->distinct()->get(['se_area']);
-        // dd($asm);
-        return view('services.first_entry',compact('asm','se'));
+        $OutletCodes = DB::table('service_logs')->distinct()->get(['outlet_code','visi_id']);
+
+        
+        
+        return view('services.first_entry', compact('asm', 'se','OutletCodes'));
     }
 
-    public function TechAdd(Request $request) {
-        $service_logs = DB::table('service_logs')
-            ->where('id', '=', $request->id)
-            ->first();
+    public function TechAdd(Request $request)
+    {
 
+        $service_logs = DB::table('service_logs')->where('id', '=', $request->id)->first();
+        $LastTechs = DB::select('select sl.id,log_date, concat(f_invoice_item_name(ti.invoice_item_id)," ",ti.quantity," Qty") details,f_staff_name(ti.from_user) tech_men  
+        from service_logs sl,technician_items ti  where sl.id =ti.log_id and  visi_id =1111 and ti.request_type ="Install" and log_date 
+        BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()');
         // dd($service_logs);
 
-        return view('services.addt', compact('service_logs'));
+        return view('services.addt', compact('service_logs','LastTechs'));
     }
 
     public function store(Request $request)
@@ -74,7 +80,7 @@ class ServiceLogController extends Controller
     {
         // dd($request->all());
 
-        $dates=explode(',',$request->dateRange);
+        $dates = explode(',', $request->dateRange);
 
         $data = DB::table('service_logs')->selectRaw('*')->orderByDesc('id');
 
@@ -82,7 +88,7 @@ class ServiceLogController extends Controller
             $data->where('status', $request->Status);
         }
         if ($request->dateRange) {
-            $data->whereBetween('log_date', [$dates[0],$dates[1]]);
+            $data->whereBetween('log_date', [$dates[0], $dates[1]]);
         }
 
         if ($request->SEarea) {
@@ -100,16 +106,17 @@ class ServiceLogController extends Controller
             ->make(true);
     }
 
-    public function getOutletCode()
+    public function getOutletCode(Request $request)
     {
-        $data = service_log::latest()->select(DB::raw('CAST(outlet_code AS CHAR) AS value'), DB::raw('CAST(outlet_code AS CHAR) AS data'))->get();
+        $data = service_log::latest()->select(DB::raw('CAST(concat(outlet_code,"-",visi_id) AS CHAR) AS value'), DB::raw('CAST(outlet_code AS CHAR) AS data'));
+        $d2=$data->distinct()->get(['value','data']);
+        return response()->json(['suggestion' => $d2]);
 
-        return response()->json(['suggestion' => $data]);
     }
 
     public function getOutletdetails(Request $request)
     {
-        $data = service_log::where('outlet_code', $request->outlet_code)->select('outlet_code', 'outlet_name', 'outlet_mobile', 'person_mobile', 'outlet_address', 'visi_id', 'visi_size', 'db_name', 'se_area', 'asm_area')->get();
+        $data = service_log::where('outlet_code', $request->outlet_code)->where('visi_id',$request->visi_id)->select('outlet_code', 'outlet_name', 'outlet_mobile', 'person_mobile', 'outlet_address', 'visi_id', 'visi_size', 'db_name', 'se_area', 'asm_area')->get();
 
         return response()->json(['suggestion' => $data]);
     }
@@ -144,7 +151,7 @@ class ServiceLogController extends Controller
                 $tf->request_type = 'Main';
                 $tf->note = $request->note;
                 $tf->save();
-                service_log::where('id', $request->log_id)->update(['status' =>'Assigned']);
+                service_log::where('id', $request->log_id)->update(['status' => 'Assigned']);
             }
 
             return response()->json(['messege' => 'Successfully Saved.', 'types' => 's']);
@@ -186,5 +193,18 @@ class ServiceLogController extends Controller
         $service_log->save();
 
         return response()->json(['messege' => 'Successfully Closed', 'types' => 's']);
+    }
+
+    public function getVisiHistory(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = DB::select("select sl.id,log_date, concat(f_invoice_item_name(ti.invoice_item_id),' ',ti.quantity,' Qty') details,f_staff_name(ti.from_user) tech_men  
+            from service_logs sl,technician_items ti  where sl.id =ti.log_id and  visi_id =? and ti.request_type ='Install' and log_date 
+            BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()", [$request->visi_id]);
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->make(true);
+        }
     }
 }

@@ -172,7 +172,7 @@
                             <div class="row justify-content-center mb-3 ml-2 mr-2 p-2">
 
                                 <div class="icheck-success d-inline">
-                                    <input type="radio" name="status" value="Received" id="Received">
+                                    <input type="radio" name="status" value="Received" checked id="Received">
                                     <label for="Received">Received</label>
                                 </div>
                                 &nbsp;&nbsp;&nbsp;
@@ -206,6 +206,18 @@
                                             placeholder="Outlet Code" autocomplete="off">
                                         <label for="outlet_code">Outlet Code</label>
                                     </div>
+
+                                    {{-- <div class="form-label-group in-border">
+                                        <select class="form-control select2" onchange="alert('this.val()')" name="outlet_code" id="outlet_code"
+                                            style="width: 100%;">
+                                            <option selected value="">Select</option>
+                                            @foreach ($OutletCodes as $value)
+                                                <option value="{{ $value->outlet_code }}">{{ $value->outlet_code }} - {{ $value->visi_id }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="assigned_to">SE</label>
+                                    </div> --}}
+
                                 </div>
 
                                 <input type="text" name="id" id="id" value="0" hidden>
@@ -814,7 +826,13 @@
                     $('#outlet_code').autocomplete({
                         lookup: res.suggestion,
                         onSelect: function(suggestion) {
-                            getOutletDetails(suggestion.value);
+
+                            console.log(suggestion.value);
+                            var parts = suggestion.value.split("-");
+                            var oCode = parts[0]; 
+                            var oVisi = parts[1]; 
+                            $('#outlet_code').val(oCode);
+                            getOutletDetails(oCode,oVisi);
                         }
                     });
                 }
@@ -822,7 +840,7 @@
 
         }
 
-        function getOutletDetails(outletCode) {
+        function getOutletDetails(outletCode,visi_id) {
 
             $.ajax({
                 beforeSend: function() {
@@ -845,7 +863,8 @@
                 type: 'GET',
                 url: "{{ route('get-outlet_detais') }}",
                 data: {
-                    'outlet_code': outletCode
+                    'outlet_code': outletCode,
+                    'visi_id': visi_id,
                 },
                 success: function(res) {
                     // console.log(res.suggestion[0].outlet_name);

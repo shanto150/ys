@@ -128,7 +128,7 @@
         <!-- Crop Image -->
         <script src="{{ asset('/res/js/croppie.js') }}"></script>
         <!-- Autocomplete -->
-        <script src="{{ asset('/res/js/jquery.autocomplete.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.10/jquery.autocomplete.min.js"></script>
 
         <!-- Mask -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"></script>

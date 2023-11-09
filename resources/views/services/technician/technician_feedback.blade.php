@@ -217,7 +217,8 @@
                                                 <td>{{ $index + 1 }}</td>
                                                 <td class="text-center">
                                                     <div class="row text-center">{{ $data->note }}</div>
-                                                    <div class="row text-center"><span class="badge badge-pill badge-warning">
+                                                    <div class="row text-center"><span
+                                                            class="badge badge-pill badge-warning">
                                                             {{ \Carbon\Carbon::parse($data->created_at)->diffForHumans(
                                                                 now(),
                                                                 Carbon\CarbonInterface::DIFF_RELATIVE_AUTO,
@@ -612,6 +613,7 @@
                         once: true
                     });
                 });
+
 
 
 

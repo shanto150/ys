@@ -57,6 +57,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/serviceTechAddindex/{id}', [ServiceLogController::class, 'TechAdd'])->name('serviceTechAddindex');
     Route::Post('/service-log-store', [ServiceLogController::class, 'store'])->name('service-log-store');
     Route::get('/get-log-data', [ServiceLogController::class, 'getData'])->name('get-log-data');
+    Route::get('/getVisiHistory', [ServiceLogController::class, 'getVisiHistory'])->name('getVisiHistory');
     Route::get('/get-outlet_code', [ServiceLogController::class, 'getOutletCode'])->name('get-outlet_code');
     Route::get('/get-outlet_detais', [ServiceLogController::class, 'getOutletdetails'])->name('get-outlet_detais');
 
