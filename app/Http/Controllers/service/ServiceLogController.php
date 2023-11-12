@@ -138,7 +138,7 @@ class ServiceLogController extends Controller
             $add_technician->note = $request->note;
             $add_technician->to_user = $request->assigned_to ? $request->assigned_to : $add_technician->to_user;
             $add_technician->save();
-
+            service_log::where('id', $request->log_id)->update(['assigned_to'=>$request->assigned_to]);
             return response()->json(['messege' => 'Successfully Updated.', 'types' => 's']);
         } else {
             $isSave = add_technician::create($request->all());
@@ -152,7 +152,7 @@ class ServiceLogController extends Controller
                 $tf->request_type = 'Main';
                 $tf->note = $request->note;
                 $tf->save();
-                service_log::where('id', $request->log_id)->update(['status' => 'Assigned']);
+                service_log::where('id', $request->log_id)->update(['status' => 'Assigned','assigned_to'=>$request->assigned_to]);
             }
 
             return response()->json(['messege' => 'Successfully Saved.', 'types' => 's']);

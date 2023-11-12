@@ -303,7 +303,7 @@
                         } else {
                             message(msgs[2], '#FF0000', 'white', 'error', msgs[1]);
                         }
-                    },
+                    }, 
                     complete: function() {
                         $('#spinShowHide').hide();
                     },
