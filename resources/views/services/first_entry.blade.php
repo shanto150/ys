@@ -955,6 +955,9 @@
 
         $('#daterangea').on('hide.daterangepicker', function(ev, picker) {
             $(this).val(picker.startDate.format('DD-MMM-YYYY') + '~' + picker.endDate.format('DD-MMM-YYYY'));
+            $('#daterangea').val('');
+            datevalue='';
+            dTable(datevalue, allval, SEval, ASMval);
         });
 
         $('#rangeButton').on('click', function() {
