@@ -17,7 +17,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('home') }}" class="nav-link">
-                        <i class="nav-icon fa fa-home"></i>
+                        <i class="nav-icon fa-solid fa-house"></i>
                         <p>
                             Home
                         </p>
@@ -44,9 +44,9 @@
 
                         <li class="nav-item">
                             <a href="{{ route('contact-index') }}" class="nav-link">
-                                <i class="nav-icon fa fa-birthday-cake"></i>
+                                <i class="nav-icon fa-solid fa-person-military-to-person"></i>
                                 <p>
-                                    Contact
+                                    Employee List
                                 </p>
                             </a>
                         </li>
@@ -74,21 +74,20 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('FirstCall-index') }}" class="nav-link">
-                                <i class="nav-icon fa fa-address-card"></i>
+                                <i class="nav-icon fa-brands fa-square-pied-piper"></i>
                                 <p>
-                                    Request Entry
+                                    Call Entry
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('gofinalInvoiceIndex') }}" class="nav-link">
-                                <i class="nav-icon fa fa-address-card"></i>
+                                <i class="nav-icon fa-brands fa-pagelines"></i>
                                 <p>
                                     Final Invoice
                                 </p>
                             </a>
                         </li>
-
                         
                     </ul>
                 </li>
