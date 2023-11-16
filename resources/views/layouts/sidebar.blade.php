@@ -52,6 +52,15 @@
                         </li>
 
                         <li class="nav-item">
+                            <a href="{{ route('availtechIndex') }}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-people-group"></i>
+                                <p>
+                                    Available Technician
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="{{ route('index_cp') }}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-key"></i>
                                 <p>

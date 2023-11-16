@@ -8,6 +8,7 @@ use App\Http\Controllers\invoice\InvoiceController;
 use App\Http\Controllers\service\ServiceLogController;
 use App\Http\Controllers\technician\technician_feedback;
 use App\Http\Controllers\pre_invoice\PreInvoiceController;
+use App\Http\Controllers\available_tech\availabletechController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -72,6 +73,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/getLogdetails', [technician_feedback::class, 'getLogdetails'])->name('getLogdetails');
     Route::post('/store-titem', [technician_feedback::class, 'store'])->name('store-titem');
     Route::get('/getfeedbackist', [technician_feedback::class, 'getfeedbackist'])->name('getfeedbackist');
+    Route::get('/techCallClose', [technician_feedback::class, 'TechCallClose'])->name('techCallClose');
 
     //Pre-Invoice
     Route::get('/goPreInvoice/{id}/{visi_id}', [PreInvoiceController::class, 'index'])->name('goPreInvoice');
@@ -79,4 +81,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     //Final-Invoice
     Route::get('/gofinalInvoiceIndex', [InvoiceController::class, 'index'])->name('gofinalInvoiceIndex');
+    
+    // availabletech
+    Route::get('/availtechIndex', [availabletechController::class, 'index'])->name('availtechIndex');
+    Route::get('/getFilterTechData', [availabletechController::class, 'getFilterTechData'])->name('getFilterTechData');
+
 });

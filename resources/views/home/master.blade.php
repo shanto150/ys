@@ -42,6 +42,8 @@
 
         {{-- counter --}}
         <link rel="stylesheet" href="{{ asset('/res/css/counter.css') }}">
+        
+
         {{-- tooltips --}}
         <link rel="stylesheet" href="{{ asset('/res/css/hint.css') }}">
 

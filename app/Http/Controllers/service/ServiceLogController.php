@@ -16,25 +16,30 @@ class ServiceLogController extends Controller
 {
     public function FirstCall()
     {
-        $asm = DB::table('service_logs')->distinct()->get(['asm_area']);
-        $se = DB::table('service_logs')->distinct()->get(['se_area']);
-        $OutletCodes = DB::table('service_logs')->distinct()->get(['outlet_code','visi_id']);
+        $asm = DB::table('service_logs')
+            ->distinct()
+            ->get(['asm_area']);
+        $se = DB::table('service_logs')
+            ->distinct()
+            ->get(['se_area']);
+        $OutletCodes = DB::table('service_logs')
+            ->distinct()
+            ->get(['outlet_code', 'visi_id']);
 
-        
-        
-        return view('services.first_entry', compact('asm', 'se','OutletCodes'));
+        return view('services.first_entry', compact('asm', 'se', 'OutletCodes'));
     }
 
     public function TechAdd(Request $request)
     {
-
-        $service_logs = DB::table('service_logs')->where('id', '=', $request->id)->first();
-        $LastTechs = DB::select('select sl.id,log_date, concat(f_invoice_item_name(ti.invoice_item_id)," ",ti.quantity," Qty") details,f_staff_name(ti.from_user) tech_men  
-        from service_logs sl,technician_items ti  where sl.id =ti.log_id and  visi_id =1111 and ti.request_type ="Install" and log_date 
+        $service_logs = DB::table('service_logs')
+            ->where('id', '=', $request->id)
+            ->first();
+        $LastTechs = DB::select('select sl.id,log_date, concat(f_invoice_item_name(ti.invoice_item_id)," ",ti.quantity," Qty") details,f_staff_name(ti.from_user) tech_men
+        from service_logs sl,technician_items ti  where sl.id =ti.log_id and  visi_id =1111 and ti.request_type ="Install" and log_date
         BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()');
         // dd($service_logs);
 
-        return view('services.addt', compact('service_logs','LastTechs'));
+        return view('services.addt', compact('service_logs', 'LastTechs'));
     }
 
     public function store(Request $request)
@@ -44,29 +49,26 @@ class ServiceLogController extends Controller
         $emps = service_log::where(['id' => $rowId]);
 
         if ($emps->exists()) {
-            service_log::where('id', $rowId)->update(
-                [
-                    'outlet_code' => $request->outlet_code,
-                    'outlet_name' => $request->outlet_name,
-                    'outlet_mobile' => $request->outlet_mobile,
-                    'person_mobile' => $request->person_mobile,
-                    'outlet_address' => $request->outlet_address,
-                    'visi_id' => $request->visi_id,
-                    'visi_size' => $request->visi_size,
-                    'db_name' => $request->db_name,
-                    'se_area' => $request->se_area,
-                    'asm_area' => $request->asm_area,
-                    'complains' => $request->complains,
-                    'log_date' => $request->log_date,
-                    'first_response_date' => $request->first_response_date,
-                    'assigned_to' => $request->assigned_to,
-                    'assigned_date' => $request->first_response_date,
-                    'brand' => $request->brand,
-                    'status' => $request->status,
-                    'remarks' => $request->remarks,
-
-                ]
-            );
+            service_log::where('id', $rowId)->update([
+                'outlet_code' => $request->outlet_code,
+                'outlet_name' => $request->outlet_name,
+                'outlet_mobile' => $request->outlet_mobile,
+                'person_mobile' => $request->person_mobile,
+                'outlet_address' => $request->outlet_address,
+                'visi_id' => $request->visi_id,
+                'visi_size' => $request->visi_size,
+                'db_name' => $request->db_name,
+                'se_area' => $request->se_area,
+                'asm_area' => $request->asm_area,
+                'complains' => $request->complains,
+                'log_date' => $request->log_date,
+                'first_response_date' => $request->first_response_date,
+                'assigned_to' => $request->assigned_to,
+                'assigned_date' => $request->first_response_date,
+                'brand' => $request->brand,
+                'status' => $request->status,
+                'remarks' => $request->remarks,
+            ]);
 
             return response()->json(['messege' => 'Successfully Updated.', 'types' => 's']);
         } else {
@@ -82,7 +84,9 @@ class ServiceLogController extends Controller
 
         $dates = explode(',', $request->dateRange);
 
-        $data = DB::table('service_logs')->selectRaw('*')->orderByDesc('id');
+        $data = DB::table('service_logs')
+            ->selectRaw('*')
+            ->orderByDesc('id');
 
         if ($request->Status) {
             $data->where('status', $request->Status);
@@ -110,14 +114,16 @@ class ServiceLogController extends Controller
     {
         // $data = service_log::latest()->select(DB::raw('CAST(concat(outlet_code,"-",visi_id) AS CHAR) AS value'), DB::raw('CAST(outlet_code AS CHAR) AS data'));
         $data = DB::table('service_logs')->selectRaw('concat(outlet_code,"-",visi_id) as value,outlet_code AS data');
-        $d2=$data->distinct()->get(['value','data']);
+        $d2 = $data->distinct()->get(['value', 'data']);
         return response()->json(['suggestion' => $d2]);
-
     }
 
     public function getOutletdetails(Request $request)
     {
-        $data = service_log::where('outlet_code', $request->outlet_code)->where('visi_id',$request->visi_id)->select('outlet_code', 'outlet_name', 'outlet_mobile', 'person_mobile', 'outlet_address', 'visi_id', 'visi_size', 'db_name', 'se_area', 'asm_area')->get();
+        $data = service_log::where('outlet_code', $request->outlet_code)
+            ->where('visi_id', $request->visi_id)
+            ->select('outlet_code', 'outlet_name', 'outlet_mobile', 'person_mobile', 'outlet_address', 'visi_id', 'visi_size', 'db_name', 'se_area', 'asm_area')
+            ->get();
 
         return response()->json(['suggestion' => $data]);
     }
@@ -128,31 +134,29 @@ class ServiceLogController extends Controller
 
         $add_technician = add_technician::where(['id' => $rowId]);
         if ($add_technician->first()) {
-            add_technician::where('id', $rowId)->update(
-                [
-                    'tech_status' => $request->tech_status,
-                    'note' => $request->note,
-                ]
-            );
-            $add_technician = technician_item::where('add_techni_id_fk', $rowId)->first();
-            $add_technician->note = $request->note;
-            $add_technician->to_user = $request->assigned_to ? $request->assigned_to : $add_technician->to_user;
+            add_technician::where('id', $rowId)->update([
+                'tech_status' => $request->tech_status,
+                'note' => $request->note,
+            ]);
+            $add_technician             = technician_item::where('add_techni_id_fk', $rowId)->first();
+            $add_technician->note       = $request->note;
+            $add_technician->to_user    = $request->assigned_to ? $request->assigned_to : $add_technician->to_user;
             $add_technician->save();
-            service_log::where('id', $request->log_id)->update(['assigned_to'=>$request->assigned_to]);
+            service_log::where('id', $request->log_id)->update(['assigned_to' => $request->assigned_to]);
             return response()->json(['messege' => 'Successfully Updated.', 'types' => 's']);
         } else {
             $isSave = add_technician::create($request->all());
 
             if ($isSave) {
-                $tf = new technician_item;
+                $tf                   = new technician_item();
                 $tf->add_techni_id_fk = $isSave->id;
-                $tf->log_id = $request->log_id;
-                $tf->from_user = Auth::user()->machine_id;
-                $tf->to_user = $request->assigned_to;
-                $tf->request_type = 'Main';
-                $tf->note = $request->note;
+                $tf->log_id           = $request->log_id;
+                $tf->from_user        = Auth::user()->machine_id;
+                $tf->to_user          = $request->assigned_to;
+                $tf->request_type     = 'Main';
+                $tf->note             = $request->note;
                 $tf->save();
-                service_log::where('id', $request->log_id)->update(['status' => 'Assigned','assigned_to'=>$request->assigned_to]);
+                service_log::where('id', $request->log_id)->update(['status' => 'Assigned', 'assigned_to' => $request->assigned_to,'assigned_date'=>now()]);
             }
 
             return response()->json(['messege' => 'Successfully Saved.', 'types' => 's']);
@@ -162,8 +166,11 @@ class ServiceLogController extends Controller
     public function getTechList(Request $request)
     {
         if ($request->ajax()) {
-            $data = DB::select('select ti.id,ti.log_id ,concat(f_staff_name( ti.from_user  ),"->",f_staff_name( ti.to_user )) tech_name,ti.note,at2.tech_status,ti.created_at,ti.to_user assigned_to,ti.file_path,ti.add_techni_id_fk
-            from add_technicians at2, technician_items ti where at2.id =ti.add_techni_id_fk and at2.log_id =?', [$request->log_id]);
+            $data = DB::select(
+                'select ti.id,ti.log_id ,concat(f_staff_name( ti.from_user  ),"->",f_staff_name( ti.to_user )) tech_name,ti.note,at2.tech_status,ti.created_at,ti.to_user assigned_to,ti.file_path,ti.add_techni_id_fk
+            from add_technicians at2, technician_items ti where at2.id =ti.add_techni_id_fk and at2.log_id =?',
+                [$request->log_id],
+            );
 
             return DataTables::of($data)
                 ->addIndexColumn()
@@ -191,6 +198,7 @@ class ServiceLogController extends Controller
 
         $service_log = service_log::where('id', $request->log_id)->first();
         $service_log->status = 'Closed';
+        $service_log->close_date = now();
         $service_log->save();
 
         return response()->json(['messege' => 'Successfully Closed', 'types' => 's']);
@@ -199,9 +207,12 @@ class ServiceLogController extends Controller
     public function getVisiHistory(Request $request)
     {
         if ($request->ajax()) {
-            $data = DB::select("select sl.id,log_date, concat(f_invoice_item_name(ti.invoice_item_id),' ',ti.quantity,' Qty') details,f_staff_name(ti.from_user) tech_men  
-            from service_logs sl,technician_items ti  where sl.id =ti.log_id and  visi_id =? and ti.request_type ='Install' and log_date 
-            BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()", [$request->visi_id]);
+            $data = DB::select(
+                "select sl.id,log_date, concat(f_invoice_item_name(ti.invoice_item_id),' ',ti.quantity,' Qty') details,f_staff_name(ti.from_user) tech_men
+            from service_logs sl,technician_items ti  where sl.id =ti.log_id and  visi_id =? and ti.request_type ='Install' and log_date
+            BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()",
+                [$request->visi_id],
+            );
 
             return DataTables::of($data)
                 ->addIndexColumn()

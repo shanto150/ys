@@ -388,14 +388,15 @@
                 <table class="table table-bordered table-hover table-striped" id="EntryTable" width="100%">
                     <thead>
                         <tr>
-                            <th class="text-center">Sn#</th>
-                            <th class="text-center">Name</th>
-                            <th class="text-center">Visi+Address</th>
-                            <th class="text-center">Dates</th>
-                            <th class="text-center">Area</th>
-                            <th class="text-center">Complains</th>
-                            <th class="text-center">Status</th>
-                            <th class="text-center">Actions</th>
+                            <th class="text-center w-5">Sn#</th>
+                            <th class="text-center w-5">Code</th>
+                            <th class="text-center w-15">Name</th>
+                            <th class="text-center w-10">Visi</th>
+                            <th class="text-center w-10">Dates</th>
+                            <th class="text-center w-10">Area</th>
+                            <th class="text-center w-10">Complains</th>
+                            <th class="text-center w-10">Status</th>
+                            <th class="text-center w-10">Actions</th>
                         </tr>
                     </thead>
 
@@ -601,6 +602,7 @@
                 columnDefs: [{
                     "defaultContent": "N/A",
                     "targets": "_all",
+                    "orderable": false
                 }],
                 initComplete: function(settings, json) {
 
@@ -661,15 +663,20 @@
                         name: 'DT_RowIndex'
                     },
                     {
+                        data: 'outlet_code',
+                        name: 'outlet_code'
+                    },
+                    {
                         render: function(data, type, row) {
                             var ttl = row.ttl;
-                            var outlet_code = row.outlet_code;
                             var outlet_name = row.outlet_name;
                             var outlet_mobile = row.outlet_mobile;
                             var person_mobile = row.person_mobile;
+                            var outlet_address = row.outlet_address;
                             var html = '';
-                            html += '<div>' + outlet_code + '-' + outlet_name + '</div>';
+                            html += '<div>' + outlet_name + '</div>';
                             html += '<div>' + outlet_mobile + '-' + person_mobile + '</div>';
+                            html += '<div>' + outlet_address + '</div>';
                             return html;
                         }
                     },
@@ -677,22 +684,23 @@
                         render: function(data, type, row) {
                             var visi_id = row.visi_id;
                             var visi_size = row.visi_size;
-                            var outlet_address = row.outlet_address;
+                            var brand = row.brand;
                             var html = '';
-                            html += '<div> Visi id : ' + visi_id + ' Size : ' + visi_size + '</div>';
-                            html += '<div>' + outlet_address + '</div>';
+                            html += '<div> Visi id : ' + visi_id + '</div>';
+                            html += '<div> Size :' + visi_size + '</div>';
+                            html += '<div> Brand :' + brand + '</div>';
                             return html;
                         }
                     },
                     {
                         render: function(data, type, row) {
                             var log_date = moment(row.log_date).format('DD-MMM-YYYY');
-                            var first_response_date = row.first_response_date ? moment(row
-                                    .first_response_date)
-                                .format('DD-MMM-YYYY') : 'Not Found';
+                            var assigned_date = row.assigned_date ? moment(row.assigned_date).format('DD-MMM-YYYY h:mm:ss a') : 'Not Found';
+                            var close_date = row.close_date ? moment(row.close_date).format('DD-MMM-YYYY') : 'Not Found';
                             var html = '';
                             html += '<div> Call : ' + log_date + '</div>';
-                            html += '<div> FR : ' + first_response_date + '</div>';
+                            html += '<div> Assign : ' + assigned_date + '</div>';
+                            html += '<div> Close : ' + close_date + '</div>';
                             return html;
                         }
                     },

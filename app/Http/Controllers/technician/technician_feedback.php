@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Price_list;
 use App\Models\service\service_log;
 use App\Models\technician_item;
+use App\Models\service\add_technician;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,10 +15,10 @@ use Intervention\Image\Facades\Image;
 use Yajra\DataTables\DataTables;
 
 class technician_feedback extends Controller
-{
+{ 
     public function index()
     {
-        $techDatas = DB::select('select at2.id,at2.log_id,concat(sl.outlet_name," - ",sl.complains," - ",at2.note) note, from_user, at2.created_at 
+        $techDatas = DB::select('select at2.id,at2.log_id,concat(sl.outlet_name," - ",at2.note) note, from_user, at2.created_at,sl.outlet_address 
         from add_technicians at2, technician_items ti, service_logs sl  
         where at2.log_id =sl.id and at2.id =ti.add_techni_id_fk and ti.to_user=? and at2.tech_status ="Open"', [Auth::user()->machine_id]);
 
@@ -127,5 +128,17 @@ class technician_feedback extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->make(true);
+    }
+
+    public function TechCallClose(Request $request)
+    {
+        // dd($request->all());
+        add_technician::where('log_id',$request->log_id)->where('assigned_to',Auth::user()->machine_id)->update(
+            [
+                'tech_status' => 'Closed',
+            ]
+        );
+
+        return response()->json(['messege' => 'Successfully Saved.', 'types' => 's']);
     }
 }

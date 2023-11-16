@@ -231,7 +231,6 @@
                         <button type="button" form="assignform" onclick="FromsCheck();"
                             class="btn btn-success float-right"><i class="fa fa-check" aria-hidden="true"></i>
                             Save</button>
-
                     </div>
                 </div>
                 <div class="table-wrapper">

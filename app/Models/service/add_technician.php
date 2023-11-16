@@ -11,5 +11,5 @@ class add_technician extends Model
     use HasFactory;
     use CreatedUpdatedBy;
 
-    protected $fillable = ['log_id', 'note'];
+    protected $fillable = ['log_id', 'note','tech_status','assigned_to'];
 }

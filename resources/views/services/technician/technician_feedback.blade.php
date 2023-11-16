@@ -208,6 +208,7 @@
                                         <tr>
                                             <th>নং</th>
                                             <th>বিবরণ</th>
+                                            <th>ঠিকানা</th>
                                         </tr>
                                     </thead>
 
@@ -223,9 +224,12 @@
                                                                 now(),
                                                                 Carbon\CarbonInterface::DIFF_RELATIVE_AUTO,
                                                                 true,
-                                                                6,
+                                                                3,
                                                             ) }}</span>
                                                     </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row text-center">{{ $data->outlet_address }}</div>
                                                 </td>
                                                 <td class="d-none">{{ $data->from_user }}</td>
                                                 <td class="d-none">{{ $data->id }}</td>
@@ -389,9 +393,11 @@
 
                             </div>
 
-                            <div class="card-footer text-right">
-                                <button class="btn btn-primary" onclick="FromsCheck()" type="button"><i
-                                        class="fa fa-check-square" aria-hidden="true"></i> Save</button>
+                            <div class="card-footer">
+                                <button class="btn btn-primary float-right" onclick="FromsCheck()" type="button"><i
+                                        class="fa fa-check-square" aria-hidden="true"></i> সেভ</button>
+                                <button class="btn btn-info float-left" onclick="TachClose()" type="button"><i
+                                        class="fa fa-check-square" aria-hidden="true"></i> ক্লোজ</button>
                             </div>
                         </div>
                     </form>
@@ -468,9 +474,9 @@
 
             $('#worklist tr').click(function() {
                 var currentRow = $(this).closest("tr");
-                log_id = currentRow.find("td:eq(4)").html();
-                to_user = currentRow.find("td:eq(2)").html();
-                add_techni_id_fk = currentRow.find("td:eq(3)").html();
+                log_id = currentRow.find("td:eq(5)").html();
+                to_user = currentRow.find("td:eq(3)").html();
+                add_techni_id_fk = currentRow.find("td:eq(4)").html();
                 $('#log_id').val(log_id);
                 $('#to_user').val(to_user);
                 $('#add_techni_id_fk').val(add_techni_id_fk);
@@ -736,6 +742,41 @@
                 document.getElementById("to_user").value = (to_user == "null" ? "" : to_user);
                 firstValue = $("#myform").serialize();
 
+            }
+
+            function TachClose() {
+
+                $.ajax({
+                    beforeSend: function() {
+                        $('#modelSpinner').show();
+                    },
+                    error: function(res) {
+                        $('#modelSpinner').hide();
+                        const ErrowArray = res.responseJSON['message'];
+                        const EE = res.responseJSON['exception'];
+                        const msgs = ErrowArray.split(':');
+                        if (EE == 'ErrorException') {
+                            message(ErrowArray, '#FF0000', 'white', 'error', 'Error');
+                        } else {
+                            message(msgs[2], '#FF0000', 'white', 'error', msgs[1]);
+                        }
+                    },
+                    complete: function() {
+                        $('#modelSpinner').hide();
+                    },
+                    type: 'GET',
+                    url: "{{ route('techCallClose') }}",
+                    data: {
+                        'log_id': log_id,
+                    },
+                    success: function(res) {
+                        if (res.types == 'e') {
+                            message(res.messege, '#FF0000', 'white', 'error', 'error');
+                        } else {
+                            message(res.messege, '#29912b', 'white', 'error', 'Success');
+                        }
+                    }
+                });
             }
         </script>
         <script>

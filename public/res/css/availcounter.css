@@ -1,0 +1,76 @@
+:root {
+    --main-color: #09BB7F;
+}
+
+.counter1 {
+    background: var(--main-color);
+    font-family: FjallaOne;
+    text-align: center;
+    width: 150px;
+    height: 150px;
+    padding: 15px 5px;
+    margin: 0 auto;
+    border-radius: 50%;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.counter1:after {
+    content: '';
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    left: 3px;
+    right: 3px;
+    top: 7px;
+    bottom: 1px;
+    z-index: -1;
+    clip-path: polygon(0 0, 100% 0, 100% 82%, 0 82%);
+}
+
+.counter1 .counter1-icon {
+    color: var(--main-color);
+    font-size: 30px;
+    margin: 0 0 5px;
+}
+
+.counter1 h3 {
+    font-family: FjallaOne;
+    color: var(--main-color);
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin: 0 0 15px;
+}
+
+.counter1:hover{
+    background: #175f5e;
+    cursor: pointer;
+}
+
+.counter1 .counter1-value {
+    color: var(--main-color);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 5px;
+    display: inline-block;
+}
+
+.counter1.red {
+    --main-color: #FF3E5D;
+}
+
+.counter1.yellow {
+    --main-color: #ff9100;
+}
+
+.counter1.blue {
+    --main-color: #03A9B7;
+}
+
+@media screen and (max-width:990px) {
+    .counter1 {
+        margin-bottom: 40px;
+    }
+}
