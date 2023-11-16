@@ -38,8 +38,8 @@ class availabletechController extends Controller
         {
             $inMarket = DB::table('emps as e')
                 ->selectRaw('e.machine_id,name,CONCAT(FLOOR((TIMESTAMPDIFF(MONTH, dob, CURDATE()) / 12)), "Y ", MOD(TIMESTAMPDIFF(MONTH, dob, CURDATE()), 12) , "M" ) AS age,CONCAT(FLOOR((TIMESTAMPDIFF(MONTH, doj, CURDATE()) / 12)), "Y ", MOD(TIMESTAMPDIFF(MONTH, doj, CURDATE()), 12) , "M" ) AS job_age,concat(Mobile_personal," ",Mobile_official) contact')
-                ->join('add_technicians as at', 'e.machine_id', '=', 'at.assigned_to')
-                ->where('at.tech_status', 'Open')->get();
+                ->join('add_technicians as at2', 'e.machine_id', '=', 'at2.assigned_to')
+                ->where('at2.tech_status', 'Open')->get();
 
             return DataTables::of($inMarket)->addIndexColumn()->make(true);
 
