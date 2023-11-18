@@ -594,7 +594,7 @@
                     "orderable": false,
                     
                 },
-                { "width": "10%", "targets": 8 }
+                { "width": "9%", "targets": 8 },
             ],
                 initComplete: function(settings, json) {
 
