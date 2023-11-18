@@ -21,10 +21,11 @@ class PreInvoiceController extends Controller {
 
         $dateS = Carbon::now()->startOfMonth()->subMonth( 3 );
         $dateE = Carbon::now()->startOfMonth();
-        $last3monthvalue = DB::table( 'pre_invoices' )
-        ->selectRaw( "date_format(invoice_month,'%b-%Y') inv_date,f_invoice_item_name(invoice_item_id) item_name,quantity ,rate,note" )
-        ->where( 'visi_id',$visi_id )
-        ->whereBetween('invoice_month',[$dateS,$dateE])
+        $last3monthvalue = DB::table( 'pre_invoices as pi' )
+        ->join('service_logs as sl','sl.id','=','pi.log_id')
+        ->selectRaw( "date_format(pi.invoice_month,'%b-%Y') inv_date,f_invoice_item_name(pi.invoice_item_id) item_name,pi.quantity ,pi.rate,note,sl.outlet_code" )
+        ->where( 'pi.visi_id',$visi_id )
+        ->whereBetween('pi.invoice_month',[$dateS,$dateE])
         ->get();
 
         // dd($last3monthvalue);

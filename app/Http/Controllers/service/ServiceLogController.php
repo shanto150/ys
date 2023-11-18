@@ -83,10 +83,11 @@ class ServiceLogController extends Controller
         // dd($request->all());
 
         $dates = explode(',', $request->dateRange);
-
-        $data = DB::table('service_logs')
-            ->selectRaw('*')
-            ->orderByDesc('id');
+ 
+        $data = DB::table('service_logs as sl')
+        ->join('add_technicians as at','sl.id','=','at.log_id')
+        ->selectRaw('sl.id,sl.outlet_code,sl.visi_id,sl.visi_size,sl.outlet_name,sl.outlet_address,sl.outlet_mobile,sl.person_mobile,sl.complains,sl.se_area,sl.asm_area,sl.region,sl.db_name,sl.log_date,sl.assigned_date,sl.first_response_date,sl.close_date,sl.status,sl.created_at,sl.updated_at,sl.brand,sl.pre_invoice_status,f_staff_name(sl.assigned_to) as asin,at.tech_status as t_status')
+        ->orderByDesc('sl.id');
 
         if ($request->Status) {
             $data->where('status', $request->Status);
@@ -103,7 +104,8 @@ class ServiceLogController extends Controller
             $data->where('asm_area', $request->ASMarea);
         }
 
-        $data->get();
+        $data=$data->get();
+
 
         return DataTables::of($data)
             ->addIndexColumn()

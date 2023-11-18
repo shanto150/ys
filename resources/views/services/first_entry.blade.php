@@ -212,17 +212,6 @@
                                         <label for="outlet_code">Outlet Code</label>
                                     </div>
 
-                                    {{-- <div class="form-label-group in-border">
-                                        <select class="form-control select2" onchange="alert('this.val()')" name="outlet_code" id="outlet_code"
-                                            style="width: 100%;">
-                                            <option selected value="">Select</option>
-                                            @foreach ($OutletCodes as $value)
-                                                <option value="{{ $value->outlet_code }}">{{ $value->outlet_code }} - {{ $value->visi_id }}</option>
-                                            @endforeach
-                                        </select>
-                                        <label for="assigned_to">SE</label>
-                                    </div> --}}
-
                                 </div>
 
                                 <input type="text" name="id" id="id" value="0" hidden>
@@ -380,7 +369,7 @@
             <div class="card-header ">
                 <h3 class="card-title"><i class="fa fa-cogs text-danger" aria-hidden="true"></i> &nbsp; Service List</h3>
                 <div class="card-tools">
-                    <button type="button" data-toggle="modal" data-target="#myModal"
+                    <button type="button"  data-toggle="modal" data-target="#myModal"
                         class="btn btn-sm bg-gradient-success"><i class="fa fa-plus" aria-hidden="true"></i> New</button>
                 </div>
             </div>
@@ -715,13 +704,28 @@
                         }
                     },
                     {
-                        data: 'complains',
-                        name: 'complains'
+                        render: function(data, type, row) {
+                            var complains = row.complains;
+                            var t_status = row.t_status;
+                            var assigned_to = row.asin? row.asin:'Not Assigned';
+                            var html = '';
+                            html += '<div> comp : ' + complains + '</div>';
+                            if (t_status=='Open') {
+                                html += '<div> Tech : '+assigned_to+' <span style="font-size: 8px" class="badge badge-pill badge-info">' + t_status +
+                                        '</span></div>';
+                            } else {
+                                html += '<div> Tech : '+assigned_to+' <span style="font-size: 8px" class="badge badge-pill badge-danger">' + t_status +
+                                        '</span></div>';
+                            }
+                            
+                            return html;
+                        }
                     },
                     {
 
                         render: function(data, type, row) {
                             var status = row.status;
+                            var mid = row.id;
                             var pre_invoice_status = row.pre_invoice_status;
                             if (pre_invoice_status == 'Yes') {
                                 var html = '';
@@ -729,22 +733,27 @@
                                 if (status == 'Received') {
                                     html += '<div><span class="badge badge-pill badge-warning">' + status +
                                         '</span></div>';
+                                        html += '<div class="text-center">'+mid+'</div>';
                                     return html;
                                 } else if (status == 'Assigned') {
                                     html += '<div><span class="badge badge-pill badge-info">' + status +
                                         '</span></div>';
+                                        html += '<div class="text-center">'+mid+'</div>';
                                     return html;
                                 } else if (status == 'Hold') {
                                     html += '<div><span class="badge badge-pill badge-muted">' + status +
                                         '</span></div>';
+                                        html += '<div class="text-center">'+mid+'</div>';
                                     return html;
                                 } else if (status == 'Void') {
                                     html += '<div><span class="badge badge-pill badge-muted">' + status +
                                         '</span></div>';
+                                        html += '<div class="text-center">'+mid+'</div>';
                                     return html;
                                 } else {
                                     html += '<div><span class="badge badge-pill badge-success">' + status +
                                         '</span><i class="fa fa-check" style="color: green; margin-left: 1px;"></i></div>';
+                                        html += '<div class="text-center">'+mid+'</div>';
                                     return html;
                                 }
 
@@ -753,22 +762,27 @@
                                 if (status == 'Received') {
                                     html += '<div><span class="badge badge-pill badge-warning">' + status +
                                         '</span></div>';
+                                        html += '<div class="text-center">'+mid+'</div>';
                                     return html;
                                 } else if (status == 'Assigned') {
                                     html += '<div><span class="badge badge-pill badge-info">' + status +
                                         '</span></div>';
+                                        html += '<div class="text-center">'+mid+'</div>';
                                     return html;
                                 } else if (status == 'Hold') {
                                     html += '<div><span class="badge badge-pill badge-muted">' + status +
                                         '</span></div>';
+                                        html += '<div class="text-center">'+mid+'</div>';
                                     return html;
                                 } else if (status == 'Void') {
                                     html += '<div><span class="badge badge-pill badge-muted">' + status +
                                         '</span></div>';
+                                        html += '<div class="text-center">'+mid+'</div>';
                                     return html;
                                 } else {
                                     html += '<div><span class="badge badge-pill badge-success">' + status +
                                         '</span></div>';
+                                        html += '<div class="text-center">'+mid+'</div>';
                                     return html;
                                 }
 

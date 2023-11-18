@@ -252,7 +252,7 @@
                 }
             }
         }
-        groupTable($('#tbl1 tr:has(td)'), 0, 9);
+        groupTable($('#tbl1 tr:has(td)'), 0, 11);
         $('#tbl1 .deleted').remove();
     });
 

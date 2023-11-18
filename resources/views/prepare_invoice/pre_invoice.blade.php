@@ -147,7 +147,16 @@
             <div class="col-md-12">
                 <div class="card border border-01 border-success">
                     <div class="card-header">
-                        <h3 class="card-title"><i class="fa fa-list-alt text-danger" aria-hidden="true"></i> Invoice Preparation</h3>
+                        <h3 class="card-title"><i class="fa fa-list-alt text-danger" aria-hidden="true"></i> Invoice
+                            Preparation</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-body m-0">
                         <form id="myform">
@@ -178,8 +187,9 @@
                                     <div class="d-flex justify-content-end">
                                         <button type="button" class="btn btn-sm btn-info m-1" onclick="addField();"><i
                                                 class="fa fa-plus" aria-hidden="true"></i></button>
-                                        <button type="button" class="btn btn-sm btn-info m-1" onclick="removeField();"><i
-                                                class="fa fa-minus" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-sm btn-info m-1"
+                                            onclick="removeField();"><i class="fa fa-minus"
+                                                aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -187,8 +197,8 @@
                         </form>
                     </div>
                     <div class="card-footer">
-                        <button type="button" form="assignform" onclick="save();" class="btn btn-success float-right"><i
-                                class="fa fa-check" aria-hidden="true"></i>
+                        <button type="button" form="assignform" onclick="save();"
+                            class="btn btn-success float-right"><i class="fa fa-check" aria-hidden="true"></i>
                             Save</button>
                     </div>
                 </div>
@@ -200,16 +210,22 @@
             <div class="col-md-12">
                 <div class="card border border-01 border-warning">
                     <div class="card-header">
-                        <h3 class="card-title"><i class="fa fa-recycle text-danger" aria-hidden="true"></i> Visi Parts History
+                        <h3 class="card-title"><i class="fa fa-recycle text-danger" aria-hidden="true"></i> Visi Parts
+                            History
                         </h3>
+                        <div class="card-tools">
+                            <input class="form-control form-control-sm" id="hSearch" type="search"
+                                placeholder="Search">
+                        </div>
+
                     </div>
                     <div class="card-body m-0">
 
-                        <div class="table-wrapper">
                         <table class="table table-sm fl-table table-striped" id="3monthhistory" width="100%">
                             <thead>
                                 <tr class="text-center">
                                     <th style="width: 10%">Date</th>
+                                    <th style="width: 10%">O-Code</th>
                                     <th style="width: 25%">Name</th>
                                     <th style="width: 15%">Quantity</th>
                                     <th style="width: 10%">Rate</th>
@@ -220,6 +236,7 @@
                                 @foreach ($last3monthvalue as $val)
                                     <tr>
                                         <td>{{ $val->inv_date }}</td>
+                                        <td>{{ $val->outlet_code }}</td>
                                         <td>{{ $val->item_name }}</td>
                                         <td>{{ $val->quantity }}</td>
                                         <td>{{ $val->rate }}</td>
@@ -229,7 +246,6 @@
                             </tbody>
 
                         </table>
-                        </div>
 
                     </div>
 
@@ -252,6 +268,22 @@
 
         });
 
+
+        var Tmonthhistory = $("#3monthhistory").DataTable({
+            "responsive": true,
+            "lengthChange": true,
+            "autoWidth": false,
+            "pageLength": 10,
+            "paging": true,
+            "ordering": false,
+            "bFilter": false,
+            "searching": true,
+            "dom": 'tp'
+        });
+
+        $('#hSearch').on('input', function() {
+            Tmonthhistory.search(this.value).draw();
+        });
 
         function getClick(id) {
             var unit = $(id).find(':selected').data('unit');
