@@ -591,8 +591,11 @@
                 columnDefs: [{
                     "defaultContent": "N/A",
                     "targets": "_all",
-                    "orderable": false
-                }],
+                    "orderable": false,
+                    
+                },
+                { "width": "10%", "targets": 8 }
+            ],
                 initComplete: function(settings, json) {
 
                     var sum = $('#EntryTable').DataTable().column(0).data().count();

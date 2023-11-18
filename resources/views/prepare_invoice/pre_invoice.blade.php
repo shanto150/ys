@@ -278,7 +278,7 @@
             "ordering": false,
             "bFilter": false,
             "searching": true,
-            "dom": 'tp'
+            "dom": 'tp',
         });
 
         $('#hSearch').on('input', function() {
