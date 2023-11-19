@@ -114,20 +114,29 @@ class ServiceLogController extends Controller
 
     public function getOutletCode(Request $request)
     {
-        // $data = service_log::latest()->select(DB::raw('CAST(concat(outlet_code,"-",visi_id) AS CHAR) AS value'), DB::raw('CAST(outlet_code AS CHAR) AS data'));
-        $data = DB::table('service_logs')->selectRaw('concat(outlet_code,"-",visi_id) as value,outlet_code AS data');
-        $d2 = $data->distinct()->get(['value', 'data']);
+        $data_new = DB::table('service_logs')->selectRaw('concat(outlet_code,"-",visi_id) as value,outlet_code AS data');
+        $data_old = DB::table('old_outlet_info')->selectRaw('concat(outlet_code,"-",visi_id) as value,outlet_code AS data')
+        ->union($data_new);
+
+        $d2 = $data_old->distinct()->get(['value', 'data']);
         return response()->json(['suggestion' => $d2]);
     }
 
     public function getOutletdetails(Request $request)
     {
-        $data = service_log::where('outlet_code', $request->outlet_code)
+        $ctn = DB::table('service_logs')->where('outlet_code', $request->outlet_code)->where('visi_id', $request->visi_id)->count();
+        if ($ctn==0) {
+            $data = DB::table('old_outlet_info')->where('outlet_code', $request->outlet_code)
             ->where('visi_id', $request->visi_id)
-            ->select('outlet_code', 'outlet_name', 'outlet_mobile', 'person_mobile', 'outlet_address', 'visi_id', 'visi_size', 'db_name', 'se_area', 'asm_area')
-            ->get();
+            ->select('outlet_code', 'outlet_name', 'outlet_mobile', 'person_mobile', 'outlet_address', 'visi_id', 'visi_size', 'db_name', 'se_area', 'asm_area','brand','rsm_area')->get();
+            return response()->json(['suggestion' => $data]);
+        } else {
+            $data = DB::table('service_logs')->where('outlet_code', $request->outlet_code)
+            ->where('visi_id', $request->visi_id)
+            ->select('outlet_code', 'outlet_name', 'outlet_mobile', 'person_mobile', 'outlet_address', 'visi_id', 'visi_size', 'db_name', 'se_area', 'asm_area','brand','rsm_area')->get();
+            return response()->json(['suggestion' => $data]);
+        }
 
-        return response()->json(['suggestion' => $data]);
     }
 
     public function Techstore(Request $request)

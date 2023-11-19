@@ -245,12 +245,22 @@
 
                             </div>
 
-                            <div class="col-12">
-                                <div class="form-label-group in-border">
-                                    <input type="text" id="outlet_address" style="text-transform:capitalize"
-                                        name="outlet_address" class="form-control" placeholder="Outlet Address"
-                                        autocomplete="off">
-                                    <label for="outlet_address">Outlet Address</label>
+                            <div class="row m-0">
+                                <div class="col-9">
+                                    <div class="form-label-group in-border">
+                                        <input type="text" id="outlet_address" style="text-transform:capitalize"
+                                            name="outlet_address" class="form-control" placeholder="Outlet Address"
+                                            autocomplete="off">
+                                        <label for="outlet_address">Outlet Address</label>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-label-group in-border">
+                                        <input type="text" id="rsm_area" style="text-transform:capitalize"
+                                            name="rsm_area" class="form-control" placeholder="RSM Area"
+                                            autocomplete="off">
+                                        <label for="rsm_area">RSM Area</label>
+                                    </div>
                                 </div>
                             </div>
 
@@ -457,12 +467,12 @@
                 document.getElementById("visi_size").focus();
                 return false;
             }
-            var db_name = document.getElementById('db_name').value;
-            if (db_name == '') {
-                message('Enter db name', '#FF0000', 'white', 'error', 'Error');
-                document.getElementById("db_name").focus();
-                return false;
-            }
+            // var db_name = document.getElementById('db_name').value;
+            // if (db_name == '') {
+            //     message('Enter db name', '#FF0000', 'white', 'error', 'Error');
+            //     document.getElementById("db_name").focus();
+            //     return false;
+            // }
             var se_area = document.getElementById('se_area').value;
             if (se_area == '') {
                 message('Enter se area', '#FF0000', 'white', 'error', 'Error');
@@ -929,6 +939,8 @@
                     $('#db_name').val(res.suggestion[0].db_name);
                     $('#se_area').val(res.suggestion[0].se_area);
                     $('#asm_area').val(res.suggestion[0].asm_area);
+                    $('#brand').val(res.suggestion[0].brand);
+                    $('#rsm_area').val(res.suggestion[0].rsm_area);
                 }
             });
         }
