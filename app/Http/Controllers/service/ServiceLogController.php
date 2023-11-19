@@ -16,24 +16,16 @@ class ServiceLogController extends Controller
 {
     public function FirstCall()
     {
-        $asm = DB::table('service_logs')
-            ->distinct()
-            ->get(['asm_area']);
-        $se = DB::table('service_logs')
-            ->distinct()
-            ->get(['se_area']);
-        $OutletCodes = DB::table('service_logs')
-            ->distinct()
-            ->get(['outlet_code', 'visi_id']);
+        $asm = DB::table('service_logs')->distinct()->get(['asm_area']);
+        $se = DB::table('service_logs')->distinct()->get(['se_area']);
+        $OutletCodes = DB::table('service_logs')->distinct()->get(['outlet_code', 'visi_id']);
 
         return view('services.first_entry', compact('asm', 'se', 'OutletCodes'));
     }
 
     public function TechAdd(Request $request)
     {
-        $service_logs = DB::table('service_logs')
-            ->where('id', '=', $request->id)
-            ->first();
+        $service_logs = DB::table('service_logs')->where('id', '=', $request->id)->first();
         $LastTechs = DB::select('select sl.id,log_date, concat(f_invoice_item_name(ti.invoice_item_id)," ",ti.quantity," Qty") details,f_staff_name(ti.from_user) tech_men
         from service_logs sl,technician_items ti  where sl.id =ti.log_id and  visi_id =1111 and ti.request_type ="Install" and log_date
         BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()');
@@ -85,7 +77,7 @@ class ServiceLogController extends Controller
         $dates = explode(',', $request->dateRange);
  
         $data = DB::table('service_logs as sl')
-        ->join('add_technicians as at','sl.id','=','at.log_id')
+        ->leftjoin('add_technicians as at','sl.id','=','at.log_id')
         ->selectRaw('sl.id,sl.outlet_code,sl.visi_id,sl.visi_size,sl.outlet_name,sl.outlet_address,sl.outlet_mobile,sl.person_mobile,sl.complains,sl.se_area,sl.asm_area,sl.region,sl.db_name,sl.log_date,sl.assigned_date,sl.first_response_date,sl.close_date,sl.status,sl.created_at,sl.updated_at,sl.brand,sl.pre_invoice_status,f_staff_name(sl.assigned_to) as asin,at.tech_status as t_status')
         ->orderByDesc('sl.id');
 
