@@ -19,7 +19,6 @@ class ServiceLogController extends Controller
         $asm = DB::table('service_logs')->distinct()->get(['asm_area']);
         $se = DB::table('service_logs')->distinct()->get(['se_area']);
         $OutletCodes = DB::table('service_logs')->distinct()->get(['outlet_code', 'visi_id']);
-
         return view('services.first_entry', compact('asm', 'se', 'OutletCodes'));
     }
 
@@ -77,7 +76,7 @@ class ServiceLogController extends Controller
         $dates = explode(',', $request->dateRange);
  
         $data = DB::table('service_logs as sl')
-        ->selectRaw('sl.id,sl.outlet_code,sl.visi_id,sl.visi_size,sl.outlet_name,sl.outlet_address,sl.outlet_mobile,sl.person_mobile,sl.complains,sl.se_area,sl.asm_area,sl.region,sl.db_name,sl.log_date,sl.assigned_date,sl.first_response_date,sl.close_date,sl.status,sl.created_at,sl.updated_at,sl.brand,sl.pre_invoice_status,f_staff_name(sl.assigned_to) as asin,f_latest_techStatus(sl.id) as t_status')
+        ->selectRaw('sl.id,sl.outlet_code,sl.visi_id,sl.visi_size,sl.outlet_name,sl.outlet_address,sl.outlet_mobile,sl.person_mobile,sl.complains,sl.se_area,sl.asm_area,sl.region,sl.db_name,sl.log_date,sl.assigned_date,sl.first_response_date,sl.close_date,sl.status,sl.created_at,sl.updated_at,sl.brand,sl.pre_invoice_status,f_staff_name(sl.assigned_to) as asin,f_latest_techStatus(sl.id) as t_status,REPLACE(rsm_area,"Region","") rsm_area')
         ->orderByDesc('sl.id');
 
         if ($request->Status) {

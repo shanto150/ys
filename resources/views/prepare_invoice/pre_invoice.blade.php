@@ -176,7 +176,8 @@
                                                 <th style="width: 10%">QtyUnit</th>
                                                 <th style="width: 10%">Rate</th>
                                                 <th style="width: 10%">Total</th>
-                                                <th style="width: 35%">Note</th>
+                                                <th style="width: 6%;color:#f7088b">Bill?</th>
+                                                <th style="width: 29%">Note</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -321,6 +322,8 @@
                 '<td><input type="number" min="1" oninput="AutoTotal(this)" name="rate[]" class="form-control" id="rate_' +
                 sl + '"></td>';
             html += '<td><input type="number" min="1" name="total_amount[]" class="form-control" id="JOB_TITLE"></td>';
+            html +=
+                    '<td><select id="willbill" class="form-control" name="willbill[]"><option value="Yes">Yes</option><option value="No">No</option></select></td>';
             html += '<td><input type="text" name="note[]" class="form-control" id="note"></td>';
             html += '</tr>'
             $('#inputTable').append(html);
@@ -358,6 +361,8 @@
                     '" name="rate[]" oninput="AutoTotal(this)" class="form-control" id="JOB_TITLE"></td>';
                 html += '<td><input type="number"  min="1" value="' + Math.ceil(value.total) +
                     '" name="total_amount[]" class="form-control" id="JOB_TITLE"></td>';
+                html +=
+                    '<td><select id="willbill" class="form-control" name="willbill[]"><option value="Yes">Yes</option><option value="No">No</option></select></td>';
                 html += '<td><input type="text" name="note[]" class="form-control" id="note"></td>';
                 html += '</tr>'
                 $('#inputTable').append(html);

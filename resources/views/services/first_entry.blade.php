@@ -605,7 +605,7 @@
                     
                 },
                 { "width": "9%", "targets": 8 },
-            ],
+            ], 
                 initComplete: function(settings, json) {
 
                     var sum = $('#EntryTable').DataTable().column(0).data().count();
@@ -688,7 +688,7 @@
                             var visi_size = row.visi_size;
                             var brand = row.brand;
                             var html = '';
-                            html += '<div> Visi id : ' + visi_id + '</div>';
+                            html += '<div> Visi id : <span style="font-size: 14px; color: blue; font-weight: bold" >' + visi_id + '</span></div>';
                             html += '<div> Size :' + visi_size + '</div>';
                             html += '<div> Brand :' + brand + '</div>';
                             return html;
@@ -701,7 +701,7 @@
                             var close_date = row.close_date ? moment(row.close_date).format('DD-MMM-YYYY') : 'Not Found';
                             var html = '';
                             html += '<div> Call : ' + log_date + '</div>';
-                            html += '<div> Assign : ' + assigned_date + '</div>';
+                            html += '<div> Assign : <span style="font-size: 12px; color: blue; font-weight: bold" >' + assigned_date + '</span></div>';
                             html += '<div> Close : ' + close_date + '</div>';
                             return html;
                         }
@@ -710,9 +710,11 @@
                         render: function(data, type, row) {
                             var sear = row.se_area;
                             var asma = row.asm_area;
+                            var rsm = row.rsm_area;
                             var html = '';
-                            html += '<div> SE Area : ' + sear + '</div>';
-                            html += '<div> ASM Area : ' + asma + '</div>';
+                            html += '<div> SE : ' + sear + '</div>';
+                            html += '<div> ASM : ' + asma + '</div>';
+                            html += '<div> RSM : ' + rsm + '</div>';
                             return html;
                         }
                     },

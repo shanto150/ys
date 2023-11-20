@@ -56,12 +56,20 @@
                             </div>
                         </div>
 
-                        <div class="d-flex align-items-center justify-content-center">
-                            <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-sm-6 col-md-6 col-lg-3">
                                 <div class="form-label-group in-border">
                                     <input type="text" id="desig" class="form-control form-control-sm" name="desig"
                                         placeholder="Enter Designation" autocomplete="off">
                                     <label for="desig">Enter Designation</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <div class="form-label-group in-border">
+                                    <input type="text" id="emp_id" name="emp_id"
+                                        class="form-control form-control-sm" placeholder="EMP ID"
+                                        autocomplete="off">
+                                    <label for="nid">EMP ID</label>
                                 </div>
                             </div>
                         </div>
@@ -179,11 +187,11 @@
                                 <div class="form-label-group in-border">
                                     <select class="form-control" id="role" name="role">
                                         <option>Admin</option>
-                                        <option>Manager</option>
-                                        <option selected>Staff</option>
-                                        <option>Technician</option>
+                                        <option>Management</option>
+                                        <option selected>Distribution</option>
+                                        <option>Technical</option>
                                     </select>
-                                    <label for="role">Role</label>
+                                    <label for="role">Department</label>
                                 </div>
                             </div>
 
@@ -296,7 +304,7 @@
 
         function FromsCheck() {
 
-            var x = [ 'name', 'email', 'desig','doj','salary','Mobile_personal','Mobile_official','role'];
+            var x = [ 'name', 'email', 'desig','doj','salary','Mobile_personal','role'];
             if (EmptyValueFocus(x)) {
                 save();
             }
@@ -429,13 +437,14 @@
                         var image_path = "'" + row.image_path + "'";
                         var email = "'" + row.email + "'";
                         var role = "'" + row.role + "'";
+                        var emp_id = "'" + row.emp_id + "'";
 
                         var html = '';
                         html += '<div class="row justify-content-center align-items-center">';
                         html +=
                             '<button type="button" class="btn btn-sm btn-primary hvr-grow m-1" style="width: 80px" onclick="edit_model('+role+','+email+',' +name + ',' + desig + ',' + fathers_name +
                             ',' + mothers_name +',' + home_distrit +',' + dob +',' + doj +',' + nid +',' + blood_group +',' + religion +',' + gender +',' + emp_type +
-                            ',' + Mobile_personal +',' + Mobile_official +',' + salary +',' + status +',' + present_address +',' + permanent_address +',' + rwid +',' + image_path +');">';
+                            ',' + Mobile_personal +',' + Mobile_official +',' + salary +',' + status +',' + present_address +',' + permanent_address +',' + rwid +',' + image_path +','+emp_id+');">';
                         html += '<i class="ri-arrow-up-line"></i> | EDIT</button>';
                         html +=
                             '<button type="button" class="btn btn-sm btn-danger hvr-grow m-1" style="width: 80px" onclick="del(' +
@@ -501,11 +510,11 @@
         }
 
         function edit_model(role,email,name, desig, fathers_name, mothers_name, home_distrit, dob, doj, nid, blood_group, religion, gender,emp_type,Mobile_personal,Mobile_official,
-        salary,status,present_address,permanent_address,rwid,image_path) {
+        salary,status,present_address,permanent_address,rwid,image_path,emp_id) {
 
-            var keysArray  = ['role','email','name', 'desig', 'fathers_name', 'mothers_name', 'home_distrit', 'dob', 'doj', 'nid', 'blood_group', 'religion', 'gender','emp_type','Mobile_personal','Mobile_official','salary','status','present_address','permanent_address','id'];
+            var keysArray  = ['role','email','name', 'desig', 'fathers_name', 'mothers_name', 'home_distrit', 'dob', 'doj', 'nid', 'blood_group', 'religion', 'gender','emp_type','Mobile_personal','Mobile_official','salary','status','present_address','permanent_address','id','emp_id'];
             var valuesArray  = [role,email,name, desig, fathers_name, mothers_name, home_distrit, dob, doj, nid, blood_group, religion, gender,emp_type,Mobile_personal,Mobile_official,
-        salary,status,present_address,permanent_address,rwid];
+        salary,status,present_address,permanent_address,rwid,emp_id];
 
             editValuePst(keysArray,valuesArray);
 
