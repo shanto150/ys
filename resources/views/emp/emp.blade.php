@@ -190,6 +190,7 @@
                                         <option>Management</option>
                                         <option selected>Distribution</option>
                                         <option>Technical</option>
+                                        <option>Others</option>
                                     </select>
                                     <label for="role">Department</label>
                                 </div>
