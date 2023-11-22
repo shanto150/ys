@@ -66,9 +66,8 @@
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-3">
                                 <div class="form-label-group in-border">
-                                    <input type="text" id="emp_id" name="emp_id"
-                                        class="form-control form-control-sm" placeholder="EMP ID"
-                                        autocomplete="off">
+                                    <input type="text" id="emp_id" name="emp_id" class="form-control form-control-sm"
+                                        placeholder="EMP ID" autocomplete="off">
                                     <label for="nid">EMP ID</label>
                                 </div>
                             </div>
@@ -92,11 +91,12 @@
                             <div class="col-md-3">
                                 <div class="form-label-group in-border">
                                     <input type="text" id="home_distrit" name="home_distrit"
-                                        class="form-control form-control-sm" placeholder="Home distrit" autocomplete="off">
+                                        class="form-control form-control-sm" placeholder="Home distrit"
+                                        autocomplete="off">
                                     <label for="home_distrit">Home distrit</label>
                                 </div>
                             </div>
-                           
+
                             <div class="col-md-3">
                                 <div class="form-label-group in-border">
                                     <input type="date" id="dob" class="form-control form-control-sm"
@@ -116,7 +116,7 @@
                                 <div class="form-label-group in-border">
                                     <select class="form-control" id="status" name="status">
                                         <option value="1" selected>Active</option>
-                                        <option value="0" >Inactive </option>
+                                        <option value="0">Inactive </option>
                                     </select>
                                     <label for="emp_type">Is Employee Active?</label>
                                 </div>
@@ -125,7 +125,7 @@
                             <div class="col-md-3">
                                 <div class="form-label-group in-border">
                                     <input type="email" id="email" name="email"
-                                        class="form-control form-control-sm" placeholder="Email" >
+                                        class="form-control form-control-sm" placeholder="Email">
                                     <label for="email">Email</label>
                                 </div>
                             </div>
@@ -182,7 +182,7 @@
                                     <label for="emp_type">Emp Type</label>
                                 </div>
                             </div>
-
+ 
                             <div class="col-md-2">
                                 <div class="form-label-group in-border">
                                     <select class="form-control" id="role" name="role">
@@ -258,16 +258,18 @@
 
                     <div class="card-footer text-right mt-10">
                         <button type="button" onclick="document.getElementById('myform').reset();"
-                            class="btn btn-warning btn-sm me-5"><i class="fa fa-eraser" aria-hidden="true"></i> Clear</button>
-                        <button type="button" onclick="FromsCheck();" class="btn btn-sm btn-success"><i class="fa fa-check"
-                                aria-hidden="true"></i> Save</button>
+                            class="btn btn-warning btn-sm me-5"><i class="fa fa-eraser" aria-hidden="true"></i>
+                            Clear</button>
+                        <button type="button" onclick="FromsCheck();" class="btn btn-sm btn-success"><i
+                                class="fa fa-check" aria-hidden="true"></i> Save</button>
                     </div>
                 </form>
             </div>
 
             <div class="card card-none">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fa fa-list-ul text-danger" aria-hidden="true"></i> Employee List</h3>
+                    <h3 class="card-title"><i class="fa fa-list-ul text-danger" aria-hidden="true"></i> Employee List
+                    </h3>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-striped" id="EntryTable" width="100%">
@@ -305,7 +307,7 @@
 
         function FromsCheck() {
 
-            var x = [ 'name', 'email', 'desig','doj','salary','Mobile_personal','role'];
+            var x = ['name', 'email', 'desig', 'doj', 'salary', 'Mobile_personal', 'role'];
             if (EmptyValueFocus(x)) {
                 save();
             }
@@ -316,8 +318,11 @@
         aTable = $('#EntryTable').DataTable({
             processing: false,
             serverSide: false,
+            rowCallback: function(row, data) {
+                $.switcher('#isactive');
+            },
             initComplete: function(settings, json) {
-                $.switcher();
+                $.switcher('#isactive');
 
                 const element1 = document.querySelectorAll('#isactive');
                 if (element1.length !== 0) {
@@ -443,9 +448,14 @@
                         var html = '';
                         html += '<div class="row justify-content-center align-items-center">';
                         html +=
-                            '<button type="button" class="btn btn-sm btn-primary hvr-grow m-1" style="width: 80px" onclick="edit_model('+role+','+email+',' +name + ',' + desig + ',' + fathers_name +
-                            ',' + mothers_name +',' + home_distrit +',' + dob +',' + doj +',' + nid +',' + blood_group +',' + religion +',' + gender +',' + emp_type +
-                            ',' + Mobile_personal +',' + Mobile_official +',' + salary +',' + status +',' + present_address +',' + permanent_address +',' + rwid +',' + image_path +','+emp_id+');">';
+                            '<button type="button" class="btn btn-sm btn-primary hvr-grow m-1" style="width: 80px" onclick="edit_model(' +
+                            emp_id + ',' + role + ',' + email + ',' + name + ',' + desig + ',' +
+                            fathers_name +
+                            ',' + mothers_name + ',' + home_distrit + ',' + dob + ',' + doj + ',' + nid +
+                            ',' + blood_group + ',' + religion + ',' + gender + ',' + emp_type +
+                            ',' + Mobile_personal + ',' + Mobile_official + ',' + salary + ',' + status +
+                            ',' + present_address + ',' + permanent_address + ',' + rwid + ',' +
+                            image_path + ');">';
                         html += '<i class="ri-arrow-up-line"></i> | EDIT</button>';
                         html +=
                             '<button type="button" class="btn btn-sm btn-danger hvr-grow m-1" style="width: 80px" onclick="del(' +
@@ -457,6 +467,10 @@
                 },
             ]
         });
+
+        // aTable.on('draw', function() {
+        //     $.switcher();
+        // });
 
         function save() {
 
@@ -510,19 +524,27 @@
 
         }
 
-        function edit_model(role,email,name, desig, fathers_name, mothers_name, home_distrit, dob, doj, nid, blood_group, religion, gender,emp_type,Mobile_personal,Mobile_official,
-        salary,status,present_address,permanent_address,rwid,image_path,emp_id) {
+        function edit_model(emp_id, role, email, name, desig, fathers_name, mothers_name, home_distrit, dob, doj, nid,
+            blood_group, religion, gender, emp_type, Mobile_personal, Mobile_official,
+            salary, status, present_address, permanent_address, rwid, image_path) {
 
-            var keysArray  = ['role','email','name', 'desig', 'fathers_name', 'mothers_name', 'home_distrit', 'dob', 'doj', 'nid', 'blood_group', 'religion', 'gender','emp_type','Mobile_personal','Mobile_official','salary','status','present_address','permanent_address','id','emp_id'];
-            var valuesArray  = [role,email,name, desig, fathers_name, mothers_name, home_distrit, dob, doj, nid, blood_group, religion, gender,emp_type,Mobile_personal,Mobile_official,
-        salary,status,present_address,permanent_address,rwid,emp_id];
+            var keysArray = ['emp_id', 'email', 'name', 'desig', 'fathers_name', 'mothers_name', 'home_distrit', 'dob',
+                'doj', 'nid', 'blood_group', 'religion', 'gender', 'emp_type', 'Mobile_personal', 'Mobile_official',
+                'salary', 'status', 'present_address', 'permanent_address', 'id'
+            ];
+            var valuesArray = [emp_id, email, name, desig, fathers_name, mothers_name, home_distrit, dob, doj, nid,
+                blood_group, religion, gender, emp_type, Mobile_personal, Mobile_official,
+                salary, status, present_address, permanent_address, rwid
+            ];
 
-            editValuePst(keysArray,valuesArray);
+            editValuePst(keysArray, valuesArray);
 
-            $("#blah").attr("src",image_path);
+            $("#role").val(role).change();
+
+            $("#blah").attr("src", image_path);
             firstValue = $("#myform").serialize();
 
-            // console.log(Hash::make('1'));
+            console.log(emp_id);
         }
 
 
@@ -626,7 +648,9 @@
                 },
                 type: 'GET',
                 url: "{{ route('destroy-emp') }}", // Route
-                data: {'del_id': del_id},
+                data: {
+                    'del_id': del_id
+                },
                 success: function(res) {
                     $("#llogo").removeClass("spinner");
                     $("#loading-overlay").hide();
@@ -646,7 +670,5 @@
         function aChange(rowID) {
             ListRowID = rowID;
         }
-
     </script>
-
 @endpush

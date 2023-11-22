@@ -18,7 +18,7 @@ class HomeController extends Controller
     {
 
 
-        if (Auth::user()->role == 'Technician') {
+        if (Auth::user()->role == 'Technical') {
             return view('home.thome');
         } else {
             $Monthly_sell_Months = ['Jan', 'Feb', 'Mar','Apr','May','Jun','Jul','Aug','Sep'];
@@ -26,10 +26,10 @@ class HomeController extends Controller
             $statusCount = DB::select('select status,count(id) ctn from service_logs sl group by status');
 
             $ttl_emp = DB::table('emps')->where('status', 1)->count();
-            $ttl_tech = DB::table('emps')->where('role', 'Technician')->count();
+            $ttl_tech = DB::table('emps')->where('role', 'Technical')->count();
             $results = DB::select('select log_id from service_logs sl,add_technicians at2 where status ="Assigned" and sl.id =at2.log_id and at2.tech_status ="Open" group by log_id');
             $ttl_inmarket =count($results);
-            $free=$ttl_tech-$ttl_inmarket;
+            $free=$ttl_tech-$ttl_inmarket; 
             
             return view('home.home',compact('Monthly_sell_Months', 'Monthly_sell_values','statusCount','ttl_emp','ttl_tech','ttl_inmarket','free'));
         }
@@ -65,7 +65,7 @@ class HomeController extends Controller
             return back()->with($notify);
         }
     }
-
+ 
     public function lout()
     {
         Session::flush();

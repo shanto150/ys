@@ -29,7 +29,7 @@ class ServiceLogController extends Controller
         from service_logs sl,technician_items ti  where sl.id =ti.log_id and  visi_id =1111 and ti.request_type ="Install" and log_date
         BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()');
         // dd($service_logs);
-
+ 
         return view('services.addt', compact('service_logs', 'LastTechs'));
     }
 

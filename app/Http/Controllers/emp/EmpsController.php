@@ -68,6 +68,7 @@ class EmpsController extends Controller
                         'status' => $request->status,
                         'present_address' => $request->present_address,
                         'permanent_address' => $request->permanent_address,
+                        'emp_id' => $request->emp_id,
                         'image_path' => '/res/images/ProImage/' . $image_name,
 
                     ]
@@ -97,6 +98,7 @@ class EmpsController extends Controller
                         'status' => $request->status,
                         'present_address' => $request->present_address,
                         'permanent_address' => $request->permanent_address,
+                        'emp_id' => $request->emp_id,
                     ]
                 );
 
