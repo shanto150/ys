@@ -11,5 +11,5 @@ class pre_invoice extends Model
     use HasFactory;
     use CreatedUpdatedBy;
 
-    protected $fillable = ['log_id', 'invoice_month', 'invoice_item_id', 'quantity', 'unit', 'rate', 'total_amount', 'note','visi_id'];
+    protected $fillable = ['willbill','log_id', 'invoice_month', 'invoice_item_id', 'quantity', 'unit', 'rate', 'total_amount', 'note','visi_id'];
 }

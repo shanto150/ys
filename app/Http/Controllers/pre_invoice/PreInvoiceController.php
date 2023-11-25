@@ -20,7 +20,7 @@ class PreInvoiceController extends Controller {
         ->first();
 
         $dateS = Carbon::now()->startOfMonth()->subMonth( 3 );
-        $dateE = Carbon::now()->startOfMonth();
+        $dateE = Carbon::now();
         $last3monthvalue = DB::table( 'pre_invoices as pi' )
         ->join('service_logs as sl','sl.id','=','pi.log_id')
         ->selectRaw( "date_format(pi.invoice_month,'%b-%Y') inv_date,f_invoice_item_name(pi.invoice_item_id) item_name,pi.quantity ,pi.rate,note,sl.outlet_code" )
@@ -50,7 +50,6 @@ class PreInvoiceController extends Controller {
         // dd( $request->all() );
 
         $input = $request->all();
-        $ifsave = false;
 
         if ( count( $input[ 'sl' ] ) > 0 ) {
             for ( $i = 0 ; $i < count( $input[ 'sl' ] )  ;
@@ -60,21 +59,28 @@ class PreInvoiceController extends Controller {
                     $pre_i->log_id = $input[ 'log_id' ];
                     $pre_i->visi_id = $input[ 'visi_id' ];
                     $pre_i->sl = $input[ 'sl' ][ $i ];
-                    $pre_i->invoice_month = Carbon::parse( $input[ 'invoice_month' ][ $i ] )->format( 'Y-m-01' );
+                    $pre_i->invoice_month = Carbon::parse( $input[ 'invoice_month' ][ $i ] )->format( 'Y-m-d' );
                     $pre_i->invoice_item_id = $input[ 'invoice_item_id' ][ $i ];
                     $pre_i->quantity =  $input[ 'quantity' ][ $i ];
                     $pre_i->unit = $input[ 'unit' ][ $i ];
                     $pre_i->rate =  $input[ 'rate' ][ $i ];
                     $pre_i->total_amount = $input[ 'total_amount' ][ $i ];
                     $pre_i->note =  $input[ 'note' ][ $i ];
-                    $pre_i->save();
-                    service_log::where( 'id', $input[ 'log_id' ] )->update(
-                        [
-                            'pre_invoice_status' => 'Yes',
-                        ]
-                    );
+                    $pre_i->willbill =  $input[ 'willbill' ][ $i ];
+                    $issave=$pre_i->save();
+                    if ($issave) {
+                        service_log::where( 'id', $input[ 'log_id' ] )->update(
+                            [
+                                'pre_invoice_status' => 'Yes',
+                            ]
+                        );
+                    }
+                    
 
                 } catch( Exception $e ) {
+                    if ($e->getMessage()=='') {
+                        return response()->json( [ 'messege' => 'Invoice Saved', 'types' => 's' ] );
+                    }
                     return response()->json( [ 'messege' => $e->getMessage(), 'types' => 'e' ] );
                 }
 

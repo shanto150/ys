@@ -267,6 +267,51 @@
 
             AutoItems();
 
+            const element1 = document.querySelectorAll('#willbill');
+            if (element1.length !== 0) {
+                for (var i = 0; i < element1.length; i++) {
+                    element1[i].addEventListener('change', function() {
+                        console.log($(this));
+                        if ($(this).val() == 'Yes') {
+                            var currentRow = $(this).closest("tr");
+                            // var invoiceName = currentRow.find("td:eq(2)").find("input").val();
+                            var col1 = currentRow.find("td:eq(0) input").addClass('bg-success');
+                            var col1 = currentRow.find("td:eq(0) input").removeClass('bg-danger');
+                        } else {
+                            var currentRow = $(this).closest("tr");
+                            var col1 = currentRow.find("td:eq(0) input").removeClass('bg-success');
+                            var col1 = currentRow.find("td:eq(0) input").addClass('bg-danger');
+                        }
+                    });
+                }
+            }
+
+            const slClick = document.querySelectorAll('#sl');
+            if (slClick.length !== 0) {
+                var count = 0;
+                for (var i = 0; i < slClick.length; i++) {
+                    slClick[i].addEventListener('click', function() {
+                        count++;
+
+                        var currentRow = $(this).closest("tr");
+                        var invoiceName = currentRow.find("td:eq(2)").find("input").val();
+
+
+                        if (count % 2 == 0) {
+                            $('#hSearch').val("");
+                            Tmonthhistory.search("").draw();
+                        } else {
+                            $('#hSearch').val("");
+                            $('#hSearch').val(invoiceName);
+                            Tmonthhistory.search(invoiceName).draw();
+                        }
+
+                        // console.log(count);
+                    });
+                }
+            }
+
+
         });
 
 
@@ -301,14 +346,14 @@
             $(params).closest('tr').find("td:eq(5) input").val(qty * rate);
         }
 
-
         function addField(argument) {
             var ssl = +$('#inputTable tr:last').find('td:first input').val();
             var ssln = isNaN(ssl) ? 0 : ssl;
             var sl = (ssln + 1);
             var html = '';
             html += '<tr>'
-            html += '<td><input type="text" readonly value="' + sl + '" id="sl" name="sl[]" class="form-control "></td>'
+            html += '<td><input type="text" readonly value="' + sl +
+                '" id="sl" name="sl[]" style="cursor: pointer;" data-hint="Click here for check previous history" class="form-control bg-success hint--top text-center"></td>';
             html += '<td><input type="date" id="invoice_month" name="invoice_month[]" class="form-control"></td>';
             html +=
                 '<td><select class="form-control select2" name="invoice_item_id[]" form="myform" data-id=' + sl +
@@ -323,10 +368,50 @@
                 sl + '"></td>';
             html += '<td><input type="number" min="1" name="total_amount[]" class="form-control" id="JOB_TITLE"></td>';
             html +=
-                    '<td><select id="willbill" class="form-control" name="willbill[]"><option value="Yes">Yes</option><option value="No">No</option></select></td>';
+                '<td><select id="willbill" class="form-control" name="willbill[]"><option value="Yes">Yes</option><option value="No">No</option></select></td>';
             html += '<td><input type="text" name="note[]" class="form-control" id="note"></td>';
             html += '</tr>'
             $('#inputTable').append(html);
+
+            const slClick = document.querySelectorAll('#sl');
+            if (slClick.length !== 0) {
+                var cont = 0;
+                for (var i = 0; i < slClick.length; i++) {
+                    slClick[i].addEventListener('click', function() {
+                        cont++
+                        var currentRow = $(this).closest("tr");
+                        var invoiceName = currentRow.find("td:eq(2) option:selected").text();
+
+                        if (cont % 2 == 0) {
+                            $('#hSearch').val("");
+                            Tmonthhistory.search("").draw();
+                        } else {
+                            $('#hSearch').val("");
+                            $('#hSearch').val(invoiceName);
+                            Tmonthhistory.search(invoiceName).draw();
+                        }
+
+
+                    });
+                }
+            }
+
+            const element1 = document.querySelectorAll('#willbill');
+            if (element1.length !== 0) {
+                for (var i = 0; i < element1.length; i++) {
+                    element1[i].addEventListener('change', function() {
+                        if ($(this).val() == 'Yes') {
+                            var currentRow = $(this).closest("tr");
+                            var col1 = currentRow.find("td:eq(0) input").addClass('bg-success');
+                            var col1 = currentRow.find("td:eq(0) input").removeClass('bg-danger');
+                        } else {
+                            var currentRow = $(this).closest("tr");
+                            var col1 = currentRow.find("td:eq(0) input").removeClass('bg-success');
+                            var col1 = currentRow.find("td:eq(0) input").addClass('bg-danger');
+                        }
+                    });
+                }
+            }
         }
 
         function removeField() {
@@ -343,7 +428,7 @@
                 var html = '';
                 html += '<tr>'
                 html += '<td><input type="text" readonly value="' + asl +
-                    '" id="sl" name="sl[]" class="form-control "></td>'
+                    '" id="sl" name="sl[]" style="cursor: pointer;" data-hint="Click here for check previous history" class="form-control bg-success hint--top text-center"></td>';
                 html +=
                     '<td><input type="date" value="' + value.dt +
                     '" id="invoice_month" name="invoice_month[]" class="form-control "></td>';
@@ -369,6 +454,7 @@
 
             });
         }
+
 
         function save() {
 
@@ -406,7 +492,9 @@
                     data: formData,
                     success: function(res) {
                         if (res.types == 'e') {
-                            message(res.messege, '#FF0000', 'white', 'error', 'Error');
+                            const ErrowArray = res.messege;
+                            const msgs = ErrowArray.split(':');
+                            message(msgs[2], '#FF0000', 'white', 'error', 'Error');
                         } else {
                             message(res.messege, '#29912b', 'white', 'error', 'Success');
                         }
