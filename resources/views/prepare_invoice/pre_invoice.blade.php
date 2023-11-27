@@ -2,6 +2,9 @@
 @push('style')
     <style>
         /* Table Styles */
+        .border-3 {
+            border-width: 2px !important;
+        }
 
         .table-wrapper {
             border-radius: 7px;
@@ -193,6 +196,18 @@
                                                 aria-hidden="true"></i></button>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="d-flex flex-row">
+
+                                @foreach ($attachs as $value)
+                                    <div class="p-1">
+                                        <a href="{!! url($value->file_path) !!}" target="_blank" class="fa fa-camera text-danger p-2 m-2 border rounded-circle border-info border-3"
+                                            aria-hidden="true">
+                                        </a>
+                                    </div>
+                                @endforeach
+
                             </div>
 
                         </form>

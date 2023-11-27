@@ -19,6 +19,8 @@ class PreInvoiceController extends Controller {
         ->where( 'id', '=', $id )
         ->first();
 
+        $attachs = DB::table('technician_items')->where( 'add_techni_id_fk', '=', $id )->whereNotNull('file_path')->select('file_path')->get();
+
         $dateS = Carbon::now()->startOfMonth()->subMonth( 3 );
         $dateE = Carbon::now();
         $last3monthvalue = DB::table( 'pre_invoices as pi' )
@@ -42,7 +44,7 @@ class PreInvoiceController extends Controller {
         // dd( json_encode( $invs_items ) );
         $inv_items = json_encode( $invs_items );
 
-        return view( 'prepare_invoice.pre_invoice', compact( 'service_logs', 'Price_lists', 'inv_items', 'log_id','last3monthvalue' ) );
+        return view( 'prepare_invoice.pre_invoice', compact( 'attachs','service_logs', 'Price_lists', 'inv_items', 'log_id','last3monthvalue' ) );
     }
 
     public function store( Request $request ) {
