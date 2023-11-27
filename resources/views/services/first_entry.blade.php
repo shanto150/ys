@@ -411,6 +411,7 @@
 @endsection
 @push('script')
     <script>
+        $('#spinShowHide').hide();
         $(document).ready(function() {
 
             dTable('', '', '', '');
