@@ -18,7 +18,7 @@ class technician_feedback extends Controller
 { 
     public function index()
     {
-        $techDatas = DB::select('select at2.id,at2.log_id,concat(sl.outlet_name," - ",at2.note) note, from_user, at2.created_at,sl.outlet_address 
+        $techDatas = DB::select('select at2.id,at2.log_id,concat(sl.outlet_name," - ",if(at2.note="","N/A",at2.note)) note, from_user, at2.created_at,sl.outlet_address 
         from add_technicians at2, technician_items ti, service_logs sl  
         where at2.log_id =sl.id and at2.id =ti.add_techni_id_fk and ti.to_user=? and at2.tech_status ="Open"', [Auth::user()->machine_id]);
 

@@ -173,7 +173,7 @@
     <body>
 
 
-        <nav class="navbar navbar-light bg-danger">
+        <nav class="navbar fixed-top bg-danger mb-5">
             <a class="btn btn-outline-dark btn-sm text-uppercase">{{ Auth::user()->name }}</a>
             <form class="form-inline">
                 <img src="{{ URL::asset('/res/images/appimages/lod1.gif') }}" alt="profile Pic" height="30"
@@ -184,7 +184,7 @@
         </nav>
 
 
-        <div class="container-fluid">
+        <div class="container-fluid mt-5">
 
             <div class="row m-3">
 
@@ -199,7 +199,7 @@
 
                             </div>
                         </div>
-
+ 
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover" id="worklist" width="100%">
@@ -207,7 +207,7 @@
                                     <thead>
                                         <tr>
                                             <th>নং</th>
-                                            <th>বিবরণ</th>
+                                            <th>দোকানের নাম</th>
                                             <th>ঠিকানা</th>
                                         </tr>
                                     </thead>
@@ -424,8 +424,6 @@
                 </div>
 
             </div>
-
-        </div>
 
         </div>
 
@@ -663,6 +661,8 @@
                             } else {
                                 message(res.messege, '#29912b', 'white', 'error', 'Success');
                                 document.getElementById('myform').reset();
+                                $('#log_id').val(log_id);
+                                $('#to_user').val(to_user);
                                 $('#TechList').DataTable().ajax.reload();
                             }
                         }

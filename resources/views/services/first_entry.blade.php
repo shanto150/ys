@@ -605,7 +605,7 @@
                     
                 },
                 { "width": "9%", "targets": 8 },
-            ], 
+            ],
                 initComplete: function(settings, json) {
 
                     var sum = $('#EntryTable').DataTable().column(0).data().count();
@@ -710,11 +710,13 @@
                         render: function(data, type, row) {
                             var sear = row.se_area;
                             var asma = row.asm_area;
-                            var rsm = row.rsm_area;
+                            var db_name = initCap(row.db_name);
+
                             var html = '';
-                            html += '<div> SE : ' + sear + '</div>';
-                            html += '<div> ASM : ' + asma + '</div>';
-                            html += '<div> RSM : ' + rsm + '</div>';
+                            html += '<div style="font-size: 13px"> SE : ' + sear + '</div>';
+                            html += '<div style="font-size: 13px"> ASM : ' + asma + '</div>';
+                            html += '<div style="font-size: 13px" > DB : ' + db_name + '</div>';
+                            
                             return html;
                         }
                     },
