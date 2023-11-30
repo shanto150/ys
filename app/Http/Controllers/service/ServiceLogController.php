@@ -33,6 +33,13 @@ class ServiceLogController extends Controller
         return view('services.addt', compact('service_logs', 'LastTechs'));
     }
 
+    public function getASM_SE_DB(Request $request)
+    {
+        $se = DB::table('service_logs')->distinct()->where('asm_area',$request->Status)->get(['se_area']);
+ 
+        return view('services.addt', compact('service_logs', 'LastTechs'));
+    }
+
     public function store(Request $request)
     {
         $rowId = $request->id;
@@ -114,18 +121,26 @@ class ServiceLogController extends Controller
 
     public function getOutletdetails(Request $request)
     {
-        $ctn = DB::table('service_logs')->where('outlet_code', $request->outlet_code)->where('visi_id', $request->visi_id)->count();
-        if ($ctn==0) {
-            $data = DB::table('old_outlet_info')->where('outlet_code', $request->outlet_code)
-            ->where('visi_id', $request->visi_id)
-            ->select('outlet_code', 'outlet_name', 'outlet_mobile', 'person_mobile', 'outlet_address', 'visi_id', 'visi_size', 'db_name', 'se_area', 'asm_area','brand','rsm_area')->get();
-            return response()->json(['suggestion' => $data]);
+        $chkOpen=DB::table('service_logs')->where('outlet_code', $request->outlet_code)->whereIn('status', ['Received', 'Assigned','Hold','Closed'])->count();
+
+        if ($chkOpen==0) {
+            $ctn = DB::table('service_logs')->where('outlet_code', $request->outlet_code)->where('visi_id', $request->visi_id)->count();
+            if ($ctn==0) {
+                $data = DB::table('old_outlet_info')->where('outlet_code', $request->outlet_code)
+                ->where('visi_id', $request->visi_id)
+                ->select('outlet_code', 'outlet_name', 'outlet_mobile', 'person_mobile', 'outlet_address', 'visi_id', 'visi_size', 'db_name', 'se_area', 'asm_area','brand','rsm_area')->get();
+                return response()->json(['suggestion' => $data,'hasResult'=>1]);
+            } else {
+                $data = DB::table('service_logs')->where('outlet_code', $request->outlet_code)
+                ->where('visi_id', $request->visi_id)
+                ->select('outlet_code', 'outlet_name', 'outlet_mobile', 'person_mobile', 'outlet_address', 'visi_id', 'visi_size', 'db_name', 'se_area', 'asm_area','brand','rsm_area')->get();
+                return response()->json(['suggestion' => $data,'hasResult'=>1]);
+            }
         } else {
-            $data = DB::table('service_logs')->where('outlet_code', $request->outlet_code)
-            ->where('visi_id', $request->visi_id)
-            ->select('outlet_code', 'outlet_name', 'outlet_mobile', 'person_mobile', 'outlet_address', 'visi_id', 'visi_size', 'db_name', 'se_area', 'asm_area','brand','rsm_area')->get();
-            return response()->json(['suggestion' => $data]);
+            return response()->json(['messege' => 'Already has a open Call', 'types' => 'e','hasResult'=>0]);
         }
+        
+
 
     }
 

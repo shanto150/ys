@@ -46,6 +46,7 @@
                     <div class="col-md-3 mb-3">
                         <div class="card card-body h-100 justify-content-center align-items-center pb-0 pt-0 pr-2 pl-2">
                             <div class="row">
+
                                 <div class="col-md-12">
                                     <div class="input-group form-label-group in-border" id="range_id">
                                         <input type="text" value="" class="form-control daterange" id="daterangea">
@@ -55,6 +56,19 @@
                                                     style="color:blue"></i>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-label-group in-border">
+                                        <select class="form-control select2" form="myform" name="ASM" id="ASM"
+                                            style="width: 100%;">
+                                            <option selected value="">ALL</option>
+                                            @foreach ($asm as $value)
+                                                <option value="{{ $value->asm_area }}">{{ $value->asm_area }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="assigned_to">ASM</label>
                                     </div>
                                 </div>
 
@@ -73,14 +87,14 @@
 
                                 <div class="col-md-12">
                                     <div class="form-label-group in-border">
-                                        <select class="form-control select2" form="myform" name="ASM" id="ASM"
+                                        <select class="form-control select2" form="myform" name="DB" id="DB"
                                             style="width: 100%;">
                                             <option selected value="">ALL</option>
-                                            @foreach ($asm as $value)
-                                                <option value="{{ $value->asm_area }}">{{ $value->asm_area }}</option>
+                                            @foreach ($se as $value)
+                                                <option value="{{ $value->se_area }}">{{ $value->se_area }}</option>
                                             @endforeach
                                         </select>
-                                        <label for="assigned_to">ASM</label>
+                                        <label for="DB">DB</label>
                                     </div>
                                 </div>
 
@@ -182,22 +196,26 @@
                                 </div>
                                 &nbsp;&nbsp;&nbsp;
                                 <div class="icheck-success d-inline">
-                                    <input type="radio" name="status" value="Assigned" id="Assigned">
+                                    <input type="radio" name="status" class="disabledRemove" value="Assigned"
+                                        disabled id="Assigned">
                                     <label for="Assigned">Assigned</label>
                                 </div>
                                 &nbsp;&nbsp;&nbsp;
                                 <div class="icheck-success d-inline">
-                                    <input type="radio" name="status" value="Hold" id="Hold">
+                                    <input type="radio" name="status" class="disabledRemove" disabled value="Hold"
+                                        id="Hold">
                                     <label for="Hold">Hold</label>
                                 </div>
                                 &nbsp;&nbsp;&nbsp;
                                 <div class="icheck-success d-inline">
-                                    <input type="radio" name="status" value="Void" id="Void">
+                                    <input type="radio" name="status" class="disabledRemove" disabled value="Void"
+                                        id="Void">
                                     <label for="Void">Void</label>
                                 </div>
                                 &nbsp;&nbsp;&nbsp;
                                 <div class="icheck-success d-inline ">
-                                    <input type="radio" name="status" value="Closed" id="Closed">
+                                    <input type="radio" name="status" class="disabledRemove" disabled value="Closed"
+                                        id="Closed">
                                     <label for="Closed">Closed</label>
                                 </div>
 
@@ -238,8 +256,8 @@
                                     <div class="form-label-group in-border">
                                         <input type="tel" maxlength="11" id="person_mobile" name="person_mobile"
                                             onkeyup="MobileCountValidate(this)" class="form-control"
-                                            placeholder="Person Mobile" autocomplete="off">
-                                        <label for="person_mobile">Per Mobile</label>
+                                            placeholder="PSR Mobile" autocomplete="off">
+                                        <label for="person_mobile">PSR Mobile</label>
                                     </div>
                                 </div>
 
@@ -379,7 +397,7 @@
             <div class="card-header ">
                 <h3 class="card-title"><i class="fa fa-cogs text-danger" aria-hidden="true"></i> &nbsp; Service List</h3>
                 <div class="card-tools">
-                    <button type="button"  data-toggle="modal" data-target="#myModal"
+                    <button type="button" data-toggle="modal" data-target="#myModal"
                         class="btn btn-sm bg-gradient-success"><i class="fa fa-plus" aria-hidden="true"></i> New</button>
                 </div>
             </div>
@@ -547,6 +565,9 @@
         function edit_model(status, outlet_code, outlet_name, outlet_mobile, person_mobile, outlet_address, visi_id,
             visi_size, db_name, se_area, asm_area, complains, log_date, first_response_date,
             brand, remarks, rwid) {
+
+            $(".disabledRemove").removeAttr('disabled');
+
             $("#" + status).prop('checked', true);
             document.getElementById("outlet_code").value = (outlet_code == "null" ? "" : outlet_code);
             document.getElementById("outlet_name").value = (outlet_name == "null" ? "" : outlet_name);
@@ -599,13 +620,16 @@
                     }
                 ],
                 columnDefs: [{
-                    "defaultContent": "N/A",
-                    "targets": "_all",
-                    "orderable": false,
-                    
-                },
-                { "width": "9%", "targets": 8 },
-            ],
+                        "defaultContent": "N/A",
+                        "targets": "_all",
+                        "orderable": false,
+
+                    },
+                    {
+                        "width": "9%",
+                        "targets": 8
+                    },
+                ],
                 initComplete: function(settings, json) {
 
                     var sum = $('#EntryTable').DataTable().column(0).data().count();
@@ -688,7 +712,9 @@
                             var visi_size = row.visi_size;
                             var brand = row.brand;
                             var html = '';
-                            html += '<div> Visi id : <span style="font-size: 14px; color: blue; font-weight: bold" >' + visi_id + '</span></div>';
+                            html +=
+                                '<div> Visi id : <span style="font-size: 14px; color: blue; font-weight: bold" >' +
+                                visi_id + '</span></div>';
                             html += '<div> Size :' + visi_size + '</div>';
                             html += '<div> Brand :' + brand + '</div>';
                             return html;
@@ -697,11 +723,15 @@
                     {
                         render: function(data, type, row) {
                             var log_date = moment(row.log_date).format('DD-MMM-YYYY');
-                            var assigned_date = row.assigned_date ? moment(row.assigned_date).format('DD-MMM-YYYY h:mm:ss a') : 'Not Found';
-                            var close_date = row.close_date ? moment(row.close_date).format('DD-MMM-YYYY') : 'Not Found';
+                            var assigned_date = row.assigned_date ? moment(row.assigned_date).format(
+                                'DD-MMM-YYYY h:mm:ss a') : 'Not Found';
+                            var close_date = row.close_date ? moment(row.close_date).format('DD-MMM-YYYY') :
+                                'Not Found';
                             var html = '';
                             html += '<div> Call : ' + log_date + '</div>';
-                            html += '<div> Assign : <span style="font-size: 12px; color: blue; font-weight: bold" >' + assigned_date + '</span></div>';
+                            html +=
+                                '<div> Assign : <span style="font-size: 12px; color: blue; font-weight: bold" >' +
+                                assigned_date + '</span></div>';
                             html += '<div> Close : ' + close_date + '</div>';
                             return html;
                         }
@@ -716,7 +746,7 @@
                             html += '<div style="font-size: 13px"> SE : ' + sear + '</div>';
                             html += '<div style="font-size: 13px"> ASM : ' + asma + '</div>';
                             html += '<div style="font-size: 13px" > DB : ' + db_name + '</div>';
-                            
+
                             return html;
                         }
                     },
@@ -724,17 +754,21 @@
                         render: function(data, type, row) {
                             var complains = row.complains;
                             var t_status = row.t_status;
-                            var assigned_to = row.asin? row.asin:'Not Assigned';
+                            var assigned_to = row.asin ? row.asin : 'Not Assigned';
                             var html = '';
                             html += '<div> comp : ' + complains + '</div>';
-                            if (t_status=='Open') {
-                                html += '<div> Tech : '+assigned_to+' <span style="font-size: 8px" class="badge badge-pill badge-info">' + t_status +
-                                        '</span></div>';
+                            if (t_status == 'Open') {
+                                html += '<div> Tech : ' + assigned_to +
+                                    ' <span style="font-size: 8px" class="badge badge-pill badge-info">' +
+                                    t_status +
+                                    '</span></div>';
                             } else {
-                                html += '<div> Tech : '+assigned_to+' <span style="font-size: 8px" class="badge badge-pill badge-danger">' + t_status +
-                                        '</span></div>';
+                                html += '<div> Tech : ' + assigned_to +
+                                    ' <span style="font-size: 8px" class="badge badge-pill badge-danger">' +
+                                    t_status +
+                                    '</span></div>';
                             }
-                            
+
                             return html;
                         }
                     },
@@ -750,27 +784,27 @@
                                 if (status == 'Received') {
                                     html += '<div><span class="badge badge-pill badge-warning">' + status +
                                         '</span></div>';
-                                        html += '<div class="text-center">'+mid+'</div>';
+                                    html += '<div class="text-center">' + mid + '</div>';
                                     return html;
                                 } else if (status == 'Assigned') {
                                     html += '<div><span class="badge badge-pill badge-info">' + status +
                                         '</span></div>';
-                                        html += '<div class="text-center">'+mid+'</div>';
+                                    html += '<div class="text-center">' + mid + '</div>';
                                     return html;
                                 } else if (status == 'Hold') {
                                     html += '<div><span class="badge badge-pill badge-muted">' + status +
                                         '</span></div>';
-                                        html += '<div class="text-center">'+mid+'</div>';
+                                    html += '<div class="text-center">' + mid + '</div>';
                                     return html;
                                 } else if (status == 'Void') {
                                     html += '<div><span class="badge badge-pill badge-muted">' + status +
                                         '</span></div>';
-                                        html += '<div class="text-center">'+mid+'</div>';
+                                    html += '<div class="text-center">' + mid + '</div>';
                                     return html;
                                 } else {
                                     html += '<div><span class="badge badge-pill badge-success">' + status +
                                         '</span><i class="fa fa-check" style="color: green; margin-left: 1px;"></i></div>';
-                                        html += '<div class="text-center">'+mid+'</div>';
+                                    html += '<div class="text-center">' + mid + '</div>';
                                     return html;
                                 }
 
@@ -779,27 +813,27 @@
                                 if (status == 'Received') {
                                     html += '<div><span class="badge badge-pill badge-warning">' + status +
                                         '</span></div>';
-                                        html += '<div class="text-center">'+mid+'</div>';
+                                    html += '<div class="text-center">' + mid + '</div>';
                                     return html;
                                 } else if (status == 'Assigned') {
                                     html += '<div><span class="badge badge-pill badge-info">' + status +
                                         '</span></div>';
-                                        html += '<div class="text-center">'+mid+'</div>';
+                                    html += '<div class="text-center">' + mid + '</div>';
                                     return html;
                                 } else if (status == 'Hold') {
                                     html += '<div><span class="badge badge-pill badge-muted">' + status +
                                         '</span></div>';
-                                        html += '<div class="text-center">'+mid+'</div>';
+                                    html += '<div class="text-center">' + mid + '</div>';
                                     return html;
                                 } else if (status == 'Void') {
                                     html += '<div><span class="badge badge-pill badge-muted">' + status +
                                         '</span></div>';
-                                        html += '<div class="text-center">'+mid+'</div>';
+                                    html += '<div class="text-center">' + mid + '</div>';
                                     return html;
                                 } else {
                                     html += '<div><span class="badge badge-pill badge-success">' + status +
                                         '</span></div>';
-                                        html += '<div class="text-center">'+mid+'</div>';
+                                    html += '<div class="text-center">' + mid + '</div>';
                                     return html;
                                 }
 
@@ -933,18 +967,24 @@
                     'visi_id': visi_id,
                 },
                 success: function(res) {
-                    // console.log(res.suggestion[0].outlet_name);
-                    $('#outlet_name').val(res.suggestion[0].outlet_name);
-                    $('#outlet_mobile').val(res.suggestion[0].outlet_mobile);
-                    $('#person_mobile').val(res.suggestion[0].person_mobile);
-                    $('#outlet_address').val(res.suggestion[0].outlet_address);
-                    $('#visi_id').val(res.suggestion[0].visi_id);
-                    $('#visi_size').val(res.suggestion[0].visi_size);
-                    $('#db_name').val(res.suggestion[0].db_name);
-                    $('#se_area').val(res.suggestion[0].se_area);
-                    $('#asm_area').val(res.suggestion[0].asm_area);
-                    $('#brand').val(res.suggestion[0].brand);
-                    $('#rsm_area').val(res.suggestion[0].rsm_area);
+                    // console.log(res.hasResult);
+                    if (res.hasResult == 0) {
+                        message('Already has a open call.', '#D24396', 'white', 'info', 'Error');
+                        $('#myModal').modal('hide');
+                    } else {
+                        $('#outlet_name').val(res.suggestion[0].outlet_name);
+                        $('#outlet_mobile').val(res.suggestion[0].outlet_mobile);
+                        $('#person_mobile').val(res.suggestion[0].person_mobile);
+                        $('#outlet_address').val(res.suggestion[0].outlet_address);
+                        $('#visi_id').val(res.suggestion[0].visi_id);
+                        $('#visi_size').val(res.suggestion[0].visi_size);
+                        $('#db_name').val(res.suggestion[0].db_name);
+                        $('#se_area').val(res.suggestion[0].se_area);
+                        $('#asm_area').val(res.suggestion[0].asm_area);
+                        $('#brand').val(res.suggestion[0].brand);
+                        $('#rsm_area').val(res.suggestion[0].rsm_area);
+                    }
+
                 }
             });
         }
@@ -997,7 +1037,7 @@
         $('#daterangea').on('hide.daterangepicker', function(ev, picker) {
             $(this).val(picker.startDate.format('DD-MMM-YYYY') + '~' + picker.endDate.format('DD-MMM-YYYY'));
             $('#daterangea').val('');
-            datevalue='';
+            datevalue = '';
             dTable(datevalue, allval, SEval, ASMval);
         });
 
@@ -1042,12 +1082,56 @@
             allval = 'Closed';
         }
 
-        $('#SE').on('select2:select', function(e) {
-            SEval = e.params.data.id;
-            dTable(datevalue, allval, SEval, ASMval);
-        });
         $('#ASM').on('select2:select', function(e) {
             ASMval = e.params.data.id;
+            dTable(datevalue, allval, SEval, ASMval);
+        });
+
+        function get_se_db(g_asm) {
+
+            $.ajax({
+                beforeSend: function() {
+                    $('#modelSpinner').show();
+                },
+                error: function(res) {
+                    $('#modelSpinner').hide();
+                    const ErrowArray = res.responseJSON['message'];
+                    const EE = res.responseJSON['exception'];
+                    const msgs = ErrowArray.split(':');
+                    if (EE == 'ErrorException') {
+                        message(ErrowArray, '#FF0000', 'white', 'error', 'Error');
+                    } else {
+                        message(msgs[2], '#FF0000', 'white', 'error', msgs[1]);
+                    }
+                },
+                complete: function() {
+                    $('#modelSpinner').hide();
+                },
+                type: 'GET',
+                url: "{{ route('getASM_SE_DB') }}",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(res) {
+                    $('#outlet_code').autocomplete({
+                        lookup: res.suggestion,
+                        onSelect: function(suggestion) {
+
+                            console.log(suggestion.value);
+                            var parts = suggestion.value.split("-");
+                            var oCode = parts[0];
+                            var oVisi = parts[1];
+                            $('#outlet_code').val(oCode);
+                            getOutletDetails(oCode, oVisi);
+                        }
+                    });
+                }
+            });
+
+        }
+
+        $('#SE').on('select2:select', function(e) {
+            SEval = e.params.data.id;
             dTable(datevalue, allval, SEval, ASMval);
         });
     </script>
